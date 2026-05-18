@@ -3,540 +3,218 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Emulator — Uczciwy Rozwiązujący | TestPortal</title>
+<title>Emulator — Uczciwy Rozwiązujący</title>
 <style>
-:root{
-  --bg:#0f1117;--surface:#161b27;--card:#1e2535;--border:#2a3347;
-  --text:#e2e8f0;--muted:#64748b;--accent:#3b82f6;--green:#22c55e;
-  --yellow:#eab308;--red:#ef4444;--orange:#f97316;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0f1117; color: #e2e8f0; font-family: system-ui, sans-serif; min-height: 100vh; }
 
-/* TOP BAR */
-.topbar{background:#1a2236;border-bottom:1px solid var(--border);padding:.7rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-.topbar-logo{font-weight:700;font-size:1rem;color:var(--accent);letter-spacing:-.01em}
-.topbar-logo span{color:var(--muted);font-weight:400}
-.topbar-badge{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.3);color:var(--accent);font-size:.75rem;padding:.2rem .7rem;border-radius:20px;letter-spacing:.05em}
-.topbar-timer{font-size:.95rem;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
-.topbar-timer.warn{color:var(--yellow)}
-.topbar-timer.danger{color:var(--red)}
+/* topbar */
+.bar { background: #1a2236; border-bottom: 1px solid #2a3347; padding: .8rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+.bar-title { font-weight: 700; color: #3b82f6; }
+.bar-title span { color: #64748b; font-weight: 400; }
+.bar-warns { font-size: .9rem; }
+.bar-warns b { color: #ef4444; }
 
-/* STATUS STRIP */
-.status-strip{padding:.5rem 1.5rem;display:flex;align-items:center;gap:.6rem;font-size:.8rem;border-bottom:1px solid var(--border);transition:background .3s}
-.status-strip.ok{background:rgba(34,197,94,.06)}
-.status-strip.warn{background:rgba(234,179,8,.08)}
-.status-strip.danger{background:rgba(239,68,68,.08)}
-.status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.status-dot.green{background:var(--green);box-shadow:0 0 6px var(--green)}
-.status-dot.yellow{background:var(--yellow);box-shadow:0 0 6px var(--yellow)}
-.status-dot.red{background:var(--red);box-shadow:0 0 6px var(--red);animation:pulse-red .8s infinite}
-@keyframes pulse-red{0%,100%{opacity:1}50%{opacity:.4}}
-.status-text{color:var(--muted)}
-.status-text strong{color:var(--text)}
-.warn-count{margin-left:auto;font-size:.75rem;color:var(--muted)}
-.warn-count span{color:var(--red);font-weight:700;font-size:.9rem}
+/* content */
+.wrap { max-width: 700px; margin: 2rem auto; padding: 0 1rem; display: flex; flex-direction: column; gap: 1.5rem; }
 
-/* MAIN LAYOUT */
-.layout{display:grid;grid-template-columns:1fr 320px;gap:0;max-width:1200px;margin:0 auto;padding:1.5rem;gap:1.5rem}
-@media(max-width:900px){.layout{grid-template-columns:1fr}}
+.card { background: #161b27; border: 1px solid #2a3347; border-radius: 12px; padding: 1.5rem; }
+.card h2 { font-size: 1rem; color: #94a3b8; margin-bottom: 1.2rem; font-weight: 500; }
 
-/* QUIZ AREA */
-.quiz-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
-.quiz-header{padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.quiz-header h2{font-size:1rem;font-weight:600;color:var(--text)}
-.question-num{font-size:.8rem;color:var(--muted)}
-.quiz-body{padding:1.8rem 1.5rem}
-.question-text{font-size:1.05rem;font-weight:500;color:var(--text);line-height:1.6;margin-bottom:1.5rem}
-.options{display:flex;flex-direction:column;gap:.7rem}
-.option{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.2rem;cursor:pointer;transition:border-color .15s,background .15s;display:flex;align-items:center;gap:.9rem}
-.option:hover{border-color:var(--accent);background:rgba(59,130,246,.06)}
-.option.selected{border-color:var(--accent);background:rgba(59,130,246,.1)}
-.option-letter{width:26px;height:26px;border-radius:50%;background:var(--border);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:var(--muted);flex-shrink:0;transition:background .15s,color .15s}
-.option.selected .option-letter{background:var(--accent);color:#fff;border-color:var(--accent)}
-.option-text{font-size:.93rem;color:var(--text);line-height:1.4}
-.quiz-footer{padding:1.2rem 1.5rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.btn{padding:.6rem 1.4rem;border-radius:8px;border:none;cursor:pointer;font-size:.88rem;font-weight:600;transition:background .15s,transform .1s}
-.btn:active{transform:scale(.97)}
-.btn-primary{background:var(--accent);color:#fff}
-.btn-primary:hover{background:#2563eb}
-.btn-secondary{background:var(--card);border:1px solid var(--border);color:var(--text)}
-.btn-secondary:hover{border-color:var(--accent)}
-.progress-bar{height:3px;background:var(--border);border-radius:99px;margin:0 1.5rem}
-.progress-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent),#8b5cf6);transition:width .5s}
+/* question */
+.question { font-size: 1.1rem; font-weight: 500; margin-bottom: 1.2rem; line-height: 1.6; }
+.options { display: flex; flex-direction: column; gap: .6rem; }
+.opt { background: #1e2535; border: 1px solid #2a3347; border-radius: 8px; padding: .8rem 1.1rem; cursor: pointer; display: flex; gap: .8rem; align-items: center; transition: border-color .15s; }
+.opt:hover { border-color: #3b82f6; }
+.opt.sel { border-color: #3b82f6; background: rgba(59,130,246,.1); }
+.opt-l { width: 24px; height: 24px; border-radius: 50%; background: #2a3347; display: flex; align-items: center; justify-content: center; font-size: .78rem; font-weight: 700; flex-shrink: 0; }
+.opt.sel .opt-l { background: #3b82f6; color: #fff; }
+.nav { display: flex; gap: .8rem; margin-top: 1.2rem; justify-content: flex-end; }
+.btn { padding: .55rem 1.2rem; border-radius: 8px; border: none; cursor: pointer; font-size: .88rem; font-weight: 600; }
+.btn-p { background: #3b82f6; color: #fff; }
+.btn-p:hover { background: #2563eb; }
+.btn-s { background: #1e2535; border: 1px solid #2a3347; color: #e2e8f0; }
 
-/* SIDEBAR */
-.sidebar{display:flex;flex-direction:column;gap:1rem}
+/* log */
+.log { max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: .3rem; }
+.log::-webkit-scrollbar { width: 4px; }
+.log::-webkit-scrollbar-thumb { background: #2a3347; border-radius: 4px; }
+.le { font-size: .78rem; padding: .35rem .7rem; border-radius: 6px; display: flex; gap: .5rem; }
+.le.ok  { background: rgba(34,197,94,.08);  color: #86efac; }
+.le.bad { background: rgba(239,68,68,.08);  color: #fca5a5; }
+.le.inf { background: rgba(100,116,139,.08); color: #64748b; }
+.le-t { flex-shrink: 0; font-variant-numeric: tabular-nums; }
 
-/* INTEGRITY PANEL */
-.panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden}
-.panel-header{padding:.9rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.6rem}
-.panel-header h3{font-size:.85rem;font-weight:600;color:var(--text)}
-.panel-icon{font-size:1rem}
-.integrity-grid{padding:1rem;display:flex;flex-direction:column;gap:.6rem}
-.integrity-row{display:flex;align-items:center;justify-content:space-between;font-size:.8rem}
-.integrity-label{color:var(--muted);display:flex;align-items:center;gap:.4rem}
-.integrity-val{font-weight:600;font-size:.78rem;padding:.15rem .55rem;border-radius:20px}
-.val-ok{background:rgba(34,197,94,.12);color:var(--green)}
-.val-warn{background:rgba(234,179,8,.12);color:var(--yellow)}
-.val-bad{background:rgba(239,68,68,.12);color:var(--red)}
+/* overlay */
+.ov { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.8); z-index: 50; align-items: center; justify-content: center; backdrop-filter: blur(3px); }
+.ov.on { display: flex; }
+.ov-box { background: #161b27; border: 2px solid #ef4444; border-radius: 16px; padding: 2.5rem 2rem; max-width: 400px; width: 90%; text-align: center; }
+.ov-icon { font-size: 3rem; margin-bottom: .8rem; }
+.ov-title { font-size: 1.2rem; font-weight: 700; color: #ef4444; margin-bottom: .6rem; }
+.ov-desc { color: #94a3b8; font-size: .9rem; line-height: 1.6; margin-bottom: 1.5rem; }
+.ov-count { font-size: .82rem; color: #64748b; margin-bottom: 1.5rem; }
+.ov-count b { color: #ef4444; }
 
-/* EVENT LOG */
-.log-list{max-height:220px;overflow-y:auto;padding:.5rem;display:flex;flex-direction:column;gap:.3rem}
-.log-list::-webkit-scrollbar{width:4px}
-.log-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
-.log-entry{font-size:.75rem;padding:.4rem .7rem;border-radius:7px;display:flex;align-items:flex-start;gap:.5rem;animation:fadeIn .25s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
-.log-entry.ok{background:rgba(34,197,94,.07);color:#86efac}
-.log-entry.warn{background:rgba(234,179,8,.08);color:#fde047}
-.log-entry.bad{background:rgba(239,68,68,.08);color:#fca5a5}
-.log-entry.info{background:rgba(100,116,139,.08);color:var(--muted)}
-.log-time{flex-shrink:0;font-variant-numeric:tabular-nums;opacity:.7}
-.log-msg{line-height:1.4}
-.log-empty{color:var(--muted);font-size:.8rem;padding:.7rem;text-align:center}
-
-/* WARNING OVERLAY */
-.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
-.overlay.show{display:flex}
-.overlay-card{background:var(--surface);border:2px solid var(--red);border-radius:18px;padding:2.5rem 2rem;max-width:420px;width:90%;text-align:center;animation:popIn .25s cubic-bezier(.34,1.56,.64,1)}
-@keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
-.overlay-icon{font-size:3rem;margin-bottom:1rem;line-height:1}
-.overlay-title{font-size:1.25rem;font-weight:700;color:var(--red);margin-bottom:.6rem}
-.overlay-desc{color:var(--muted);font-size:.9rem;line-height:1.6;margin-bottom:1.5rem}
-.overlay-count{font-size:.85rem;color:var(--muted);margin-bottom:1.5rem;padding:.6rem;background:rgba(239,68,68,.08);border-radius:8px;border:1px solid rgba(239,68,68,.2)}
-.overlay-count strong{color:var(--red)}
-.overlay-actions{display:flex;gap:.8rem;justify-content:center}
-
-/* INFO BOX */
-.info-box{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-radius:10px;padding:.9rem 1rem;font-size:.8rem;color:#93c5fd;line-height:1.5}
-.info-box strong{color:var(--accent)}
-
-/* BLOCKED SCREEN */
-.blocked-screen{display:none;position:fixed;inset:0;background:#0a0d14;z-index:200;align-items:center;justify-content:center;flex-direction:column;gap:1rem;text-align:center;padding:2rem}
-.blocked-screen.show{display:flex}
-.blocked-icon{font-size:4rem;margin-bottom:.5rem}
-.blocked-title{font-size:1.5rem;font-weight:700;color:var(--red)}
-.blocked-desc{color:var(--muted);max-width:400px;line-height:1.6}
-
-/* EXPLAIN PANEL */
-.explain-section{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.5rem;margin:0 0 1.5rem;font-size:.82rem;color:var(--muted);line-height:1.6}
-.explain-section h4{color:var(--text);font-size:.88rem;margin-bottom:.5rem;font-weight:600}
-.explain-section code{background:var(--card);border:1px solid var(--border);padding:.1rem .4rem;border-radius:4px;font-size:.78rem;color:#93c5fd;font-family:monospace}
+/* blocked */
+.bl { display: none; position: fixed; inset: 0; background: #0a0d14; z-index: 100; align-items: center; justify-content: center; flex-direction: column; gap: 1rem; text-align: center; padding: 2rem; }
+.bl.on { display: flex; }
+.bl-icon { font-size: 4rem; }
+.bl-title { font-size: 1.5rem; font-weight: 700; color: #ef4444; }
+.bl-desc { color: #64748b; max-width: 380px; line-height: 1.6; }
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
-  <div class="topbar-logo">TestPortal <span>— Emulator "Uczciwy Rozwiązujący"</span></div>
-  <div class="topbar-badge">TRYB DEMO</div>
-  <div class="topbar-timer" id="timer">⏱ 14:59</div>
+<div class="bar">
+  <div class="bar-title">TestPortal <span>— emulator "Uczciwy Rozwiązujący"</span></div>
+  <div class="bar-warns">Ostrzeżenia: <b id="wc">0</b> / 3</div>
 </div>
 
-<!-- STATUS STRIP -->
-<div class="status-strip ok" id="statusStrip">
-  <div class="status-dot green" id="statusDot"></div>
-  <div class="status-text" id="statusText"><strong>Uczciwy Rozwiązujący aktywny</strong> — karta i okno są monitorowane</div>
-  <div class="warn-count">Ostrzeżenia: <span id="warnCountBadge">0</span>/3</div>
-</div>
-
-<div style="max-width:1200px;margin:1.2rem auto 0;padding:0 1.5rem">
-  <div class="explain-section">
-    <h4>Jak to działa — co wykrywa TestPortal?</h4>
-    To jest interaktywne demo. Możesz przetestować wszystkie mechanizmy:
-    <strong>przełącz kartę</strong>, <strong>kliknij poza okno przeglądarki</strong>, naciśnij <strong>Alt+Tab</strong>, albo użyj przycisków poniżej.
-    Używane zdarzenia: <code>visibilitychange</code> <code>window.blur</code> <code>window.focus</code>.
-    Po <strong>3 ostrzeżeniach</strong> test jest zablokowany — tak jak na prawdziwym TestPortalu.
-  </div>
-</div>
-
-<!-- MAIN LAYOUT -->
-<div class="layout">
-
-  <!-- QUIZ -->
-  <div>
-    <div class="quiz-card">
-      <div class="quiz-header">
-        <h2>Test próbny — Historia Sztuki</h2>
-        <span class="question-num" id="qnum">Pytanie 1 / 5</span>
-      </div>
-      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:20%"></div></div>
-      <div class="quiz-body">
-        <div class="question-text" id="questionText"></div>
-        <div class="options" id="optionsContainer"></div>
-      </div>
-      <div class="quiz-footer">
-        <button class="btn btn-secondary" id="prevBtn" onclick="prevQ()">← Poprzednie</button>
-        <button class="btn btn-primary" id="nextBtn" onclick="nextQ()">Następne →</button>
-      </div>
+<div class="wrap">
+  <div class="card">
+    <h2 id="qn">Pytanie 1 / 5</h2>
+    <div class="question" id="qt"></div>
+    <div class="options" id="opts"></div>
+    <div class="nav">
+      <button class="btn btn-s" id="prev" onclick="go(-1)">← Wstecz</button>
+      <button class="btn btn-p" onclick="go(1)">Dalej →</button>
     </div>
   </div>
 
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-
-    <!-- Integrity Panel -->
-    <div class="panel">
-      <div class="panel-header">
-        <span class="panel-icon">🛡️</span>
-        <h3>Monitor integralności</h3>
-      </div>
-      <div class="integrity-grid">
-        <div class="integrity-row">
-          <span class="integrity-label">📄 Widoczność karty</span>
-          <span class="integrity-val val-ok" id="valTab">OK</span>
-        </div>
-        <div class="integrity-row">
-          <span class="integrity-label">🪟 Fokus okna</span>
-          <span class="integrity-val val-ok" id="valFocus">OK</span>
-        </div>
-        <div class="integrity-row">
-          <span class="integrity-label">⚠️ Ostrzeżenia</span>
-          <span class="integrity-val val-ok" id="valWarns">0 / 3</span>
-        </div>
-        <div class="integrity-row">
-          <span class="integrity-label">📋 Schowek</span>
-          <span class="integrity-val val-ok" id="valClip">Czysty</span>
-        </div>
-        <div class="integrity-row">
-          <span class="integrity-label">⌨️ Aktywność</span>
-          <span class="integrity-val val-ok" id="valActivity">Normalna</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Manual triggers -->
-    <div class="panel">
-      <div class="panel-header">
-        <span class="panel-icon">🧪</span>
-        <h3>Symuluj zdarzenia</h3>
-      </div>
-      <div style="padding:.8rem;display:flex;flex-direction:column;gap:.5rem">
-        <button class="btn btn-secondary" style="width:100%;text-align:left;font-size:.8rem" onclick="triggerTabSwitch()">📄 Symuluj przełączenie karty</button>
-        <button class="btn btn-secondary" style="width:100%;text-align:left;font-size:.8rem" onclick="triggerBlur()">🪟 Symuluj utratę fokusu okna</button>
-        <button class="btn btn-secondary" style="width:100%;text-align:left;font-size:.8rem" onclick="triggerClipboard()">📋 Symuluj użycie schowka</button>
-        <button class="btn btn-secondary" style="width:100%;text-align:left;font-size:.8rem" onclick="resetWarnings()">🔄 Resetuj ostrzeżenia (demo)</button>
-      </div>
-    </div>
-
-    <!-- Event Log -->
-    <div class="panel">
-      <div class="panel-header">
-        <span class="panel-icon">📋</span>
-        <h3>Log zdarzeń</h3>
-      </div>
-      <div class="log-list" id="logList">
-        <div class="log-empty">Brak zdarzeń — zacznij test żeby zobaczyć logi</div>
-      </div>
-    </div>
-
-    <div class="info-box">
-      <strong>Uwaga:</strong> To jest emulator edukacyjny. Pokazuje dokładnie jak działają mechanizmy wykrywania nieuczciwości w TestPortalu — żebyś wiedział czego się spodziewać.
-    </div>
-
-  </div>
-</div>
-
-<!-- WARNING OVERLAY -->
-<div class="overlay" id="warnOverlay">
-  <div class="overlay-card">
-    <div class="overlay-icon">⚠️</div>
-    <div class="overlay-title">Opuszczenie testu wykryte!</div>
-    <div class="overlay-desc" id="overlayDesc">System wykrył, że opuściłeś kartę testu. Twoja aktywność jest monitorowana i zapisywana.</div>
-    <div class="overlay-count">To ostrzeżenie <strong id="warnNum">1</strong> z 3. Po 3 ostrzeżeniach test zostanie <strong>automatycznie zakończony</strong>.</div>
-    <div class="overlay-actions">
-      <button class="btn btn-primary" onclick="dismissWarning()">Rozumiem, wróć do testu</button>
+  <div class="card">
+    <h2>Log zdarzeń</h2>
+    <div class="log" id="log">
+      <div class="le inf"><span class="le-t">--:--</span><span>Monitoring aktywny — przełącz kartę lub kliknij poza okno</span></div>
     </div>
   </div>
 </div>
 
-<!-- BLOCKED SCREEN -->
-<div class="blocked-screen" id="blockedScreen">
-  <div class="blocked-icon">🚫</div>
-  <div class="blocked-title">Test zakończony</div>
-  <div class="blocked-desc">Przekroczyłeś limit 3 ostrzeżeń. Twoje odpowiedzi zostały zapisane i <strong style="color:#fca5a5">raport naruszenia</strong> zostanie przesłany do wykładowcy.</div>
-  <button class="btn btn-secondary" style="margin-top:1rem" onclick="location.reload()">Zacznij demo od nowa</button>
+<!-- warning overlay -->
+<div class="ov" id="ov">
+  <div class="ov-box">
+    <div class="ov-icon">⚠️</div>
+    <div class="ov-title">Opuszczenie testu wykryte!</div>
+    <div class="ov-desc" id="ov-desc"></div>
+    <div class="ov-count">Ostrzeżenie <b id="ov-n">1</b> z 3. Po 3 ostrzeżeniach test zostaje <b>zablokowany</b>.</div>
+    <button class="btn btn-p" style="width:100%" onclick="dismiss()">Rozumiem, wróć do testu</button>
+  </div>
+</div>
+
+<!-- blocked screen -->
+<div class="bl" id="bl">
+  <div class="bl-icon">🚫</div>
+  <div class="bl-title">Test zakończony</div>
+  <div class="bl-desc">Przekroczyłeś limit 3 ostrzeżeń. Odpowiedzi zostały zapisane, raport naruszenia zostaje przesłany do wykładowcy.</div>
+  <button class="btn btn-s" style="margin-top:1rem" onclick="location.reload()">Zacznij od nowa</button>
 </div>
 
 <script>
-const QUESTIONS = [
-  {
-    q: "Który artysta jest uważany za twórcę fresku „Ostatnia Wieczerza" w Mediolanie?",
-    opts: ["Michał Anioł","Leonardo da Vinci","Rafael Santi","Sandro Botticelli"],
-    a: 1
-  },
-  {
-    q: "W którym mieście Donatello stworzył brązowy posąg Dawida — pierwsze wolnostojące nagie posąg od czasów antycznych?",
-    opts: ["Rzym","Wenecja","Florencja","Mediolan"],
-    a: 2
-  },
-  {
-    q: "Technika chiaroscuro, polegająca na silnym kontraście światła i cienia, jest szczególnie kojarzona z:",
-    opts: ["Sandrą Botticelli","Caravaggio","Tycjanem","Albrechtem Dürerem"],
-    a: 1
-  },
-  {
-    q: "Kaplica Sykstyńska w Watykanie była malowana przez Michała Anioła na zlecenie papieża:",
-    opts: ["Juliusza II","Leona X","Klemensa VII","Pawła III"],
-    a: 0
-  },
-  {
-    q: "Który termin opisuje styl architektoniczny i artystyczny rozwinięty we Włoszech w XVII wieku, charakteryzujący się dynamizmem i iluzjonizmem?",
-    opts: ["Manieryzm","Rokoko","Barok","Renesans późny"],
-    a: 2
-  }
+// pytania
+const QS = [
+  { q: 'Który artysta namalował „Ostatnią Wieczerzę" w Mediolanie?',
+    o: ['Michał Anioł','Leonardo da Vinci','Rafael Santi','Botticelli'], a: 1 },
+  { q: 'Brązowy Dawid Donatella — w którym mieście?',
+    o: ['Rzym','Wenecja','Florencja','Mediolan'], a: 2 },
+  { q: 'Technika chiaroscuro jest szczególnie kojarzona z:',
+    o: ['Botticellim','Caravaggio','Tycjanem','Dürerem'], a: 1 },
+  { q: 'Kaplicę Sykstyńską Michał Anioł malował na zlecenie papieża:',
+    o: ['Juliusza II','Leona X','Klemensa VII','Pawła III'], a: 0 },
+  { q: 'XVII-wieczny styl włoski z dynamizmem i iluzjonizmem to:',
+    o: ['Manieryzm','Rokoko','Barok','Renesans późny'], a: 2 },
 ];
 
-let currentQ = 0;
-let answers = new Array(QUESTIONS.length).fill(null);
-let warnings = 0;
-let blocked = false;
-let lastTabLeave = null;
-let logEntries = [];
-let timerSec = 14 * 60 + 59;
-let overlayReason = '';
+let qi = 0, ans = Array(QS.length).fill(null);
 
 function renderQ() {
-  const q = QUESTIONS[currentQ];
-  document.getElementById('questionText').textContent = q.q;
-  document.getElementById('qnum').textContent = `Pytanie ${currentQ + 1} / ${QUESTIONS.length}`;
-  document.getElementById('progressFill').style.width = `${((currentQ + 1) / QUESTIONS.length) * 100}%`;
-
-  const container = document.getElementById('optionsContainer');
-  container.innerHTML = '';
-  const letters = ['A','B','C','D'];
-  q.opts.forEach((opt, i) => {
-    const div = document.createElement('div');
-    div.className = 'option' + (answers[currentQ] === i ? ' selected' : '');
-    div.innerHTML = `<div class="option-letter">${letters[i]}</div><div class="option-text">${opt}</div>`;
-    div.onclick = () => selectAnswer(i);
-    container.appendChild(div);
+  const q = QS[qi];
+  document.getElementById('qn').textContent = `Pytanie ${qi+1} / ${QS.length}`;
+  document.getElementById('qt').textContent = q.q;
+  const c = document.getElementById('opts');
+  c.innerHTML = '';
+  q.o.forEach((t, i) => {
+    const d = document.createElement('div');
+    d.className = 'opt' + (ans[qi]===i ? ' sel' : '');
+    d.innerHTML = `<div class="opt-l">${'ABCD'[i]}</div><div>${t}</div>`;
+    d.onclick = () => { ans[qi] = i; renderQ(); };
+    c.appendChild(d);
   });
-
-  document.getElementById('prevBtn').style.opacity = currentQ === 0 ? '0.3' : '1';
-  document.getElementById('prevBtn').disabled = currentQ === 0;
+  document.getElementById('prev').disabled = qi === 0;
+  document.getElementById('prev').style.opacity = qi === 0 ? '.3' : '1';
 }
-
-function selectAnswer(i) {
-  answers[currentQ] = i;
+function go(d) {
+  qi = Math.max(0, Math.min(QS.length-1, qi+d));
   renderQ();
 }
 
-function nextQ() {
-  if (currentQ < QUESTIONS.length - 1) { currentQ++; renderQ(); }
-}
-
-function prevQ() {
-  if (currentQ > 0) { currentQ--; renderQ(); }
-}
-
-// ---- TIMER ----
-function updateTimer() {
-  if (blocked) return;
-  timerSec--;
-  if (timerSec <= 0) { timerSec = 0; }
-  const m = Math.floor(timerSec / 60);
-  const s = timerSec % 60;
-  const el = document.getElementById('timer');
-  el.textContent = `⏱ ${m}:${String(s).padStart(2,'0')}`;
-  el.className = timerSec < 120 ? 'topbar-timer danger' : timerSec < 300 ? 'topbar-timer warn' : 'topbar-timer';
-}
-setInterval(updateTimer, 1000);
-
-// ---- LOGGING ----
+// log
 function addLog(type, msg) {
-  const now = new Date();
-  const time = `${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
-  logEntries.unshift({ type, msg, time });
-  if (logEntries.length > 50) logEntries.pop();
-
-  const list = document.getElementById('logList');
-  if (list.querySelector('.log-empty')) list.innerHTML = '';
-
-  const entry = document.createElement('div');
-  entry.className = `log-entry ${type}`;
-  entry.innerHTML = `<span class="log-time">${time}</span><span class="log-msg">${msg}</span>`;
-  list.insertBefore(entry, list.firstChild);
+  const n = new Date(), t = `${String(n.getMinutes()).padStart(2,'0')}:${String(n.getSeconds()).padStart(2,'0')}`;
+  const l = document.getElementById('log');
+  // usuń placeholder
+  const ph = l.querySelector('.le.inf');
+  if (ph && ph.textContent.includes('Monitoring')) ph.remove();
+  const e = document.createElement('div');
+  e.className = `le ${type}`;
+  e.innerHTML = `<span class="le-t">${t}</span><span>${msg}</span>`;
+  l.insertBefore(e, l.firstChild);
+  while (l.children.length > 30) l.removeChild(l.lastChild);
 }
 
-// ---- STATUS UPDATE ----
-function setStatus(level, text) {
-  const strip = document.getElementById('statusStrip');
-  const dot = document.getElementById('statusDot');
-  const txt = document.getElementById('statusText');
-  strip.className = `status-strip ${level}`;
-  dot.className = `status-dot ${level === 'ok' ? 'green' : level === 'warn' ? 'yellow' : 'red'}`;
-  txt.innerHTML = text;
-}
+// ostrzeżenia
+let warns = 0, blocked = false;
 
-function updateIntegrity() {
-  const warnEl = document.getElementById('valWarns');
-  warnEl.textContent = `${warnings} / 3`;
-  warnEl.className = `integrity-val ${warnings === 0 ? 'val-ok' : warnings < 3 ? 'val-warn' : 'val-bad'}`;
-  document.getElementById('warnCountBadge').textContent = warnings;
-}
-
-// ---- VIOLATION DETECTION ----
-function fireViolation(reason, desc) {
+function warn(desc) {
   if (blocked) return;
-  warnings++;
-  updateIntegrity();
-
-  if (warnings >= 3) {
-    document.getElementById('blockedScreen').classList.add('show');
+  warns++;
+  document.getElementById('wc').textContent = warns;
+  if (warns >= 3) {
     blocked = true;
-    addLog('bad', '🚫 Test zablokowany — limit ostrzeżeń przekroczony');
-    setStatus('danger', '<strong>Test zablokowany</strong> — przekroczono limit ostrzeżeń');
+    document.getElementById('bl').classList.add('on');
+    addLog('bad', '🚫 Test zablokowany — przekroczono limit');
     return;
   }
-
-  overlayReason = desc;
-  document.getElementById('overlayDesc').textContent = desc;
-  document.getElementById('warnNum').textContent = warnings;
-  document.getElementById('warnOverlay').classList.add('show');
-  addLog('bad', `⚠️ Ostrzeżenie ${warnings}/3 — ${reason}`);
-  setStatus('warn', `<strong>Ostrzeżenie ${warnings}/3</strong> — ${reason}`);
+  document.getElementById('ov-desc').textContent = desc;
+  document.getElementById('ov-n').textContent = warns;
+  document.getElementById('ov').classList.add('on');
+  addLog('bad', `⚠️ Ostrzeżenie ${warns}/3 — ${desc}`);
 }
 
-function dismissWarning() {
-  document.getElementById('warnOverlay').classList.remove('show');
-  setStatus('warn', `<strong>Uwaga:</strong> Zarejestrowano ${warnings} naruszenie(a). Nie opuszczaj testu.`);
-  addLog('info', '↩️ Użytkownik wrócił do testu');
+function dismiss() {
+  document.getElementById('ov').classList.remove('on');
 }
 
-// ---- TAB VISIBILITY ----
+// --- visibilitychange (zmiana karty) ---
+let tabHiddenAt = null;
 document.addEventListener('visibilitychange', () => {
   if (blocked) return;
   if (document.hidden) {
-    lastTabLeave = Date.now();
-    document.getElementById('valTab').textContent = 'POZA';
-    document.getElementById('valTab').className = 'integrity-val val-bad';
-    addLog('warn', '📄 Karta stała się niewidoczna (visibilitychange → hidden)');
-    setStatus('warn', '<strong>Karta niewidoczna</strong> — wykryto opuszczenie karty testu');
+    tabHiddenAt = Date.now();
+    addLog('bad', '📄 Karta ukryta — opuściłeś kartę testu');
   } else {
-    const elapsed = lastTabLeave ? ((Date.now() - lastTabLeave) / 1000).toFixed(1) : '?';
-    document.getElementById('valTab').textContent = 'OK';
-    document.getElementById('valTab').className = 'integrity-val val-ok';
-    addLog('warn', `📄 Powrót na kartę (nieobecność: ${elapsed}s)`);
-    fireViolation(
-      `Opuszczenie karty (${elapsed}s)`,
-      `System wykrył, że opuściłeś kartę testu na ${elapsed} sekund. Przełączanie kart jest monitorowane i zapisywane.`
-    );
+    if (!tabHiddenAt) return; // pierwsze załadowanie — ignoruj
+    const s = ((Date.now() - tabHiddenAt) / 1000).toFixed(1);
+    tabHiddenAt = null;
+    addLog('bad', `📄 Powrót na kartę po ${s}s`);
+    warn(`Opuściłeś kartę testu na ${s} sekund.`);
   }
 });
 
-// ---- WINDOW BLUR ----
+// --- window blur/focus (inne okno / Alt+Tab / Cmd+Tab) ---
+let blurAt = null;
 window.addEventListener('blur', () => {
-  if (blocked) return;
-  document.getElementById('valFocus').textContent = 'BRAK';
-  document.getElementById('valFocus').className = 'integrity-val val-bad';
-  addLog('warn', '🪟 Okno straciło fokus (window.blur)');
-  setStatus('warn', '<strong>Fokus utracony</strong> — okno przeglądarki nieaktywne');
+  if (blocked || document.hidden) return;
+  blurAt = Date.now();
+  addLog('bad', '🪟 Okno straciło fokus');
 });
-
 window.addEventListener('focus', () => {
-  if (blocked) return;
-  document.getElementById('valFocus').textContent = 'OK';
-  document.getElementById('valFocus').className = 'integrity-val val-ok';
-  addLog('ok', '🪟 Okno odzyskało fokus (window.focus)');
-
-  // blur/focus alone nie generuje ostrzeżenia — tylko visibilitychange
-  // ale jeśli karta była hidden + okno blur, jeden ostrzeżenie wystarczy
+  if (!blurAt) return;
+  const s = ((Date.now() - blurAt) / 1000).toFixed(1);
+  blurAt = null;
+  addLog('bad', `🪟 Fokus wrócił po ${s}s`);
+  warn(`Opuściłeś okno przeglądarki na ${s} sekund.`);
 });
 
-// ---- CLIPBOARD ----
-document.addEventListener('copy', () => {
-  if (blocked) return;
-  document.getElementById('valClip').textContent = 'Kopiowanie';
-  document.getElementById('valClip').className = 'integrity-val val-warn';
-  addLog('warn', '📋 Wykryto zdarzenie copy (document.copy)');
-  setTimeout(() => {
-    document.getElementById('valClip').textContent = 'Czysty';
-    document.getElementById('valClip').className = 'integrity-val val-ok';
-  }, 3000);
-});
-document.addEventListener('paste', () => {
-  if (blocked) return;
-  document.getElementById('valClip').textContent = 'Wklejanie';
-  document.getElementById('valClip').className = 'integrity-val val-warn';
-  addLog('warn', '📋 Wykryto zdarzenie paste (document.paste)');
-  setTimeout(() => {
-    document.getElementById('valClip').textContent = 'Czysty';
-    document.getElementById('valClip').className = 'integrity-val val-ok';
-  }, 3000);
-});
-
-// ---- RAPID KEY ACTIVITY ----
-let keyTimestamps = [];
-document.addEventListener('keydown', () => {
-  if (blocked) return;
-  const now = Date.now();
-  keyTimestamps = keyTimestamps.filter(t => now - t < 2000);
-  keyTimestamps.push(now);
-  if (keyTimestamps.length > 15) {
-    document.getElementById('valActivity').textContent = 'Podejrzana';
-    document.getElementById('valActivity').className = 'integrity-val val-warn';
-    addLog('warn', '⌨️ Wykryto szybkie wpisywanie (>15 klawiszy/2s)');
-    setTimeout(() => {
-      document.getElementById('valActivity').textContent = 'Normalna';
-      document.getElementById('valActivity').className = 'integrity-val val-ok';
-      keyTimestamps = [];
-    }, 3000);
-  }
-});
-
-// ---- MANUAL TRIGGERS ----
-function triggerTabSwitch() {
-  addLog('info', '🧪 [DEMO] Symulacja visibilitychange → hidden');
-  lastTabLeave = Date.now() - 2500;
-  document.getElementById('valTab').textContent = 'POZA';
-  document.getElementById('valTab').className = 'integrity-val val-bad';
-  setTimeout(() => {
-    document.getElementById('valTab').textContent = 'OK';
-    document.getElementById('valTab').className = 'integrity-val val-ok';
-    fireViolation(
-      'Opuszczenie karty (2.5s) [DEMO]',
-      'System wykrył, że opuściłeś kartę testu. (Zdarzenie wywołane przez przycisk demo.)'
-    );
-  }, 300);
-}
-
-function triggerBlur() {
-  addLog('info', '🧪 [DEMO] Symulacja window.blur + focus');
-  document.getElementById('valFocus').textContent = 'BRAK';
-  document.getElementById('valFocus').className = 'integrity-val val-bad';
-  setTimeout(() => {
-    document.getElementById('valFocus').textContent = 'OK';
-    document.getElementById('valFocus').className = 'integrity-val val-ok';
-    addLog('warn', '🪟 [DEMO] Okno odzyskało fokus — bez ostrzeżenia (samo blur nie wystarczy)');
-    setStatus('ok', '<strong>Uczciwy Rozwiązujący aktywny</strong> — karta i okno są monitorowane');
-  }, 500);
-}
-
-function triggerClipboard() {
-  document.getElementById('valClip').textContent = 'Kopiowanie';
-  document.getElementById('valClip').className = 'integrity-val val-warn';
-  addLog('warn', '📋 [DEMO] Symulacja copy — testportal loguje ale nie ostrzega');
-  setTimeout(() => {
-    document.getElementById('valClip').textContent = 'Czysty';
-    document.getElementById('valClip').className = 'integrity-val val-ok';
-  }, 2000);
-}
-
-function resetWarnings() {
-  warnings = 0;
-  blocked = false;
-  document.getElementById('blockedScreen').classList.remove('show');
-  document.getElementById('warnOverlay').classList.remove('show');
-  updateIntegrity();
-  setStatus('ok', '<strong>Uczciwy Rozwiązujący aktywny</strong> — karta i okno są monitorowane');
-  addLog('info', '🔄 [DEMO] Ostrzeżenia zresetowane');
-}
-
-// ---- INIT ----
 renderQ();
-addLog('ok', '✅ Uczciwy Rozwiązujący uruchomiony — monitorowanie aktywne');
-addLog('info', '👆 Przełącz kartę lub kliknij poza okno żeby zobaczyć wykrywanie');
 </script>
 </body>
 </html>
