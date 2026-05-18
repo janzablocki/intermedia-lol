@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W06 — Zakład Pascala i William James</title>
+<style>
+:root{--bg:#0f0e11;--surface:#1a1820;--card:#201e28;--border:#2e2b3a;--text:#e8e4f0;--muted:#9b96b0;--gold:#c4973f;--purple:#7b5ea7;--blue:#4a9eca;--green:#5aab7a;--red:#c45a5a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#0a0a1a 0%,#0f0e11 100%);border:1px solid var(--border);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:2rem}
+.hero h1{font-size:2.2rem;color:var(--gold);margin-bottom:.5rem}
+.hero .subtitle{color:var(--muted);font-size:1.1rem}
+.hero .meta{display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.badge{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.4rem 1rem;font-size:.85rem;color:var(--muted)}
+.badge span{color:var(--text)}
+section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.8rem;margin-bottom:1.5rem}
+section h2{color:var(--gold);font-size:1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+section h2::before{content:'';display:block;width:4px;height:1.3rem;background:var(--gold);border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem}
+.card h3{color:var(--blue);font-size:1rem;margin-bottom:.6rem}
+.card p,.card li{color:var(--muted);font-size:.9rem}
+.card ul{padding-left:1.2rem}
+.card li{margin-bottom:.3rem}
+.person{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;margin-bottom:1rem}
+.person h3{color:var(--green);margin-bottom:.4rem}
+.person .role{color:var(--gold);font-size:.8rem;font-weight:600;margin-bottom:.5rem}
+.person p{color:var(--muted);font-size:.9rem}
+.work{border-left:4px solid var(--purple);padding:.8rem 1rem;background:var(--card);border-radius:0 8px 8px 0;margin-bottom:.7rem}
+.work strong{color:var(--text)}
+.work span{color:var(--muted);font-size:.85rem;display:block;margin-top:.2rem}
+.concept{display:flex;gap:.8rem;align-items:flex-start;padding:1rem;background:var(--card);border-radius:8px;margin-bottom:.7rem}
+.concept .icon{font-size:1.4rem;flex-shrink:0}
+.concept h4{color:var(--text);margin-bottom:.3rem;font-size:.95rem}
+.concept p{color:var(--muted);font-size:.88rem}
+.quote{background:linear-gradient(135deg,#1a1020,#100a1a);border:1px solid var(--purple);border-radius:10px;padding:1.4rem 1.6rem;margin-bottom:1rem;position:relative}
+.quote::before{content:'"';position:absolute;top:-.3rem;left:1rem;font-size:3rem;color:var(--purple);opacity:.4;font-family:Georgia,serif;line-height:1}
+.quote p{color:var(--text);font-style:italic;font-size:.95rem;padding-left:.5rem}
+.quote .source{color:var(--muted);font-size:.8rem;margin-top:.6rem;padding-left:.5rem}
+.callout{background:linear-gradient(135deg,#111a0a,#0f0a1f);border:1px solid var(--green);border-radius:10px;padding:1.2rem;margin-top:1rem}
+.callout h4{color:var(--green);margin-bottom:.5rem}
+.callout p{color:var(--muted);font-size:.9rem}
+.schema{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.6rem;margin:1rem 0}
+.schema-row{display:flex;align-items:center;justify-content:center;gap:1rem;margin:.6rem 0;flex-wrap:wrap}
+.schema-box{background:var(--surface);border:2px solid var(--gold);border-radius:8px;padding:.5rem 1.2rem;font-size:.9rem;font-weight:600;text-align:center}
+.tag{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:.2rem .7rem;font-size:.78rem;color:var(--muted);margin:.2rem}
+table{width:100%;border-collapse:collapse;margin-top:.8rem}
+th{background:var(--card);color:var(--gold);font-size:.85rem;padding:.6rem 1rem;text-align:left;border-bottom:1px solid var(--border)}
+td{color:var(--muted);font-size:.85rem;padding:.6rem 1rem;border-bottom:1px solid var(--border)}
+tr:last-child td{border-bottom:none}
+.wager-box{border-radius:12px;overflow:hidden;margin:1rem 0}
+.wager-header{background:var(--card);padding:.8rem 1.2rem;font-weight:600;color:var(--gold);font-size:.9rem;border-bottom:1px solid var(--border)}
+.wager-grid{display:grid;grid-template-columns:1fr 1fr;border-left:1px solid var(--border)}
+.wager-cell{padding:1rem 1.2rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border);font-size:.88rem}
+.wager-cell.win{color:var(--green)}
+.wager-cell.lose{color:var(--red)}
+.wager-label{color:var(--muted);font-size:.78rem;display:block;margin-bottom:.3rem}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div style="color:var(--muted);font-size:.9rem;margin-bottom:.5rem">Wykład 06 · Filozofia</div>
+  <h1>Zakład Pascala i William James</h1>
+  <div class="subtitle">Agnostycyzm jako ukryty wybór, kalkulacja wiary i pragmatyzm religijny</div>
+  <div class="meta">
+    <div class="badge">Argument: <span>Zakład Pascala</span></div>
+    <div class="badge">Kontekst: <span>Egzystencjalny</span></div>
+    <div class="badge">Myśliciel: <span>William James</span></div>
+  </div>
+</div>
+
+<section>
+  <h2>Pascal — człowiek wielu talentów</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Fizyk</h3>
+      <p>Badał ciśnienie atmosferyczne — stąd jednostka hektopaskal (hPa). Jego doświadczenia z ciśnieniem były przełomowe dla fizyki XVII w.</p>
+    </div>
+    <div class="card">
+      <h3>Matematyk i informatyk</h3>
+      <p>Twórca rachunku prawdopodobieństwa (wraz z Fermatem). Wynalazca pierwszego mechanicznego kalkulatora (Pascaline — ok. 20 egzemplarzy zachowanych). Język programowania Pascal nosi jego imię.</p>
+    </div>
+    <div class="card">
+      <h3>Filozof i teolog</h3>
+      <p>Po głębokiej przemianie duchowej (1654) pisał <em>Myśli</em> — dziennik zmagań filozoficzno-religijnych. Tam słynny fragment o zakładzie.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Punkt wyjścia: problem agnostycyzmu</h2>
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:1rem">Pascal (i William James) uważają, że agnostycyzm — pozornie neutralna postawa — to de facto ukryty wybór:</p>
+
+  <div class="concept">
+    <div class="icon">⚖️</div>
+    <div>
+      <h4>Agnostyk „nie gra w grę"?</h4>
+      <p>Pascal: będąc wrzuconym w byt, człowiek <em>musi</em> wybrać — nawet decyzja o niepodjęciu decyzji jest wyborem. James: agnostyk, który wstrzymuje się od osądu, faktycznie wybiera opcję „Boga nie ma" — bo nie żyje tak, jakby Bóg istniał.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Zakład Pascala — struktura argumentu</h2>
+  <div class="concept">
+    <div class="icon">🎲</div>
+    <div>
+      <h4>Założenia</h4>
+      <p>1. Istnienia Boga nie można dowieść ani obalić rozumowo. 2. Człowiek staje przed alternatywą: Bóg jest albo nie. 3. Musi dokonać wyboru (obojętność = wybór „Boga nie ma").</p>
+    </div>
+  </div>
+
+  <div class="wager-box">
+    <div class="wager-header">Macierz wypłat zakładu</div>
+    <div class="wager-grid">
+      <div class="wager-cell" style="background:var(--card);color:var(--muted);font-weight:600;font-size:.82rem">—</div>
+      <div class="wager-cell" style="background:var(--card);color:var(--gold);font-weight:600;font-size:.82rem">Zakładasz, że Bóg jest</div>
+      <div class="wager-cell" style="background:var(--card);color:var(--muted);font-weight:600;font-size:.82rem">Bóg istnieje</div>
+      <div class="wager-cell win"><span class="wager-label">Wygrywasz:</span>życie wieczne, zbawienie — zysk <strong>nieskończony</strong></div>
+      <div class="wager-cell" style="background:var(--card);color:var(--muted);font-weight:600;font-size:.82rem">Boga nie ma</div>
+      <div class="wager-cell lose"><span class="wager-label">Tracisz:</span>pewne dobra skończone (wyrzeczenia religijne) — strata <strong>skończona</strong></div>
+    </div>
+  </div>
+
+  <div class="quote">
+    <p>Zważmy zysk i stratę, zakładając, że Bóg jest. Rozpatrzmy te dwa wypadki: jeśli wygrasz, zyskujesz wszystko; jeśli przegrasz, nic nie tracisz. Zakładaj się tedy bez wahania, że jest.</p>
+    <div class="source">Blaise Pascal, <em>Myśli</em>, fragment o zakładzie</div>
+  </div>
+
+  <div class="concept">
+    <div class="icon">♾️</div>
+    <div>
+      <h4>Kluczowy argument: nieskończoność vs skończoność</h4>
+      <p>Potencjalny zysk (zbawienie = „nieskończone szczęście, nieskończone życie") jest nieskończony. Potencjalna strata (wyrzeczenia w życiu ziemskim) jest skończona. Przy jakimkolwiek prawdopodobieństwie istnienia Boga — wartość oczekiwana wiary jest nieskończona.</p>
+    </div>
+  </div>
+
+  <div class="concept">
+    <div class="icon">❓</div>
+    <div>
+      <h4>Zarzut do Pascala (sam go formułuje)</h4>
+      <p>„Ryzykuję tym, co pewne (moje ziemskie życie) na rzecz czegoś niepewnego". Pascal odpowiada: ta strata skończona jest tak mała wobec nieskończoności, że rachunek opłacalności przesądza na korzyść wiary.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <h4>Krytyki zakładu</h4>
+    <p>1. <strong>Który Bóg?</strong> — analogiczne zakłady można postawić za każdą religię. 2. <strong>Autentyczność wiary</strong> — czy wiara „kalkulacyjna" jest prawdziwą wiarą? 3. <strong>Zbyt wiele opcji</strong> — tablica wypłat jest uproszczona (zakłada binarność Bóg/nie-Bóg).</p>
+  </div>
+</section>
+
+<section>
+  <h2>William James — pragmatyzm religijny</h2>
+  <div class="concept">
+    <div class="icon">🧪</div>
+    <div>
+      <h4>Pragmatyzm: prawda to co działa</h4>
+      <p>James (twórca pragmatyzmu) uważa, że przekonania należy oceniać po ich <em>skutkach praktycznych</em>. Wiara religijna — jeśli przynosi poczucie sensu, siłę życiową, moralność — ma wartość pragmatyczną niezależnie od metafizycznych dowodów.</p>
+    </div>
+  </div>
+  <div class="concept">
+    <div class="icon">🔥</div>
+    <div>
+      <h4>„The Will to Believe" (1896)</h4>
+      <p>Tytuł słynnego eseju Jamesa: „Wola wiary". W sytuacjach, gdy nie mamy dowodów, a decyzja jest pilna i żywotna — mamy prawo, a nawet obowiązek, opowiedzieć się na podstawie woli i potrzeb praktycznych.</p>
+    </div>
+  </div>
+  <div class="concept">
+    <div class="icon">🌅</div>
+    <div>
+      <h4>Argument egzystencjalny</h4>
+      <p>Wobec skończoności życia (kiedyś się pojawiliśmy, kiedyś umrzemy) — czysto intelektualne zawieszenie sądu nie jest już tak racjonalną postawą. Nasza egzystencjalna sytuacja czyni wybór nieuchronnym.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Myśliciele</h2>
+
+  <div class="person">
+    <h3>Blaise Pascal (1623–1662)</h3>
+    <div class="role">Matematyk, fizyk, filozof, teolog jansenistyczny</div>
+    <div class="work"><strong><em>Myśli</em> (Pensées, pośmiertnie 1669)</strong><span>Zbiór fragmentów — autobiograficzny, filozoficzno-religijny. Fragment o zakładzie w rozdziale „Nieskończoność i nicość". Pascal pisał go dla „niewierzącego liberała", by pokazać racjonalność wiary.</span></div>
+    <p>Nawrócenie (nuit de feu, „noc ognia") — 23 listopada 1654. Pergamin z opisem mistycznego doświadczenia znaleziony po śmierci wszytym w jego strój.</p>
+  </div>
+
+  <div class="person">
+    <h3>William James (1842–1910)</h3>
+    <div class="role">Amerykański psycholog i filozof, twórca pragmatyzmu</div>
+    <div class="work"><strong><em>The Will to Believe</em> (1896)</strong><span>Esej uzasadniający prawo do wiary w sytuacji braku dowodów. Odpowiedź na agnostycyzm Huxleya i W.K. Clifforda.</span></div>
+    <div class="work"><strong><em>Varieties of Religious Experience</em> (1902)</strong><span>Badanie doświadczeń religijnych z perspektywy psychologicznej i pragmatycznej.</span></div>
+  </div>
+</section>
+
+<div style="text-align:center;margin-top:2rem;padding:1rem">
+  <a href="../index.html" style="color:var(--muted);text-decoration:none;font-size:.9rem">← Powrót do listy wykładów</a>
+</div>
+
+</div>
+</body>
+</html>

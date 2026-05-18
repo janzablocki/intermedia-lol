@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W01 — Wprowadzenie do filozofii</title>
+<style>
+:root{--bg:#0f0e11;--surface:#1a1820;--card:#201e28;--border:#2e2b3a;--text:#e8e4f0;--muted:#9b96b0;--gold:#c4973f;--purple:#7b5ea7;--blue:#4a9eca;--green:#5aab7a;--red:#c45a5a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#0a0a1a 0%,#0f0e11 100%);border:1px solid var(--border);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:2rem}
+.hero h1{font-size:2.4rem;color:var(--gold);margin-bottom:.5rem}
+.hero .subtitle{color:var(--muted);font-size:1.1rem}
+.hero .meta{display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.badge{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.4rem 1rem;font-size:.85rem;color:var(--muted)}
+.badge span{color:var(--text)}
+section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.8rem;margin-bottom:1.5rem}
+section h2{color:var(--gold);font-size:1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+section h2::before{content:'';display:block;width:4px;height:1.3rem;background:var(--gold);border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem}
+.card h3{color:var(--blue);font-size:1rem;margin-bottom:.6rem}
+.card p,.card li{color:var(--muted);font-size:.9rem}
+.card ul{padding-left:1.2rem}
+.card li{margin-bottom:.3rem}
+.person{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;margin-bottom:1rem}
+.person h3{color:var(--green);margin-bottom:.4rem}
+.person .role{color:var(--gold);font-size:.8rem;font-weight:600;margin-bottom:.5rem}
+.person p{color:var(--muted);font-size:.9rem}
+.work{border-left:4px solid var(--purple);padding:.8rem 1rem;background:var(--card);border-radius:0 8px 8px 0;margin-bottom:.7rem}
+.work strong{color:var(--text)}
+.work span{color:var(--muted);font-size:.85rem;display:block;margin-top:.2rem}
+.concept{display:flex;gap:.8rem;align-items:flex-start;padding:1rem;background:var(--card);border-radius:8px;margin-bottom:.7rem}
+.concept .icon{font-size:1.4rem;flex-shrink:0}
+.concept h4{color:var(--text);margin-bottom:.3rem;font-size:.95rem}
+.concept p{color:var(--muted);font-size:.88rem}
+.quote{background:linear-gradient(135deg,#1a1020,#100a1a);border:1px solid var(--purple);border-radius:10px;padding:1.4rem 1.6rem;margin-bottom:1rem;position:relative}
+.quote::before{content:'"';position:absolute;top:-.3rem;left:1rem;font-size:3rem;color:var(--purple);opacity:.4;font-family:Georgia,serif;line-height:1}
+.quote p{color:var(--text);font-style:italic;font-size:.95rem;padding-left:.5rem}
+.quote .source{color:var(--muted);font-size:.8rem;margin-top:.6rem;padding-left:.5rem}
+.callout{background:linear-gradient(135deg,#111a0a,#0f0a1f);border:1px solid var(--green);border-radius:10px;padding:1.2rem;margin-top:1rem}
+.callout h4{color:var(--green);margin-bottom:.5rem}
+.callout p{color:var(--muted);font-size:.9rem}
+.logic-box{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.4rem;margin:1rem 0;text-align:center}
+.logic-box .formula{font-family:Georgia,serif;font-size:1.5rem;color:var(--gold);margin:1rem 0}
+.logic-box p{color:var(--muted);font-size:.88rem}
+.logic-box .var-p{color:var(--red)}
+.logic-box .var-q{color:var(--green)}
+.tag{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:.2rem .7rem;font-size:.78rem;color:var(--muted);margin:.2rem}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div style="color:var(--muted);font-size:.9rem;margin-bottom:.5rem">Wykład 01 · Filozofia</div>
+  <h1>Wprowadzenie do filozofii</h1>
+  <div class="subtitle">Śmiech, myślenie i odwaga posługiwania się własnym rozumem</div>
+  <div class="meta">
+    <div class="badge">Semestr: <span>letni (II semestr)</span></div>
+    <div class="badge">Temat: <span>Czym jest filozofia?</span></div>
+    <div class="badge">Hasło: <span>Sapere aude</span></div>
+  </div>
+</div>
+
+<section>
+  <h2>Kontekst kursu</h2>
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:1rem">Drugi semestr wykładu z filozofii — kontynuacja po dr Kubickiej. Prowadzący: adiunkt na Wydziale Edukacji Artystycznej i Kuratorstwa UAP (Uniwersytet Artystyczny w Poznaniu). Doktorat z filozofii (nihilizm w XIX w.), habilitacja z badań nad pamięcią chłopską. 16 lat związany z uczelnią.</p>
+  <div class="grid">
+    <div class="card">
+      <h3>Zaliczenie</h3>
+      <ul>
+        <li>Obowiązkowy egzamin — test online (30 min., kamera włączona)</li>
+        <li>Podstawa: wykłady + prezentacje na Google Classroom</li>
+        <li>Obecność obowiązkowa (maks. 3 nieobecności nieusprawiedliwione)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Ocena dodatkowa</h3>
+      <ul>
+        <li>Praca artystyczna (dowolna technika) + komentarz autorski (artist statement)</li>
+        <li>Krótkie wystąpienie publiczne (do 30 min., można w parach)</li>
+        <li>Spełnienie → podwyższenie oceny o 1 stopień (nawet do 5,5)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Tematy semestru</h3>
+      <ul>
+        <li>Metafizyka i filozofia religii</li>
+        <li>Epistemologia (teoria poznania)</li>
+        <li>Antropologia filozoficzna</li>
+        <li>Etyka (imperatyw kategoryczny)</li>
+        <li>Filozofia sensu życia</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Śmiech jako start myślenia</h2>
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:1.2rem">Wykład zaczyna się od prowokacyjnej tezy: <em>śmiech pobudza myślenie</em>. Cztery głosy w obronie śmiechu:</p>
+
+  <div class="person">
+    <h3>Walter Benjamin (1892–1940)</h3>
+    <div class="role">Filozof, krytyk kultury — Szkoła Frankfurcka</div>
+    <p>Napisał w eseju <em>Twórca jako wytwórca</em> (1934), w mrocznych czasach nazizmu:</p>
+  </div>
+  <div class="quote">
+    <p>Dla myślenia nie ma lepszego startu niż śmiech. Pobudzenie do śmiechu daje zwykle myśleniu większe pole do popisu niż jątrzenie duszy.</p>
+    <div class="source">— Walter Benjamin, <em>Twórca jako wytwórca</em>, 1934</div>
+  </div>
+
+  <div class="person">
+    <h3>Henri Bergson (1859–1941)</h3>
+    <div class="role">Filozof — intuicjonizm; napisał filozoficzną rozprawę <em>Śmiech</em></div>
+    <p>Śmiech — choć często rugowany ze sfery duchowości — jest <strong>wyrazem autentycznej aktywności duchowej</strong>. Dzięki niemu przezwyciężamy automatyzmy zachowania i rozbijamy ramy konwencji.</p>
+  </div>
+
+  <div class="person">
+    <h3>François Rabelais (ok. 1494–1553)</h3>
+    <div class="role">Lekarz, duchowny, pisarz renesansowy — <em>Gargantua i Pantagruel</em></div>
+  </div>
+  <div class="quote">
+    <p>Lepiej śmiechem jest pisać niż łzami. Śmiech to szczere królestwo człowieka.</p>
+    <div class="source">— François Rabelais, inwokacja do czytelnika we wstępie do <em>Gargantui i Pantagruela</em></div>
+  </div>
+
+  <div class="person">
+    <h3>Friedrich Nietzsche (1844–1900)</h3>
+    <div class="role">Filozof — nihilizm, nadczłowiek, „Bóg umarł"</div>
+  </div>
+  <div class="quote">
+    <p>Jakiż to największy grzech popełniono dotychczas na świecie. Czyż nie były nimi słowa tego, który rzekł: biada tym, którzy się śmieją?</p>
+    <div class="source">— Nietzsche, <em>Tako rzecze Zaratustra</em> (ustami Zaratustry)</div>
+  </div>
+
+  <div class="callout">
+    <h4>Zastrzeżenie prowadzącego</h4>
+    <p>Śmiech może być też wyrazem złośliwości, szyderstwa, braku empatii. Bergson wskazywał, że śmiech onieśmielający przez upokorzenie to coś zupełnie innego. <em>Si duo faciunt idem, non est idem</em> — gdy dwaj robią to samo, to nie jest to samo.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Anegdota: graffiti na murze Instytutu Filozofii UAM</h2>
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:1rem">Autentyczna historia z początku lat 90. Prowadzący, wówczas uczeń II klasy liceum, pojechał na olimpiadę filozoficzną do Poznania (Instytut Filozofii UAM, kampus Ogrody). Na głównym wejściu widniało graffiti:</p>
+
+  <div class="logic-box">
+    <div style="font-size:1.1rem;color:var(--muted);margin-bottom:.5rem">Hasło na murze:</div>
+    <div class="formula" style="font-size:1.3rem;color:var(--text)">"Filozofia jest nudna, a seks niezbędny"</div>
+    <div style="margin:1rem 0;color:var(--muted);font-size:.9rem">Formalnie: klasyczna <strong style="color:var(--text)">koniunkcja</strong></div>
+    <div class="formula"><span class="var-p">P</span> ∧ <span class="var-q">Q</span></div>
+    <p><span class="var-p">P</span> = „Filozofia jest nudna" &nbsp;|&nbsp; <span class="var-q">Q</span> = „Seks jest niezbędny"</p>
+    <p style="margin-top:.6rem">Koniunkcja jest prawdziwa tylko wtedy, gdy <strong>oba</strong> człony są prawdziwe.</p>
+  </div>
+
+  <p style="color:var(--muted);font-size:.9rem;margin:1rem 0">Prowadzący zaprzecza pierwszemu członowi (P jest fałszywe → koniunkcja fałszywa), cytując przy okazji domniemane słowa Kanta o seksie:</p>
+
+  <div class="quote">
+    <p>Przyjemność wątpliwa, a ruchy niegodne filozofa.</p>
+    <div class="source">— Immanuel Kant (słowa przypisywane, niepotwierdzone bezpośrednim źródłem)</div>
+  </div>
+  <p style="color:var(--muted);font-size:.88rem">Wersja alternatywna: ponoć po wizycie w domu publicznym Kant miał rzec <em>„Rzecz sama w sobie dość przyjemna, ale te ruchy niegodne filozofa"</em> — nawiązanie do kantowskiego pojęcia <em>Ding an sich</em>.</p>
+</section>
+
+<section>
+  <h2>Filozofia = myślenie z odwagą</h2>
+
+  <div class="person">
+    <h3>Wisława Szymborska (1923–2012)</h3>
+    <div class="role">Poetka, noblistka — „Mozart poezji", „Platon poezji"</div>
+  </div>
+  <div class="quote">
+    <p>Nie ma rozpusty gorszej niż myślenie.<br>
+    Pleni się ta swawola jak wiatropylny chwast<br>
+    na grządce wytyczonej pod stokrotki.<br>
+    Dla takich, którzy myślą, święte nie jest nic.<br>
+    Zuchwałe nazywanie rzeczy po imieniu,<br>
+    rozwiązłe analizy, szeteczne syntezy,<br>
+    pogoń za nagim faktem, dzika i hulaszcza,<br>
+    lubieżne drażliwych tematów, tarło poglądów, to im właśnie graj.</p>
+    <div class="source">— Wisława Szymborska, <em>Głos w sprawie pornografii</em></div>
+  </div>
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:1.2rem">Filozofia jako zaproszenie do <strong style="color:var(--text)">radykalnego, odważnego, niezależnego i wnikliwego myślenia</strong>.</p>
+
+  <div class="person">
+    <h3>Immanuel Kant (1724–1804)</h3>
+    <div class="role">Filozofia oświecenia — epistemologia, etyka, estetyka</div>
+  </div>
+  <div class="quote">
+    <p>Oświeceniem nazywamy wyjście człowieka z niepełnoletności, którą popadł z własnej winy. Niepełnoletność ta to niezdolność człowieka do posługiwania się swym własnym rozumem bez obcego kierownictwa. [...] <strong>Sapere aude.</strong> Miej odwagę posługiwać się własnym rozumem. Tak oto brzmi hasło oświecenia.</p>
+    <div class="source">— Kant, <em>Co to jest oświecenie?</em></div>
+  </div>
+</section>
+
+<section>
+  <h2>Etymologia filozofii</h2>
+  <div class="concept">
+    <div class="icon">📖</div>
+    <div>
+      <h4>Φιλοσοφία (philosophia)</h4>
+      <p><strong style="color:var(--blue)">φιλεῖν (philein)</strong> = miłować, umiłowanie<br>
+      <strong style="color:var(--gold)">σοφία (sophia)</strong> = mądrość / wiedza<br>
+      Dosłownie: <em>umiłowanie mądrości</em></p>
+    </div>
+  </div>
+  <div class="vs" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem">
+    <div class="card">
+      <h3>Sapientia</h3>
+      <p>Mądrość — rozumienie głębsze, egzystencjalne, praktyczne. Coś, co zdobywa się przez doświadczenie i refleksję.</p>
+    </div>
+    <div class="card">
+      <h3>Scientia</h3>
+      <p>Wiedza — informacja, fakty, wiedza teoretyczna. Można ją posiadać bez głębszego zrozumienia.</p>
+    </div>
+  </div>
+  <p style="color:var(--muted);font-size:.88rem;margin-top:.8rem">Prowadzący zastrzega: pojęcia bliskie, ale <em>nie należy ich utożsamiać</em>. To rozróżnienie będzie rozwinięte na kolejnym wykładzie.</p>
+
+  <div style="margin-top:1.2rem;padding:1rem;background:var(--card);border-radius:8px;border:1px solid var(--border)">
+    <div style="color:var(--muted);font-size:.85rem;margin-bottom:.5rem">Ikoniczne dzieło sztuki przywołane na końcu:</div>
+    <div style="color:var(--text);font-weight:600">Rafał Santi — <em>Szkoła Ateńska</em> (Stanza della Segnatura, Watykan, 1509–1511)</div>
+    <div style="color:var(--muted);font-size:.85rem;margin-top:.3rem">Platon i Arystoteles w centrum; Diogenes na schodach; Heraklit z przodu (podobno wzorowany na Michale Aniele).</div>
+  </div>
+</section>
+
+<section>
+  <h2>Kluczowe pojęcia i cytaty</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Sapere aude</h3>
+      <p>Łac. „Miej odwagę być mądrym" — hasło Kanta i oświecenia, przywołane za Horacym. Fundament postawy filozoficznej.</p>
+    </div>
+    <div class="card">
+      <h3>Repetitio mater studiorum</h3>
+      <p>Łac. „Powtarzanie matką nauki" — uzasadnienie egzaminu testowego jako formy utrwalania wiedzy.</p>
+    </div>
+    <div class="card">
+      <h3>Homo sum, humani nihil a me alienum puto</h3>
+      <p>Terencjusz: „Człowiekiem jestem i nic co ludzkie nie jest mi obce." Hasło humanizmu renesansowego.</p>
+    </div>
+    <div class="card">
+      <h3>Si duo faciunt idem, non est idem</h3>
+      <p>„Gdy dwaj robią to samo, to nie jest to samo." — o różnicy między śmiechem pobudzającym myśl a śmiechem raniącym.</p>
+    </div>
+  </div>
+</section>
+
+<div style="text-align:center;color:var(--muted);font-size:.82rem;margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border)">
+  Filozofia · Wykład 01 · Notatki na podstawie transkrypcji
+</div>
+</div>
+</body>
+</html>

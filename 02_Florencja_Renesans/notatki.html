@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W02 — Florencja: Laboratorium Renesansu</title>
+<style>
+:root{--bg:#0f0e11;--surface:#1a1820;--card:#201e28;--border:#2e2b3a;--text:#e8e4f0;--muted:#9b96b0;--gold:#c4973f;--purple:#7b5ea7;--blue:#4a9eca;--green:#5aab7a;--red:#c45a5a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#1a2010 0%,#0f1a10 100%);border:1px solid var(--border);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:2rem}
+.hero h1{font-size:2.4rem;color:var(--gold);margin-bottom:.5rem}
+.hero .subtitle{color:var(--muted);font-size:1.1rem}
+.hero .meta{display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.badge{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.4rem 1rem;font-size:.85rem;color:var(--muted)}
+.badge span{color:var(--text)}
+section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.8rem;margin-bottom:1.5rem}
+section h2{color:var(--gold);font-size:1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+section h2::before{content:'';display:block;width:4px;height:1.3rem;background:var(--gold);border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem}
+.card h3{color:var(--blue);font-size:1rem;margin-bottom:.6rem}
+.card p,.card li{color:var(--muted);font-size:.9rem}
+.card ul{padding-left:1.2rem}
+.card li{margin-bottom:.3rem}
+.timeline{border-left:3px solid var(--gold);padding-left:1.5rem;margin-top:1rem}
+.timeline-item{margin-bottom:1.2rem;position:relative}
+.timeline-item::before{content:'';position:absolute;left:-1.85rem;top:.4rem;width:10px;height:10px;background:var(--gold);border-radius:50%}
+.timeline-item .date{color:var(--gold);font-size:.85rem;font-weight:700}
+.timeline-item p{color:var(--muted);font-size:.9rem;margin-top:.2rem}
+.person{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;margin-bottom:1rem}
+.person h3{color:var(--green);margin-bottom:.4rem}
+.person .role{color:var(--gold);font-size:.8rem;font-weight:600;margin-bottom:.5rem}
+.person p{color:var(--muted);font-size:.9rem}
+.work{border-left:4px solid var(--blue);padding:.8rem 1rem;background:var(--card);border-radius:0 8px 8px 0;margin-bottom:.7rem}
+.work strong{color:var(--text)}
+.work span{color:var(--muted);font-size:.85rem;display:block;margin-top:.2rem}
+.quote{border-left:4px solid var(--gold);padding:1rem 1.2rem;background:var(--card);border-radius:0 8px 8px 0;margin:1rem 0;font-style:italic;color:var(--muted)}
+.concept{display:flex;gap:.8rem;align-items:flex-start;padding:1rem;background:var(--card);border-radius:8px;margin-bottom:.7rem}
+.concept .icon{font-size:1.4rem;flex-shrink:0}
+.concept h4{color:var(--text);margin-bottom:.3rem;font-size:.95rem}
+.concept p{color:var(--muted);font-size:.88rem}
+.callout{background:linear-gradient(135deg,#1f1630,#162030);border:1px solid var(--purple);border-radius:10px;padding:1.2rem;margin-top:1rem}
+.callout h4{color:var(--purple);margin-bottom:.5rem}
+.callout p{color:var(--muted);font-size:.9rem}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+.vs-box{background:var(--card);border-radius:10px;padding:1rem}
+.vs-box h4{text-align:center;margin-bottom:.6rem;font-size:.95rem}
+.vs-box.left h4{color:var(--blue)}
+.vs-box.right h4{color:var(--green)}
+.vs-box ul{list-style:none;padding:0}
+.vs-box li{color:var(--muted);font-size:.88rem;padding:.25rem 0;border-bottom:1px solid var(--border)}
+.vs-box li:last-child{border:none}
+.tag{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:.2rem .7rem;font-size:.78rem;color:var(--muted);margin:.2rem}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div style="color:var(--muted);font-size:.9rem;margin-bottom:.5rem">Wykład 02 · Historia Sztuki</div>
+  <h1>Florencja</h1>
+  <div class="subtitle">Laboratorium doświadczalne renesansu — Quattrocento</div>
+  <div class="meta">
+    <div class="badge">Temat: <span>Wczesny Renesans</span></div>
+    <div class="badge">Czas: <span>XV wiek (Quattrocento)</span></div>
+    <div class="badge">Region: <span>Florencja, Włochy</span></div>
+  </div>
+</div>
+
+<section>
+  <h2>Florencja — dlaczego właśnie tu?</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Warunki sukcesu</h3>
+      <ul>
+        <li>Pieniądze rodów kupieckich (Medyceusze)</li>
+        <li>Wola mecenatu i rywalizacja między rodami</li>
+        <li>Humanizm: rola jednostki w kulturze</li>
+        <li>Leonardo Bruni — <em>Pochwała Florencji</em></li>
+        <li>Konkurs jako nowe narzędzie selekcji (1401)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Szkoła florencka vs. sieneńska</h3>
+      <ul>
+        <li>Dwie rywalizujące republiki militarnie</li>
+        <li>Florencja podporządkowała Sienę</li>
+        <li>Florencja: monumentalizm, idealizacja</li>
+        <li>Szkoła florencka → szkoła rzymska → barok</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Przerwa — Czarna Śmierć (1348)</h3>
+      <ul>
+        <li>Epidemia dżumy zatrzymuje rozkwit sztuki</li>
+        <li>Minimum dwa pokolenia regeneracji</li>
+        <li>Schyłek XIV w. — odrodzenie rzemiosła</li>
+        <li>Rozpad feudalizmu → nowożytna gospodarka</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Konkurs 1401 — narodziny renesansu w historii sztuki</h2>
+  <div class="callout">
+    <h4>Data kluczowa: 1401</h4>
+    <p>W historii sztuki (nie historii powszechnej) to rok rozpoczęcia renesansu. Konkurs na drzwi do florenckiego Baptysterium — pierwsza taka forma selekcji artystycznej w Europie.</p>
+  </div>
+  <div class="vs">
+    <div class="vs-box left">
+      <h4>Lorenzo Ghiberti — ZWYCIĘZCA</h4>
+      <ul>
+        <li>Odlana z jednej matrycy — harmonijność</li>
+        <li>Akt Izaaka — idealizacja antyczna</li>
+        <li>Styl: gotyk międzynarodowy + antyk</li>
+        <li>Ćwierć wieku pracy nad 2. drzwiami</li>
+        <li>Trzecie drzwi — Rajskie Wrota (Porta del Paradiso)</li>
+      </ul>
+    </div>
+    <div class="vs-box right">
+      <h4>Filippo Brunelleschi — przegrany, ale...</h4>
+      <ul>
+        <li>Kompozycja wieloplanowa, plastyczna</li>
+        <li>Chłopiec — cytat ze Spinario</li>
+        <li>Odwrót → wyjazd do Rzymu z Donatello</li>
+        <li>W Rzymie odkrywa perspektywę linearną</li>
+        <li>Zostaje architektem (kopuła S. Maria del Fiore)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Rajskie Wrota — Porta del Paradiso</h2>
+  <p style="color:var(--muted);margin-bottom:1rem">Trzecie drzwi Baptysterium (2. połowa XV w.) — dzieło bez konkursu, wolna ręka Ghibertiemu.</p>
+  <div class="concept">
+    <div class="icon">🏛️</div>
+    <div>
+      <h4>Innowacje Rajskich Wrót</h4>
+      <p>Perspektywa liniowa (jedna z pierwszych realizacji), idealizacja ciał, kwatery kwadratowe zamiast czwórliści, sceny ze Starego Testamentu (Jakub i Ezaw), cytaty z architektury antycznej (łuki pełne), wizerunek Ghibertinego w bordiurze.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Donatello — rewolucja w rzeźbie</h2>
+  <div class="person">
+    <h3>Donatello (Donato di Niccolò di Betto Bardi, ok. 1386–1466)</h3>
+    <div class="role">Rzeźbiarz florencki — uczeń Ghibertiего, przyjaciel Brunelleschiego</div>
+    <p>Wyjazd do Rzymu z Brunelleschim — studium rzeźby antycznej. Przywraca tematy porzucone od starożytności: wolnostojący akt męski i pomnik konny.</p>
+  </div>
+  <div class="work">
+    <strong>Prorok Habakuk (Zuccone), ok. 1425–35</strong>
+    <span>Marmur. Muzeum Katedry, Florencja. Portretowe rysy, nowożytna interpretacja rzymskiego weryzmu. Wazari: „Przemów, albo niech cię zabierze zaraza!"</span>
+  </div>
+  <div class="work">
+    <strong>Święty Jerzy, ok. 1416</strong>
+    <span>Or San Michele, Florencja. Pewny siebie młodzieniec, pełna znajomość anatomii, lekki obrót głowy — dynamika.</span>
+  </div>
+  <div class="work">
+    <strong>Dawid (brązowy), ok. 1440–43</strong>
+    <span>Pierwszy nowożytny akt pełnoplastyczny. Kontrapost, idealizacja antyczna, liście laurowe na kapeluszu, dwuznaczność. Głowa Goliata u stóp.</span>
+  </div>
+  <div class="work">
+    <strong>Gattamelata, Padwa, 1447–53</strong>
+    <span>Pierwszy nowożytny pomnik konny — wzorowany na Marku Aureliuszu. Rysy twarzy cesarskie. Zlecenie rodziny Erasmo da Narni.</span>
+  </div>
+  <div class="callout">
+    <h4>Technika: relief stiacciato</h4>
+    <p>„Relief spłaszczony" — bardzo niski relief malarski, stosowanie perspektywy linearnej, roztapianie form w tle. Malarstwo środkami rzeźbiarskimi.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Brunelleschi — perspektywa i architektura</h2>
+  <div class="concept">
+    <div class="icon">📐</div>
+    <div>
+      <h4>Odkrycie perspektywy linearnej</h4>
+      <p>W Rzymie, rysując bryły budowli antycznych, Brunelleschi zauważył prawidłowości, które skodyfikował w system perspektywy zbieżnej. Punkt zbiegu na horyzoncie. Stało się to narzędziem malarzy renesansowych.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Masaccio i perspektywa w malarstwie</h2>
+  <div class="work">
+    <strong>Trójca Święta, ok. 1426–28</strong>
+    <span>Kościół Santa Maria Novella, Florencja. Pierwsze przekonujące zastosowanie perspektywy zbieżnej w malarstwie. Florentyńczycy sądzili, że Masaccio „przebił ścianę kościoła". Nagrobek rodziny Lenczi.</span>
+  </div>
+  <div class="quote">"Masaccio przebił ścianę kościoła Santa Maria Novella." — reakcja Florentyńczyków wg Vasariego</div>
+</section>
+
+<section>
+  <h2>Oś czasu — Quattrocento</h2>
+  <div class="timeline">
+    <div class="timeline-item"><div class="date">1348</div><p>Czarna Śmierć — przerwa w rozkwicie sztuki florenckiej</p></div>
+    <div class="timeline-item"><div class="date">1401</div><p>Konkurs na drzwi Baptysterium — narodziny renesansu w historii sztuki</p></div>
+    <div class="timeline-item"><div class="date">ok. 1416</div><p>Donatello — Święty Jerzy (Or San Michele)</p></div>
+    <div class="timeline-item"><div class="date">ok. 1426</div><p>Masaccio — Trójca Święta (perspektywa w malarstwie)</p></div>
+    <div class="timeline-item"><div class="date">ok. 1440</div><p>Donatello — Dawid brązowy (pierwszy nowożytny akt)</p></div>
+    <div class="timeline-item"><div class="date">2. poł. XV w.</div><p>Rajskie Wrota Ghibertiего — perspektywa i antykizacja</p></div>
+    <div class="timeline-item"><div class="date">1447–53</div><p>Donatello — Gattamelata (pierwszy nowożytny pomnik konny)</p></div>
+    <div class="timeline-item"><div class="date">ok. 1480</div><p>Botticelli — apogeum szkoły florenckiej</p></div>
+    <div class="timeline-item"><div class="date">1527</div><p>Sacco di Roma — koniec renesansu dojrzałego</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Kluczowe pojęcia</h2>
+  <div style="display:flex;flex-wrap:wrap;gap:.4rem">
+    <span class="tag">Quattrocento</span>
+    <span class="tag">Perspektywa liniarna / zbieżna</span>
+    <span class="tag">Akt pełnoplastyczny</span>
+    <span class="tag">Relief stiacciato</span>
+    <span class="tag">Kontrapost</span>
+    <span class="tag">Antykizacja</span>
+    <span class="tag">Pomnik konny</span>
+    <span class="tag">Mecenat Medyceuszy</span>
+    <span class="tag">Szkoła florencka</span>
+    <span class="tag">Weryzm</span>
+    <span class="tag">Renesans wczesny / dojrzały / późny</span>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

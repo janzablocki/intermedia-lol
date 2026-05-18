@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W07 — Marks i materializm historyczny</title>
+<style>
+:root{--bg:#0f0e11;--surface:#1a1820;--card:#201e28;--border:#2e2b3a;--text:#e8e4f0;--muted:#9b96b0;--gold:#c4973f;--purple:#7b5ea7;--blue:#4a9eca;--green:#5aab7a;--red:#c45a5a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#0a0a1a 0%,#0f0e11 100%);border:1px solid var(--border);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:2rem}
+.hero h1{font-size:2.2rem;color:var(--gold);margin-bottom:.5rem}
+.hero .subtitle{color:var(--muted);font-size:1.1rem}
+.hero .meta{display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.badge{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.4rem 1rem;font-size:.85rem;color:var(--muted)}
+.badge span{color:var(--text)}
+section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.8rem;margin-bottom:1.5rem}
+section h2{color:var(--gold);font-size:1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+section h2::before{content:'';display:block;width:4px;height:1.3rem;background:var(--gold);border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem}
+.card h3{color:var(--blue);font-size:1rem;margin-bottom:.6rem}
+.card p,.card li{color:var(--muted);font-size:.9rem}
+.card ul{padding-left:1.2rem}
+.card li{margin-bottom:.3rem}
+.person{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;margin-bottom:1rem}
+.person h3{color:var(--green);margin-bottom:.4rem}
+.person .role{color:var(--gold);font-size:.8rem;font-weight:600;margin-bottom:.5rem}
+.person p{color:var(--muted);font-size:.9rem}
+.work{border-left:4px solid var(--purple);padding:.8rem 1rem;background:var(--card);border-radius:0 8px 8px 0;margin-bottom:.7rem}
+.work strong{color:var(--text)}
+.work span{color:var(--muted);font-size:.85rem;display:block;margin-top:.2rem}
+.concept{display:flex;gap:.8rem;align-items:flex-start;padding:1rem;background:var(--card);border-radius:8px;margin-bottom:.7rem}
+.concept .icon{font-size:1.4rem;flex-shrink:0}
+.concept h4{color:var(--text);margin-bottom:.3rem;font-size:.95rem}
+.concept p{color:var(--muted);font-size:.88rem}
+.quote{background:linear-gradient(135deg,#1a1020,#100a1a);border:1px solid var(--purple);border-radius:10px;padding:1.4rem 1.6rem;margin-bottom:1rem;position:relative}
+.quote::before{content:'"';position:absolute;top:-.3rem;left:1rem;font-size:3rem;color:var(--purple);opacity:.4;font-family:Georgia,serif;line-height:1}
+.quote p{color:var(--text);font-style:italic;font-size:.95rem;padding-left:.5rem}
+.quote .source{color:var(--muted);font-size:.8rem;margin-top:.6rem;padding-left:.5rem}
+.callout{background:linear-gradient(135deg,#111a0a,#0f0a1f);border:1px solid var(--green);border-radius:10px;padding:1.2rem;margin-top:1rem}
+.callout h4{color:var(--green);margin-bottom:.5rem}
+.callout p{color:var(--muted);font-size:.9rem}
+.schema{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.6rem;margin:1rem 0}
+.schema-row{display:flex;align-items:center;justify-content:center;gap:1rem;margin:.6rem 0;flex-wrap:wrap}
+.schema-box{background:var(--surface);border:2px solid var(--gold);border-radius:8px;padding:.5rem 1.2rem;font-size:.9rem;font-weight:600;text-align:center}
+.tag{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:.2rem .7rem;font-size:.78rem;color:var(--muted);margin:.2rem}
+.alert{background:linear-gradient(135deg,#1a0808,#180505);border:1px solid var(--red);border-radius:10px;padding:1.2rem;margin-bottom:1rem}
+.alert h4{color:var(--red);margin-bottom:.4rem}
+.alert p{color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div style="color:var(--muted);font-size:.9rem;margin-bottom:.5rem">Wykład 07 · Filozofia</div>
+  <h1>Marks i materializm historyczny</h1>
+  <div class="subtitle">Religia jako opium ludu, baza materialna i nadbudowa ideologiczna</div>
+  <div class="meta">
+    <div class="badge">Teza: <span>Opium ludu</span></div>
+    <div class="badge">Model: <span>Baza / Nadbudowa</span></div>
+    <div class="badge">Nurt: <span>Mistrze podejrzeń</span></div>
+  </div>
+</div>
+
+<section>
+  <h2>Marks jako „mistrz podejrzeń"</h2>
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:1rem">Termin Paula Ricœura dla trojga myślicieli XIX w., którzy zakwestionowali naiwne, powierzchowne rozumienie świata — w tym religii:</p>
+  <div class="grid">
+    <div class="card" style="border-color:var(--red)">
+      <h3 style="color:var(--red)">Karol Marks</h3>
+      <p>Religia = iluzja wynikająca ze złych warunków materialnych; „opium ludu"</p>
+    </div>
+    <div class="card">
+      <h3>Friedrich Nietzsche</h3>
+      <p>Religia = resentyment, słabość; „Bóg jest martwy"</p>
+    </div>
+    <div class="card">
+      <h3>Sigmund Freud</h3>
+      <p>Religia = iluzja psychologiczna; projekcja ojcowska</p>
+    </div>
+  </div>
+  <p style="color:var(--muted);font-size:.88rem;margin-top:.8rem">Ten wykład koncentruje się na Marksie; Nietzsche i Freud — w kolejnych.</p>
+</section>
+
+<section>
+  <h2>Uwaga: „opium ludu" — precyzja cytatu</h2>
+  <div class="alert">
+    <h4>Popularne błędne cytowanie</h4>
+    <p>Często mówi się „opium <em>dla</em> ludu" — jakby religia była narzędziem klas rządzących narzuconym masom. Marks pisze jednak <strong style="color:var(--text)">„opium <em>ludu</em>"</strong> — co oznacza, że lud sam jej potrzebuje i sam ją wytwarza jako odpowiedź na opłakane warunki życia.</p>
+  </div>
+  <div class="quote">
+    <p>Religia jest westchnieniem uciśnionego stworzenia, sercem bezdusznego świata oraz duszą bezdusznych stosunków. Jest ona opium ludu.</p>
+    <div class="source">Karol Marks, <em>Przyczynek do krytyki heglowskiej filozofii prawa</em> (1844), Wstęp</div>
+  </div>
+  <div class="concept">
+    <div class="icon">💊</div>
+    <div>
+      <h4>Co Marks rozumie przez „opium"</h4>
+      <p>W XIX w. opium było powszechnie stosowanym środkiem przeciwbólowym — nie tylko narkotykiem w pejoratywnym sensie. Religia uśmierza ból złych warunków społecznych, daje urojone pocieszenie. Jest <em>wyrazem</em> biedy, nie jej przyczyną.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Model: baza i nadbudowa</h2>
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:1rem">Fundamentalny schemat materialistycznej filozofii Marksa:</p>
+
+  <div class="schema">
+    <div class="schema-row">
+      <div class="schema-box" style="border-color:var(--purple);color:var(--purple);min-width:360px">
+        NADBUDOWA IDEOLOGICZNA<br>
+        <small style="font-weight:400;font-size:.8rem">Religia · Prawo · Państwo · Sztuka · Moralność · Rodzina</small>
+      </div>
+    </div>
+    <div class="schema-row"><span style="color:var(--muted);font-size:1.4rem">↕</span></div>
+    <div class="schema-row">
+      <div style="text-align:center;color:var(--muted);font-size:.85rem;padding:.4rem 1rem;border:1px dashed var(--border);border-radius:8px">odzwierciedla / warunkuje</div>
+    </div>
+    <div class="schema-row"><span style="color:var(--muted);font-size:1.4rem">↕</span></div>
+    <div class="schema-row">
+      <div class="schema-box" style="border-color:var(--gold);color:var(--gold);min-width:360px">
+        BAZA MATERIALNA<br>
+        <small style="font-weight:400;font-size:.8rem">Siły wytwórcze + Stosunki produkcji</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="concept">
+    <div class="icon">🏭</div>
+    <div>
+      <h4>Baza materialna</h4>
+      <p>Sposób produkcji, wymiany i podziału dóbr materialnych. To co determinuje całość życia społecznego. Obejmuje: siły wytwórcze (technika, praca, surowce) i stosunki produkcji (relacje własności między klasami).</p>
+    </div>
+  </div>
+
+  <div class="concept">
+    <div class="icon">🏛️</div>
+    <div>
+      <h4>Nadbudowa ideologiczna</h4>
+      <p>Wszystkie formy świadomości i instytucje społeczne: religia, prawo, państwo, sztuka, moralność, rodzina, a nawet — w skrajnych interpretacjach — osobiste relacje (miłość, przyjaźń). Są odzwierciedleniem bazy.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <h4>Wniosek praktyczny</h4>
+    <p>Jeśli chcemy zlikwidować religię jako alienację — musimy zmienić warunki materialne (zniszczyć wyzysk, podział klasowy). Religia sama zamrze, gdy ustąpi bieda, bo była tylko jej symptomem — nie przyczyną.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Marks o człowieku i pracy</h2>
+  <div class="concept">
+    <div class="icon">👷</div>
+    <div>
+      <h4>Człowiek jako istota pracy</h4>
+      <p>Marks patrzy na człowieka przede wszystkim jako na istotę, która musi zaspokajać potrzeby materialne (pożywienie, schronienie) — nie w pojedynkę, lecz społecznie, w procesie pracy. To co wyróżnia człowieka to nie rozum ani dusza, ale właśnie praca zespołowa.</p>
+    </div>
+  </div>
+  <div class="concept">
+    <div class="icon">🔗</div>
+    <div>
+      <h4>Alienacja pracy</h4>
+      <p>W systemie kapitalistycznym robotnik wytwarza produkt, który staje się dla niego obcy — nie należy do niego, jest siłą go dominującą. Religia jest kolejną formą alienacji: człowiek projektuje swoje najlepsze cechy na wyobrażony byt (Boga) i staje się mu podległy.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Pytania krytyczne do Marksa</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Czy religia zawsze umrze?</h3>
+      <p>Eksperyment historyczny (kraje komunistyczne) pokazuje, że nawet przy zmianie stosunków produkcji religia nie zanikła — często umacniała się jako wyraz oporu.</p>
+    </div>
+    <div class="card">
+      <h3>Determinizm?</h3>
+      <p>Czy nadbudowa naprawdę jest tylko odzwierciedleniem bazy? Późniejsi marksiści (Gramsci, szkoła frankfurcka) twierdzą, że nadbudowa ma własną dynamikę i zwrotnie wpływa na bazę.</p>
+    </div>
+    <div class="card">
+      <h3>Wartość sacrum</h3>
+      <p>Marks pomija wymiar doświadczenia religijnego (sacrum, transcendencja) — traktuje religię czysto funkcjonalnie, pomijając jej treść. Czy to nie uproszczenie?</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Myśliciele</h2>
+
+  <div class="person">
+    <h3>Karol Marks (1818–1883)</h3>
+    <div class="role">Filozof, ekonomista, teoretyk socjalizmu naukowego</div>
+    <div class="work"><strong><em>Przyczynek do krytyki heglowskiej filozofii prawa</em> (1844)</strong><span>Wstęp zawiera słynny cytat o „opium ludu". Wczesne pismo — Marks był wtedy jeszcze pod wpływem Hegla i filozofii idealistycznej.</span></div>
+    <div class="work"><strong><em>Kapitał</em> (1867, t. I)</strong><span>Główne dzieło ekonomiczne. Analiza kapitalizmu, wyzysku, wartości dodatkowej.</span></div>
+    <p style="margin-top:.5rem;font-size:.85rem">Prowadzący zaznacza: Marks to bardziej socjolog niż filozof w klasycznym sensie — ale z wielkimi ambicjami filozoficznymi.</p>
+  </div>
+
+  <div class="person">
+    <h3>Paul Ricœur (1913–2005)</h3>
+    <div class="role">Francuski filozof hermeneutyczny</div>
+    <p>Twórca terminu „mistrzowie podejrzeń" dla Marksa, Nietzschego i Freuda — użytego w <em>O interpretacji. Esej o Freudzie</em> (1965). Ricœur nie odrzuca podejrzenia, lecz traktuje je jako narzędzie głębszego rozumienia.</p>
+  </div>
+</section>
+
+<div style="text-align:center;margin-top:2rem;padding:1rem">
+  <a href="../index.html" style="color:var(--muted);text-decoration:none;font-size:.9rem">← Powrót do listy wykładów</a>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W08 — Caravaggio</title>
+<style>
+:root{--bg:#0f0e11;--surface:#1a1820;--card:#201e28;--border:#2e2b3a;--text:#e8e4f0;--muted:#9b96b0;--gold:#c4973f;--purple:#7b5ea7;--blue:#4a9eca;--green:#5aab7a;--red:#c45a5a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#1a0a0a 0%,#0a0a1a 100%);border:1px solid var(--border);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:2rem}
+.hero h1{font-size:2.4rem;color:var(--gold);margin-bottom:.5rem}
+.hero .subtitle{color:var(--muted);font-size:1.1rem}
+.hero .meta{display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.badge{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.4rem 1rem;font-size:.85rem;color:var(--muted)}
+.badge span{color:var(--text)}
+section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.8rem;margin-bottom:1.5rem}
+section h2{color:var(--gold);font-size:1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+section h2::before{content:'';display:block;width:4px;height:1.3rem;background:var(--gold);border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem}
+.card h3{color:var(--blue);font-size:1rem;margin-bottom:.6rem}
+.card p,.card li{color:var(--muted);font-size:.9rem}
+.card ul{padding-left:1.2rem}
+.card li{margin-bottom:.3rem}
+.person{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;margin-bottom:1rem}
+.person h3{color:var(--green);margin-bottom:.4rem}
+.person .role{color:var(--gold);font-size:.8rem;font-weight:600;margin-bottom:.5rem}
+.person p{color:var(--muted);font-size:.9rem}
+.work{border-left:4px solid var(--blue);padding:.8rem 1rem;background:var(--card);border-radius:0 8px 8px 0;margin-bottom:.7rem}
+.work strong{color:var(--text)}
+.work span{color:var(--muted);font-size:.85rem;display:block;margin-top:.2rem}
+.concept{display:flex;gap:.8rem;align-items:flex-start;padding:1rem;background:var(--card);border-radius:8px;margin-bottom:.7rem}
+.concept .icon{font-size:1.4rem;flex-shrink:0}
+.concept h4{color:var(--text);margin-bottom:.3rem;font-size:.95rem}
+.concept p{color:var(--muted);font-size:.88rem}
+.callout{background:linear-gradient(135deg,#1f0a0a,#0f0a1f);border:1px solid var(--red);border-radius:10px;padding:1.2rem;margin-top:1rem}
+.callout h4{color:var(--red);margin-bottom:.5rem}
+.callout p{color:var(--muted);font-size:.9rem}
+.timeline{border-left:3px solid var(--gold);padding-left:1.5rem;margin-top:1rem}
+.timeline-item{margin-bottom:1.2rem;position:relative}
+.timeline-item::before{content:'';position:absolute;left:-1.85rem;top:.4rem;width:10px;height:10px;background:var(--gold);border-radius:50%}
+.timeline-item .date{color:var(--gold);font-size:.85rem;font-weight:700}
+.timeline-item p{color:var(--muted);font-size:.9rem;margin-top:.2rem}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+.vs-box{background:var(--card);border-radius:10px;padding:1rem}
+.vs-box h4{text-align:center;margin-bottom:.6rem;font-size:.95rem}
+.vs-box.left h4{color:var(--gold)}
+.vs-box.right h4{color:var(--red)}
+.vs-box ul{list-style:none;padding:0}
+.vs-box li{color:var(--muted);font-size:.88rem;padding:.25rem 0;border-bottom:1px solid var(--border)}
+.vs-box li:last-child{border:none}
+.tag{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:.2rem .7rem;font-size:.78rem;color:var(--muted);margin:.2rem}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div style="color:var(--muted);font-size:.9rem;margin-bottom:.5rem">Wykład 08 · Historia Sztuki</div>
+  <h1>Caravaggio</h1>
+  <div class="subtitle">Tenebrizm i realizm — rewolucja malarstwa barokowego</div>
+  <div class="meta">
+    <div class="badge">Temat: <span>Caravaggio / nurt realistyczny</span></div>
+    <div class="badge">Czas: <span>ok. 1571–1610</span></div>
+    <div class="badge">Region: <span>Lombardia → Rzym</span></div>
+  </div>
+</div>
+
+<section>
+  <h2>Biografia — życie w cieniu i świetle</h2>
+  <div class="person">
+    <h3>Michelangelo Merisi da Caravaggio (1571–1610)</h3>
+    <div class="role">Malarz — twórca tenebrizmu, rewolucjonista malarstwa europejskiego</div>
+    <p>Urodzony w Mediolanie lub Caravaggio (miasteczko koło Bergamo). Ojciec — architekt i budowniczy na dworze Sforzów. W wieku 11 lat osierocony przez ojca (dżuma 1576). Cztery lata nauki u Simone Peterzano (ucznia Tycjana) w Mediolanie — stąd zakorzenienie w tradycji weneckiej i lombardzkiej. Temperament gwałtowny: bójki, procesy sądowe. Zginął w 1610 r. na malarie, wracając z wygnania.</p>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="date">1571</div>
+      <p>Urodziny w Mediolanie lub Caravaggio. Ojciec — nadzorca budowlany Sforzów. Matka z rodziny budowniczych.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">1576</div>
+      <p>Dżuma. Ojciec umiera. Rodzina przenosi się do Caravaggio.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">1584–88</div>
+      <p>Cztery lata nauki u Simone Peterzano w Mediolanie — tycjanizm, tradycja kolorystyczna.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">ok. 1592</div>
+      <p>Przyjazd do Rzymu, mając ~17 lat. Trastevere — biedota, bójki, dorywcze prace. Pracuje u Cavaliere d'Arpino (Giuseppe Cesari).</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">ok. 1595</div>
+      <p>Protektor: kardynał Francesco Maria Del Monte. Zamieszka u niego — dostęp do elit. Wczesne obrazy kameralne: chłopcy z instrumentami, Bachus, Chłopiec ukąszony przez jaszczurkę.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">1599–1602</div>
+      <p>Kaplica Contarellego, San Luigi dei Francesi — pierwszy wielki cykl publiczny (trzy obrazy o św. Mateuszu). Przełom. Sława.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">1606</div>
+      <p>Zabójstwo Ranuccio Tommassoniego podczas kłótni o grę w piłkę. Wyrok śmierci. Ucieczka z Rzymu — Malta, Sycylia, Neapol.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">1610</div>
+      <p>Śmierć z powodu malarii w Porto Ercole, wracając do Rzymu po ułaskawieniu. Miał 38–39 lat.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Korzenie lombardo-weneckie</h2>
+  <div class="concept">
+    <div class="icon">🌊</div>
+    <div>
+      <h4>Tradycja wenecka przez Peterzana</h4>
+      <p>Simone Peterzano — uczeń Tycjana. Caravaggio przejmuje wenecki koloryzm i malarskość, ale idzie dalej: rezygnuje z pięknych krajobrazów w tle, zastępuje je ciemnością. Tradycja lombarda: realizm portretowy, uwaga na materię, codzienność — to odróżnia go od idealizmu szkoły florenckiej i rzymskiej.</p>
+    </div>
+  </div>
+  <div class="concept">
+    <div class="icon">🕯️</div>
+    <div>
+      <h4>Wpływ Leonarda da Vinci</h4>
+      <p>Zarówno Leonardo, jak i Caravaggio działali w Mediolanie (w różnych pokoleniach). Leonardowski sfumato i gra światłocienia to punkt wyjścia. Caravaggio radykalizuje: nie miękkie przejście, lecz gwałtowne cięcie między światłem a ciemnością — tenebrizm.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Wczesny Rzym — obrazy kameralne</h2>
+  <div class="work">
+    <strong>Chłopcy z instrumentami (ok. 1594–95)</strong>
+    <span>Kilka wersji. Połchłopięca androgynizacja. Nastrój zmysłowy, zapowiedź późniejszej tematyki.</span>
+  </div>
+  <div class="work">
+    <strong>Młody Bachus (ok. 1595)</strong>
+    <span>Chłopiec jako Bachus — brudne paznokcie, więdnące owoce. Pierwsza w historii malarstwa martwa natura o znaczeniu alegorycznym: Vanitas — przemijanie.</span>
+  </div>
+  <div class="work">
+    <strong>Chłopiec ukąszony przez jaszczurkę (ok. 1594–96)</strong>
+    <span>Ekspresja bólu i zaskoczenia. Psychologiczny realizm twarzy. Owoce i kwiaty — znowu martwa natura.</span>
+  </div>
+  <div class="work">
+    <strong>Szulerzy (Gracze w karty), ok. 1594</strong>
+    <span>Scena rodzajowa: naiwny chłopiec vs. doświadczeni szulerzy. Malarstwo moralitetowe, ale bez dydaktycznego tonu.</span>
+  </div>
+  <div class="work">
+    <strong>Kosz owoców (ok. 1597–1600)</strong>
+    <span>Galeria Ambrosiana, Mediolan. Pierwsza autonomiczna martwa natura w historii malarstwa europejskiego. Więdnące liście, robaki, uszkodzenia — Vanitas ukryte w owocach.</span>
+  </div>
+  <div class="work">
+    <strong>Nawrócenie Marii Magdaleny / Marta i Maria (ok. 1598)</strong>
+    <span>Detroit. Rozmowa sióstr — duchowa vs. zmysłowa. Modelka: Fillide Melandroni (kurtyzana, portretowana wielokrotnie).</span>
+  </div>
+</section>
+
+<section>
+  <h2>Tenebrizm — technika i estetyka</h2>
+  <div class="concept">
+    <div class="icon">🌑</div>
+    <div>
+      <h4>Tenebrizm (ciemniactwo)</h4>
+      <p>Ekstremalny chiaroscuro: postacie wyłaniają się z absolutnej ciemności (tło neutralne, czarne lub brązowe). Źródło światła poza kadrem, najczęściej z góry lub boku. Dramatyczny kontrast: twarz rozświetlona, reszta w mroku. Caravaggio nie maluje światłocienia — maluje samo światło.</p>
+    </div>
+  </div>
+  <div class="concept">
+    <div class="icon">📐</div>
+    <div>
+      <h4>Praca bez rysunku przygotowawczego</h4>
+      <p>Caravaggio maluje bezpośrednio na płótno, bez szkiców. Rysunek roboczymi liniami (incisioni) na gruncie — widoczne pod rentgenem. Modele to znajomi, kurtyzany, żebracy z ulicy. Brak idealizacji — twarz modela = twarz świętego.</p>
+    </div>
+  </div>
+  <div class="vs">
+    <div class="vs-box left">
+      <h4>Nurt idealistyczny (Carracci, Baciccio)</h4>
+      <ul>
+        <li>Idealizacja postaci i przestrzeni</li>
+        <li>Piękne niebo, anioły, światłość</li>
+        <li>Ekstatyczne przeżycie duchowe</li>
+        <li>Plafony, freski, architektura</li>
+        <li>Przekonywanie przez piękno</li>
+      </ul>
+    </div>
+    <div class="vs-box right">
+      <h4>Nurt realistyczny (Caravaggio)</h4>
+      <ul>
+        <li>Realizm: brudne stopy, stare kobiety</li>
+        <li>Ciemność jako tło, dramatyczne cięcia</li>
+        <li>Codzienność w scenach religijnych</li>
+        <li>Sztalugowe obrazy, ciemne wnętrza</li>
+        <li>Przekonywanie przez prawdę</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Kaplica Contarellego — przełom</h2>
+  <div class="concept">
+    <div class="icon">⛪</div>
+    <div>
+      <h4>San Luigi dei Francesi, Rzym (1599–1602)</h4>
+      <p>Trzy obrazy z życia św. Mateusza — pierwsze wielkie publiczne zlecenie. Zamówił je kardynał Matthieu Cointrel (Contarelli). Pierwsza wersja Mateusza z aniołem odrzucona — zbyt pospolity. Caravaggio namalował nową wersję.</p>
+    </div>
+  </div>
+  <div class="work">
+    <strong>Powołanie św. Mateusza</strong>
+    <span>Szulerze przy stole, promień światła z okna (rąbek płaszcza Chrystusa). Mateusz-celnik wskazuje na siebie pytająco. Chrystus — gest Adama z Sykstyny, odwrócony. „Kto? Ja?"</span>
+  </div>
+  <div class="work">
+    <strong>Męczeństwo św. Mateusza</strong>
+    <span>Zamach podczas mszy. Centrum: skrzyżowane ramiona oprawcy i Mateusza. W tle: autoportret Caravaggia — obserwator, świadek.</span>
+  </div>
+  <div class="work">
+    <strong>Św. Mateusz z aniołem (wersja II)</strong>
+    <span>Ewangelista z księgą — chłopski wygląd, bose nogi z brudem. Anioł dyktuje. Gest anioła: delikatny, prawie czuły.</span>
+  </div>
+</section>
+
+<section>
+  <h2>Dojrzałe dzieła — skandale i arcydzieła</h2>
+  <div class="work">
+    <strong>Amor Vincit Omnia (ok. 1601–02)</strong>
+    <span>Borghese/Berlin. Eros z czarnymi skrzydłami depcze instrumenty, zbroje, księgi, berła — symbol: miłość pokonuje wszystko. Konkurs z Guido Reni (Amor Vincit Omnia Reni: kanoniczne piękno vs. Caravaggio: realistyczny chłopiec ulicy).</span>
+  </div>
+  <div class="work">
+    <strong>Wieczerza w Emaus (ok. 1601)</strong>
+    <span>National Gallery, Londyn. Chrystus rozpoznany w łamaniu chleba. Apostołowie wypadają z krzeseł — dramatyczne skróty rąk ku widzowi. Złudzenie przestrzenne.</span>
+  </div>
+  <div class="work">
+    <strong>Śmierć Marii (ok. 1601–06)</strong>
+    <span>Luwr. Odrzucony przez zamawiającego kościół: Maria — jak zwłoki prostytutki (spuchnięte nogi, wzdęty brzuch). Modelem miała być kurtyzana Lena. Kupiony przez Rubensa dla księcia Mantui.</span>
+  </div>
+  <div class="work">
+    <strong>Dawid z głową Goliata (ok. 1609–10)</strong>
+    <span>Galeria Borghese. Dawid trzyma głowę olbrzyma — to autoportret Caravaggia w roli Goliata. Namalowane tuż przed śmiercią. Obraz wysłany kardynałowi Borghese jako suplikacja o ułaskawienie.</span>
+  </div>
+  <div class="work">
+    <strong>Ecce Homo (ok. 1605)</strong>
+    <span>Genua. Pilat i Chrystus z koroną cierniową. Anonimowy mężczyzna w tle. Kompozycja z unikatową ciemnością tła.</span>
+  </div>
+</section>
+
+<section>
+  <h2>Złamanie decorum i odrzucone obrazy</h2>
+  <div class="callout">
+    <h4>Decorum — zasada stosowności</h4>
+    <p>Tradycja wymagała stosowności w przedstawieniu: święci mieli wyglądać godnie, Maria — czysto i pięknie, Chrystus — majestatycznie. Caravaggio łamał decorum świadomie i konsekwentnie: brudne stopy apostołów, María z twarzą prostytutki, święty Piotr jako stary, zmęczony wieśniak. Zamawniający wielokrotnie odrzucali obrazy. Ale skandal przyciągał uwagę — i kupców.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Wygnanie i ostatnie lata</h2>
+  <div class="concept">
+    <div class="icon">⚔️</div>
+    <div>
+      <h4>Zabójstwo 1606 i ucieczka</h4>
+      <p>29 maja 1606: kłótnia o grę w piłkę (pallacorda) z Ranucciem Tommassonim. Caravaggio zabija go. Sąd papieski wydaje wyrok śmierci — każdy może go zabić bezkarnie. Ucieczka do Neapolu, potem na Maltę (kawaler zakonny), Sycylię, znów Neapol. 1610: wraca do Włoch na wieść o ułaskawieniu — umiera na malarie w Porto Ercole.</p>
+    </div>
+  </div>
+  <div class="work">
+    <strong>Ścięcie Jana Chrzciciela (1608)</strong>
+    <span>Oratorium San Giovanni, Valetta, Malta. Jedyny obraz podpisany przez Caravaggia (podpis we krwi). Skalę dramatyzmu osiąga przez poziomą kompozycję i gigantyczny format.</span>
+  </div>
+</section>
+
+<section>
+  <h2>Kluczowe pojęcia</h2>
+  <div style="display:flex;flex-wrap:wrap;gap:.4rem">
+    <span class="tag">Tenebrizm</span>
+    <span class="tag">Chiaroscuro</span>
+    <span class="tag">Decorum (złamane)</span>
+    <span class="tag">Nurt realistyczny</span>
+    <span class="tag">Martwa natura (Kosz owoców)</span>
+    <span class="tag">Kaplica Contarellego</span>
+    <span class="tag">Powołanie św. Mateusza</span>
+    <span class="tag">Amor Vincit Omnia</span>
+    <span class="tag">Dawid z głową Goliata</span>
+    <span class="tag">Vanitas</span>
+    <span class="tag">Peterzano / Mediolan</span>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

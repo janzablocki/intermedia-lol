@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W05 — Argument kosmologiczny i metafizyka Arystotelesa</title>
+<style>
+:root{--bg:#0f0e11;--surface:#1a1820;--card:#201e28;--border:#2e2b3a;--text:#e8e4f0;--muted:#9b96b0;--gold:#c4973f;--purple:#7b5ea7;--blue:#4a9eca;--green:#5aab7a;--red:#c45a5a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#0a0a1a 0%,#0f0e11 100%);border:1px solid var(--border);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:2rem}
+.hero h1{font-size:2.2rem;color:var(--gold);margin-bottom:.5rem}
+.hero .subtitle{color:var(--muted);font-size:1.1rem}
+.hero .meta{display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.badge{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.4rem 1rem;font-size:.85rem;color:var(--muted)}
+.badge span{color:var(--text)}
+section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.8rem;margin-bottom:1.5rem}
+section h2{color:var(--gold);font-size:1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+section h2::before{content:'';display:block;width:4px;height:1.3rem;background:var(--gold);border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem}
+.card h3{color:var(--blue);font-size:1rem;margin-bottom:.6rem}
+.card p,.card li{color:var(--muted);font-size:.9rem}
+.card ul{padding-left:1.2rem}
+.card li{margin-bottom:.3rem}
+.person{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;margin-bottom:1rem}
+.person h3{color:var(--green);margin-bottom:.4rem}
+.person .role{color:var(--gold);font-size:.8rem;font-weight:600;margin-bottom:.5rem}
+.person p{color:var(--muted);font-size:.9rem}
+.work{border-left:4px solid var(--purple);padding:.8rem 1rem;background:var(--card);border-radius:0 8px 8px 0;margin-bottom:.7rem}
+.work strong{color:var(--text)}
+.work span{color:var(--muted);font-size:.85rem;display:block;margin-top:.2rem}
+.concept{display:flex;gap:.8rem;align-items:flex-start;padding:1rem;background:var(--card);border-radius:8px;margin-bottom:.7rem}
+.concept .icon{font-size:1.4rem;flex-shrink:0}
+.concept h4{color:var(--text);margin-bottom:.3rem;font-size:.95rem}
+.concept p{color:var(--muted);font-size:.88rem}
+.quote{background:linear-gradient(135deg,#1a1020,#100a1a);border:1px solid var(--purple);border-radius:10px;padding:1.4rem 1.6rem;margin-bottom:1rem;position:relative}
+.quote::before{content:'"';position:absolute;top:-.3rem;left:1rem;font-size:3rem;color:var(--purple);opacity:.4;font-family:Georgia,serif;line-height:1}
+.quote p{color:var(--text);font-style:italic;font-size:.95rem;padding-left:.5rem}
+.quote .source{color:var(--muted);font-size:.8rem;margin-top:.6rem;padding-left:.5rem}
+.callout{background:linear-gradient(135deg,#111a0a,#0f0a1f);border:1px solid var(--green);border-radius:10px;padding:1.2rem;margin-top:1rem}
+.callout h4{color:var(--green);margin-bottom:.5rem}
+.callout p{color:var(--muted);font-size:.9rem}
+.schema{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.6rem;margin:1rem 0}
+.schema-row{display:flex;align-items:center;justify-content:center;gap:1rem;margin:.6rem 0;flex-wrap:wrap}
+.schema-box{background:var(--surface);border:2px solid var(--gold);border-radius:8px;padding:.5rem 1.2rem;font-size:.9rem;font-weight:600;text-align:center}
+.tag{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:.2rem .7rem;font-size:.78rem;color:var(--muted);margin:.2rem}
+.step{display:flex;gap:1rem;align-items:flex-start;padding:1rem;background:var(--card);border-radius:8px;margin-bottom:.6rem;border-left:3px solid var(--gold)}
+.step-num{background:var(--gold);color:#000;width:1.8rem;height:1.8rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex-shrink:0}
+.step-content h4{color:var(--text);font-size:.95rem;margin-bottom:.2rem}
+.step-content p{color:var(--muted);font-size:.88rem}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div style="color:var(--muted);font-size:.9rem;margin-bottom:.5rem">Wykład 05 · Filozofia</div>
+  <h1>Argument kosmologiczny i metafizyka Arystotelesa</h1>
+  <div class="subtitle">Akt i potencja, dowód z ruchu, William Paley i zegarek</div>
+  <div class="meta">
+    <div class="badge">Pojęcia: <span>akt / potencja</span></div>
+    <div class="badge">Argument: <span>Kosmologiczny (Tomasz)</span></div>
+    <div class="badge">Analogia: <span>Zegarek Paleya</span></div>
+  </div>
+</div>
+
+<section>
+  <h2>„Amicus Plato, sed magis amica veritas"</h2>
+  <div class="quote">
+    <p>Amicus Plato, sed magis amica veritas.</p>
+    <div class="source">Słowa przypisywane Arystotelesowi — po łacinie: „Przyjacielem jest Platon, lecz większą przyjaciółką jest prawda"</div>
+  </div>
+  <p style="color:var(--muted);font-size:.9rem">Arystoteles — wielki uczeń Platona, ale i jego krytyk. Przez to nie został szefem Akademii Platońskiej. Hasło ludzi, którzy nie zrywają z mistrzem, lecz wierność prawdzie przedkładają nad wierność autorytetowi.</p>
+
+  <div style="margin-top:1rem">
+    <p style="color:var(--gold);font-size:.9rem;font-weight:600;margin-bottom:.6rem">Platon vs Arystoteles — kluczowa różnica</p>
+    <div class="grid">
+      <div class="card">
+        <h3>Platon</h3>
+        <ul>
+          <li>Prawdziwy byt = idee: wieczne, niezmienne, doskonałe</li>
+          <li>Świat materialny = niedoskonały, przemijalny, pozorny</li>
+          <li>Zmiana i ruch to cień, nie właściwa rzeczywistość</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Arystoteles</h3>
+        <ul>
+          <li>Świat materialny jest równie realny</li>
+          <li>Zmiana i ruch są jak najbardziej rzeczywiste</li>
+          <li>Pojęcia aktu i potencji wyjaśniają zmienność</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Akt i Potencja — metafizyka Arystotelesa</h2>
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:1rem">Dwa fundamentalne momenty każdego naturalnego bytu:</p>
+
+  <div class="grid">
+    <div class="card" style="border-color:var(--gold)">
+      <h3 style="color:var(--gold)">Akt (gr. energeia)</h3>
+      <p>To, czym byt faktycznie <em>jest</em> w tej chwili. Moment aktualności. Etymologia: gr. <em>energeja</em> → energia (czyn, działanie, praca). Byt jest „w akcie" gdy posiada daną cechę faktycznie.</p>
+    </div>
+    <div class="card" style="border-color:var(--blue)">
+      <h3 style="color:var(--blue)">Potencja (gr. dynamis)</h3>
+      <p>To, czym byt <em>może się stać</em>. Moment możności. Byt jest „w potencji" gdy może posiadać daną cechę, ale jej jeszcze nie posiada.</p>
+    </div>
+  </div>
+
+  <div style="margin-top:1.2rem">
+    <p style="color:var(--gold);font-size:.9rem;font-weight:600;margin-bottom:.6rem">Przykłady z wykładu</p>
+    <div class="concept">
+      <div class="icon">🍾</div>
+      <div>
+        <h4>Butelka</h4>
+        <p>Aktualnie pełna (akt) — może stać się pusta (potencja). Pojmujemy ją jako butelkę tylko rozumiejąc oba aspekty jednocześnie.</p>
+      </div>
+    </div>
+    <div class="concept">
+      <div class="icon">🪨</div>
+      <div>
+        <h4>Blok marmuru → rzeźba</h4>
+        <p>Aktualnie: zwykły blok marmuru. Potencjalnie: posąg, który może urzeczywistnić rzeźbiarz. Przykład Arystotelesa — ilustrowany <em>Budzącym się niewolnikiem</em> Michała Anioła.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:1rem">
+    <h4>Kluczowe: akt ma pierwszeństwo przed potencją</h4>
+    <p>Możność można poznać tylko przez odniesienie do aktu, którego jest możnością. Akt jest warunkiem, regułą i celem potencjalności. Bóg (u Arystotelesa: Pierwszy Poruszyciel) to czysty akt — bez potencji.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Ruch = przejście od potencji do aktu</h2>
+  <div class="concept">
+    <div class="icon">🎯</div>
+    <div>
+      <h4>Definicja ruchu przez akt i potencję</h4>
+      <p>Ruch to przejście od potencji do aktu. Wymaga przyczyny, która tego przejścia dokonuje — ta przyczyna to <strong style="color:var(--text)">przyczyna sprawcza</strong>. Przyczyna aktualizuje potencję, o ile sama jest w akcie.</p>
+    </div>
+  </div>
+  <p style="color:var(--muted);font-size:.88rem;margin-top:.8rem">Ilustracja: Marcel Duchamp, <em>Akt schodzący po schodach</em> (1912) — futurystyczne studium ruchu, użyte na wykładzie jako gra z polską wieloznacznością słowa „akt".</p>
+</section>
+
+<section>
+  <h2>Argument kosmologiczny Tomasza z Akwinu</h2>
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:1rem">Tomasz łączy drogi 1–3 w jeden argument kosmologiczny oparty na metafizyce Arystotelesa:</p>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <h4>Droga z ruchu</h4>
+      <p>Wszystko co się porusza, jest poruszane przez coś innego. Ciąg przyczyn nie może być nieskończony → musi istnieć Pierwszy Poruszyciel (sam nieruszany przez nic).</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <h4>Droga z przyczynowości sprawczej</h4>
+      <p>Każdy skutek ma przyczynę. Nieskończony regres przyczyn jest niemożliwy → musi istnieć Pierwsza Przyczyna Sprawcza.</p>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <h4>Droga z konieczności bytu</h4>
+      <p>Wszystkie byty mogą nie istnieć (są przygodne). Gdyby kiedyś nic nie istniało, teraz też nic by nie istniało → musi istnieć Byt Konieczny.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <h4>Krytyka (Hume, Kant)</h4>
+    <p>Reguły przyczynowości obowiązują wewnątrz doświadczenia zmysłowego — nie można ich stosować poza nim. Pytanie „co było przyczyną pierwszej przyczyny?" pozostaje bez odpowiedzi w ramach samego rozumu.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Argument teleologiczny — zegarek Paleya</h2>
+  <div class="concept">
+    <div class="icon">⌚</div>
+    <div>
+      <h4>Analogia z zegarkiem (William Paley, 1802)</h4>
+      <p>Znajdując zegarek na wrzosowisku, wnioskujemy, że musiał go zaprojektować zegarmistrz — bo jest zbyt złożony, by powstać przypadkowo. Podobnie: złożoność i celowość świata wskazuje na Projektanta (Boga).</p>
+    </div>
+  </div>
+  <div class="concept">
+    <div class="icon">👁️</div>
+    <div>
+      <h4>Przykład oka</h4>
+      <p>Oko jest narządem o niezwykłej złożoności i precyzji — służy wyraźnemu celowi (widzeniu). Argument teleologiczny wskazuje: taka celowość musi mieć Projektanta.</p>
+    </div>
+  </div>
+  <div class="callout">
+    <h4>Odpowiedź ewolucji (Darwin)</h4>
+    <p>Darwin pokazał, że złożone struktury mogą powstać przez dobór naturalny bez inteligentnego projektanta. Argument teleologiczny stracił na sile po 1859 r., choć obrońcy mówią o „inteligentnym projekcie" (irreducible complexity).</p>
+  </div>
+</section>
+
+<section>
+  <h2>Myśliciele</h2>
+
+  <div class="person">
+    <h3>Arystoteles (384–322 p.n.e.)</h3>
+    <div class="role">Grecki filozof, uczeń Platona</div>
+    <p>Twórca pojęć aktu i potencji, koncepcji Pierwszego Poruszyciela (czysty akt). Jego metafizyka stała się podstawą argumentów Tomasza. Słynne: <em>Amicus Plato, sed magis amica veritas</em>.</p>
+  </div>
+
+  <div class="person">
+    <h3>Tomasz z Akwinu (1225–1274)</h3>
+    <div class="role">Scholastyk, dominikanin</div>
+    <p>Autor pięciu dróg (<em>Quinque viae</em>) do Boga — wykład skupia się na drodze z ruchu i z przyczynowości (argument kosmologiczny). Korzystał z Arystotelesa w służbie teologii chrześcijańskiej.</p>
+  </div>
+
+  <div class="person">
+    <h3>William Paley (1743–1805)</h3>
+    <div class="role">Angielski teolog i filozof</div>
+    <div class="work"><strong><em>Natural Theology</em> (1802)</strong><span>Słynna analogia z zegarkiem jako argument na istnienie Boga-Projektanta. Nowożytna wersja argumentu teleologicznego Tomasza (droga 5).</span></div>
+  </div>
+</section>
+
+<div style="text-align:center;margin-top:2rem;padding:1rem">
+  <a href="../index.html" style="color:var(--muted);text-decoration:none;font-size:.9rem">← Powrót do listy wykładów</a>
+</div>
+
+</div>
+</body>
+</html>

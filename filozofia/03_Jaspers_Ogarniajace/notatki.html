@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W03 — Jaspers: Das Umgreifende</title>
+<style>
+:root{--bg:#0f0e11;--surface:#1a1820;--card:#201e28;--border:#2e2b3a;--text:#e8e4f0;--muted:#9b96b0;--gold:#c4973f;--purple:#7b5ea7;--blue:#4a9eca;--green:#5aab7a;--red:#c45a5a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#0a0a1a 0%,#0f0e11 100%);border:1px solid var(--border);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:2rem}
+.hero h1{font-size:2.2rem;color:var(--gold);margin-bottom:.5rem}
+.hero .subtitle{color:var(--muted);font-size:1.1rem}
+.hero .meta{display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.badge{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.4rem 1rem;font-size:.85rem;color:var(--muted)}
+.badge span{color:var(--text)}
+section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.8rem;margin-bottom:1.5rem}
+section h2{color:var(--gold);font-size:1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+section h2::before{content:'';display:block;width:4px;height:1.3rem;background:var(--gold);border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem}
+.card h3{color:var(--blue);font-size:1rem;margin-bottom:.6rem}
+.card p,.card li{color:var(--muted);font-size:.9rem}
+.card ul{padding-left:1.2rem}
+.card li{margin-bottom:.3rem}
+.person{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;margin-bottom:1rem}
+.person h3{color:var(--green);margin-bottom:.4rem}
+.person .role{color:var(--gold);font-size:.8rem;font-weight:600;margin-bottom:.5rem}
+.person p{color:var(--muted);font-size:.9rem}
+.work{border-left:4px solid var(--purple);padding:.8rem 1rem;background:var(--card);border-radius:0 8px 8px 0;margin-bottom:.7rem}
+.work strong{color:var(--text)}
+.work span{color:var(--muted);font-size:.85rem;display:block;margin-top:.2rem}
+.concept{display:flex;gap:.8rem;align-items:flex-start;padding:1rem;background:var(--card);border-radius:8px;margin-bottom:.7rem}
+.concept .icon{font-size:1.4rem;flex-shrink:0}
+.concept h4{color:var(--text);margin-bottom:.3rem;font-size:.95rem}
+.concept p{color:var(--muted);font-size:.88rem}
+.quote{background:linear-gradient(135deg,#1a1020,#100a1a);border:1px solid var(--purple);border-radius:10px;padding:1.4rem 1.6rem;margin-bottom:1rem;position:relative}
+.quote::before{content:'"';position:absolute;top:-.3rem;left:1rem;font-size:3rem;color:var(--purple);opacity:.4;font-family:Georgia,serif;line-height:1}
+.quote p{color:var(--text);font-style:italic;font-size:.95rem;padding-left:.5rem}
+.quote .source{color:var(--muted);font-size:.8rem;margin-top:.6rem;padding-left:.5rem}
+.callout{background:linear-gradient(135deg,#111a0a,#0f0a1f);border:1px solid var(--green);border-radius:10px;padding:1.2rem;margin-top:1rem}
+.callout h4{color:var(--green);margin-bottom:.5rem}
+.callout p{color:var(--muted);font-size:.9rem}
+.schema{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.6rem;margin:1rem 0}
+.schema-row{display:flex;align-items:center;justify-content:center;gap:1rem;margin:.6rem 0;flex-wrap:wrap}
+.schema-box{background:var(--surface);border:2px solid var(--gold);border-radius:8px;padding:.5rem 1.2rem;font-size:.9rem;font-weight:600;text-align:center}
+.schema-box.subject{border-color:var(--green);color:var(--green)}
+.schema-box.object{border-color:var(--blue);color:var(--blue)}
+.schema-box.encompassing{border-color:var(--gold);color:var(--gold);font-size:1.05rem;padding:.7rem 1.6rem}
+.schema-arrow{color:var(--muted);font-size:1.2rem}
+.tag{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:.2rem .7rem;font-size:.78rem;color:var(--muted);margin:.2rem}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div style="color:var(--muted);font-size:.9rem;margin-bottom:.5rem">Wykład 03 · Filozofia</div>
+  <h1>Jaspers: <em>Das Umgreifende</em></h1>
+  <div class="subtitle">Podmiot, przedmiot i Ogarniające — granice metafizyki i szyfry bytu</div>
+  <div class="meta">
+    <div class="badge">Bohater: <span>Karl Jaspers</span></div>
+    <div class="badge">Pojęcie: <span>das Umgreifende / Ogarniające</span></div>
+    <div class="badge">Tło: <span>Kryzys metafizyki</span></div>
+  </div>
+</div>
+
+<section>
+  <h2>Recap: trójkąt platoński</h2>
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:1rem">Przypomnij sobie schemat z poprzedniego wykładu:</p>
+  <div class="schema">
+    <div class="schema-row">
+      <div class="schema-box encompassing">Absolut / Idee / Bóg<br><small style="font-weight:400;font-size:.8rem">(wymiar idealny)</small></div>
+    </div>
+    <div class="schema-row">
+      <div class="schema-arrow">↕</div>
+      <div style="color:var(--muted);font-size:.85rem">relacja teleologiczna / metafizyczna</div>
+      <div class="schema-arrow">↕</div>
+    </div>
+    <div class="schema-row">
+      <div class="schema-box object">Świat materialny</div>
+      <div style="color:var(--muted);font-size:1rem;padding:0 .5rem">⟷</div>
+      <div class="schema-box subject">Umysł / podmiot</div>
+    </div>
+    <p style="color:var(--muted);font-size:.83rem;text-align:center;margin-top:.8rem">Relacja materiał ↔ umysł zapośredniczona przez zmysły i układ nerwowy.</p>
+  </div>
+  <p style="color:var(--muted);font-size:.9rem">Wykład 03 skupia się na <em>wierzchołku</em> trójkąta — i na pytaniu, czy możemy go w ogóle <strong>pomyśleć</strong>.</p>
+</section>
+
+<section>
+  <h2>Kryzys metafizyki — co się stało?</h2>
+
+  <div class="person">
+    <h3>René Descartes / Kartezjusz (1596–1650)</h3>
+    <div class="role">Ojciec nowożytnej filozofii — racjonalizm, dualizm ciała i duszy</div>
+    <p>Metodyczne wątpienie: odrzucam wszystko, w co można wątpić. Jedyna pewność: <em>cogito ergo sum</em> — „myślę, więc jestem". Droga do bytu absolutnego wiedzie przez doświadczenie własnej kruchości i skończoności. Część dzieł trafiła po śmierci na indeks ksiąg zakazanych przez Kościół (zbyt radykalny racjonalizm).</p>
+  </div>
+
+  <div class="concept">
+    <div class="icon">⚡</div>
+    <div>
+      <h4>Nietzsche: krytyka „naiwnych" metafizyków</h4>
+      <p>Tekst <em>Filozofia w tragicznej epoce Greków</em> — rehabilitacja presokratyków. Nietzsche pokazuje, że ich „naiwne" tezy (woda, ogień, powietrze jako zasada wszech rzeczy) nie są błędem, lecz próbą <em>symbolicznego</em> uchwycenia jedności rzeczywistości.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <h4>Problem metafizyki we współczesności</h4>
+    <p>Nauka wyparła dawne metafizyki (Tales, Heraklit, atomiści). Ale czy można z tego wyciągnąć wniosek, że metafizyka jest w ogóle bezużyteczna? Jaspers broni jej w nowy sposób — przez pojęcie <em>Ogarniającego</em>.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Podmiot i przedmiot — pęknięcie rzeczywistości</h2>
+
+  <div class="person">
+    <h3>Ludwig Wittgenstein (1889–1951)</h3>
+    <div class="role">Filozofia analityczna — <em>Tractatus Logico-Philosophicus</em> (1921)</div>
+  </div>
+  <div class="quote">
+    <p>Czysty realizm [...] pokrywa się z czystym idealizmem... Solipsyzm kurczy się do bezwymiarowego punktu, a pozostaje przyporządkowana mu rzeczywistość. Ja pojawia się w filozofii przez to, że świat jest moim światem. Ja filozoficzne to nie jest ani człowiek, ani ludzkie ciało, ani ludzka dusza, którą zajmuje się psychologia, lecz podmiot metafizyczny — granica, nie część świata.</p>
+    <div class="source">— Wittgenstein, <em>Tractatus</em></div>
+  </div>
+
+  <div class="concept">
+    <div class="icon">👁️</div>
+    <div>
+      <h4>Analogia oka</h4>
+      <p>Podobnie jak oko jest warunkiem i granicą pola widzenia (samo nie pojawia się w tym polu) — tak podmiot jest warunkiem i granicą całego doświadczenia. Bez oka — brak pola widzenia. Bez podmiotu — brak przedmiotu. Ale oko <em>nie widzi siebie</em> w polu widzenia.</p>
+    </div>
+  </div>
+
+  <div class="person">
+    <h3>Arthur Schopenhauer (1788–1860)</h3>
+    <div class="role">Filozofia woli — pesymizm metafizyczny</div>
+    <p><em>„Nie ma przedmiotu bez podmiotu, ani podmiotu bez przedmiotu."</em> — każde doświadczenie zakłada rozróżnienie na tego, kto poznaje, i to, co jest poznawane.</p>
+  </div>
+
+  <div class="schema" style="margin-top:.5rem">
+    <div style="color:var(--muted);font-size:.85rem;text-align:center;margin-bottom:.8rem">Rozszczepienie podmiotowo-przedmiotowe (Jaspers)</div>
+    <div class="schema-row">
+      <div class="schema-box subject">JA<br><small>(podmiot)</small></div>
+      <div class="schema-arrow">⟷ myślenie / doświadczenie ⟷</div>
+      <div class="schema-box object">PRZEDMIOT<br><small>(świat, treści świadomości)</small></div>
+    </div>
+    <p style="color:var(--muted);font-size:.83rem;text-align:center;margin-top:.8rem">Całe życie świadome przebiega <em>w</em> tym rozszczepieniu. Nie możemy stanąć poza nim i zobaczyć go „z zewnątrz".</p>
+  </div>
+</section>
+
+<section>
+  <h2>Das Umgreifende — Ogarniające</h2>
+
+  <div class="person">
+    <h3>Karl Jaspers — koncepcja Ogarniającego</h3>
+    <div class="role"><em>Wprowadzenie do filozofii</em> (1950); oryg. <em>Einführung in die Philosophie</em></div>
+    <p>Jeśli całe myślenie przebiega w rozszczepieniu podmiot–przedmiot, to <em>co je warunkuje?</em> Co jest ich wspólnym podłożem? — to właśnie Ogarniające (<em>das Umgreifende</em>).</p>
+  </div>
+
+  <div class="schema">
+    <div class="schema-row">
+      <div class="schema-box encompassing">DAS UMGREIFENDE<br>Ogarniające<br><small style="font-weight:400;font-size:.78rem">„tło bez końca rozjaśniające się zjawiska"</small></div>
+    </div>
+    <div class="schema-row">
+      <div class="schema-arrow" style="font-size:1.5rem">↙ &nbsp;&nbsp;&nbsp;&nbsp; ↘</div>
+    </div>
+    <div class="schema-row">
+      <div class="schema-box subject">Podmiot (JA)</div>
+      <div style="padding:0 .5rem;color:var(--muted)">⟷</div>
+      <div class="schema-box object">Przedmiot (świat)</div>
+    </div>
+    <p style="color:var(--muted);font-size:.83rem;text-align:center;margin-top:.8rem">Ogarniające <em>przejawia się</em> w rozszczepieniu — samo pozostając w tle, nigdy nie stając się przedmiotem.</p>
+  </div>
+
+  <div class="quote">
+    <p>Byt jako taki oczywiście nie może być przedmiotem. Wszystko co stanowi dla mnie przedmiot wynurza się z Ogarniającego, z którego i ja sam wyodrębniam się jako podmiot. Przedmiot jest bytem określonym ze względu na podmiot. Dla mojej świadomości Ogarniające pozostaje w mroku. Mogą je rozjaśnić tylko przedmioty. [...] Samo-Ogarniające nigdy nie staje się przedmiotem, natomiast przejawia się w rozszczepieniu na ja i przedmiot. Ono samo pozostaje tłem bez końca rozjaśniającym się zjawiska — pozostaje zawsze Ogarniającym.</p>
+    <div class="source">— Karl Jaspers, <em>Wprowadzenie do filozofii</em>, rozdział „Ogarniające"</div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Ogarniające jako byt w całości</h3>
+      <p>Rzeczywistość we wszystkich wymiarach nie jest ani podmiotem, ani przedmiotem — jest tym, <em>w czym</em> i podmiot, i przedmiot się wyłaniają.</p>
+    </div>
+    <div class="card">
+      <h3>Ogarniające a transcendencja</h3>
+      <p>Jaspers: <em>„Ogarniające pomyślane jako sam byt nosi miano transcendencji — Boga i świata."</em> Bóg jest pewnym momentem Ogarniającego, nie jego synonimem.</p>
+    </div>
+    <div class="card">
+      <h3>Ogarniające a podmiot</h3>
+      <p>Jako to, czym <em>jesteśmy sami</em>: istnienie, świadomość w ogóle, duch, egzystencja.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Rehabilitacja presokratyków — szyfry bytu</h2>
+
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:1rem">Dlaczego Tales, Heraklit i inni mówili, że <em>arche</em> (zasada wszech rzeczy) to woda / ogień / powietrze? Czy to naiwność?</p>
+
+  <div class="work">
+    <strong>Tales z Miletu (ok. 624–546 p.n.e.) — woda jako arche</strong>
+    <span>Uważany za pierwszego greckiego filozofa. Teza: zasadą wszystkich rzeczy jest woda.</span>
+  </div>
+  <div class="work">
+    <strong>Anaksymenes — powietrze; Heraklit — ogień; atomiści — atomy; Empedokles — cztery żywioły</strong>
+    <span>Każdy szukał jednej zasady jedności rzeczywistości.</span>
+  </div>
+
+  <div class="quote">
+    <p>Na pozór grecka filozofia zaczyna się od pewnego niedorzecznego pomysłu, od tezy, że woda jest źródłem i łonem wszelkich rzeczy. Czy naprawdę trzeba się tu zatrzymywać i brać sprawę serio? Tak, z trzech powodów. Po pierwsze, teza ta mówi coś o źródle rzeczy. Po wtóre, czyni to bez obrazów i baśni. Po trzecie wreszcie zawiera choć pod inną postacią myśl, że wszystko jest jedno.</p>
+    <div class="source">— Friedrich Nietzsche, <em>Filozofia w tragicznej epoce Greków</em> (o Talesie)</div>
+  </div>
+
+  <div class="callout">
+    <h4>Jaspers: szyfry bytu, nie błędy</h4>
+    <p>Dawne metafizyki — woda, ogień, powietrze — to nie naiwna „wiedza przedmiotowa" lecz <em>szyfry bytu</em>: próby wyrażenia Ogarniającego w języku symbolicznym. Błędna była późniejsza interpretacja, która brała je dosłownie jako stwierdzenia o materialnym składniku rzeczywistości. Sama intuicja — że <em>wszystko jest jednem</em>, że istnieje jedna zasada — jest filozoficznie wartościowa.</p>
+  </div>
+
+  <div class="concept">
+    <div class="icon">🔒</div>
+    <div>
+      <h4>Nietzsche — tekst jako rehabilitacja</h4>
+      <p><em>Filozofia w tragicznej epoce Greków</em> pokazuje, że greccy filozofowie przed Sokratesem nie byli „raczkującymi dziećmi filozofii", lecz myślicielami, którzy intuicyjnie dostrzegli problem jedności bytu — to samo, co Jaspers nazywa Ogarniającym.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Obrona metafizyki przez Jaspersa</h2>
+
+  <div class="concept">
+    <div class="icon">🛡️</div>
+    <div>
+      <h4>Metafizyka jako droga do Ogarniającego</h4>
+      <p>Metafizyka nie jest bezsensowna — jest próbą dotarcia do tego, co warunkuje całe doświadczenie. Jest to przedsięwzięcie z definicji niemożliwe do zwieńczenia (Ogarniające nigdy nie staje się przedmiotem), ale niezbędne jako postawa filozoficzna.</p>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Granica myślenia</h3>
+      <p>Możemy myśleć o Ogarniającym tylko pośrednio — przez rozjaśnianie podmiotów i przedmiotów, które w nim się wyłaniają.</p>
+    </div>
+    <div class="card">
+      <h3>Myślenie symboliczne</h3>
+      <p>Jaspers: przez myślenie obrazowe, symboliczne możemy <em>wskazać</em> na Ogarniające — stąd wartość mitów, sztuki, religii.</p>
+    </div>
+    <div class="card">
+      <h3>Filozofia vs nauka</h3>
+      <p>Nauka bada przedmioty. Filozofia pyta o warunek bycia w ogóle — o to, co rozszczepienie podmiot–przedmiot czyni możliwym.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Podsumowanie — schemat pojęciowy</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Podmiot metafizyczny (Wittgenstein)</h3>
+      <p>Granica świata, nie jego część. Tak jak oko nie jest w polu widzenia, choć jest jego warunkiem.</p>
+    </div>
+    <div class="card">
+      <h3>Rozszczepienie podmiot–przedmiot (Jaspers)</h3>
+      <p>Struktura każdego świadomego aktu. Nie można stanąć poza nim — myśląc, zawsze już w nim tkwimy.</p>
+    </div>
+    <div class="card">
+      <h3>Das Umgreifende</h3>
+      <p>To, co warunkuje rozszczepienie. Przejawia się w nim, ale samo pozostaje „tłem". Nosi miano transcendencji / Boga / bytu w całości.</p>
+    </div>
+    <div class="card">
+      <h3>Szyfry bytu</h3>
+      <p>Wielkie metafizyki przeszłości jako symboliczne próby wyrażenia Ogarniającego — nie błędy, lecz wskazania poza to, co przedmiotowe.</p>
+    </div>
+  </div>
+
+  <div style="margin-top:1.2rem;padding:1rem;background:var(--card);border-radius:8px">
+    <div style="color:var(--gold);font-weight:600;margin-bottom:.5rem">Myśliciele z tego wykładu</div>
+    <div style="display:flex;flex-wrap:wrap;gap:.4rem">
+      <span class="tag">Karl Jaspers — Ogarniające</span>
+      <span class="tag">Wittgenstein — podmiot metafizyczny</span>
+      <span class="tag">Schopenhauer — podmiot/przedmiot</span>
+      <span class="tag">Descartes — cogito / kryzys</span>
+      <span class="tag">Nietzsche — szyfry bytu / Tales</span>
+      <span class="tag">Tales — woda jako arche</span>
+    </div>
+  </div>
+</section>
+
+<div style="text-align:center;color:var(--muted);font-size:.82rem;margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border)">
+  Filozofia · Wykład 03 · Notatki na podstawie transkrypcji
+</div>
+</div>
+</body>
+</html>

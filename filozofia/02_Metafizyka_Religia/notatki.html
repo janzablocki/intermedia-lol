@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W02 — Metafizyka i filozofia religii</title>
+<style>
+:root{--bg:#0f0e11;--surface:#1a1820;--card:#201e28;--border:#2e2b3a;--text:#e8e4f0;--muted:#9b96b0;--gold:#c4973f;--purple:#7b5ea7;--blue:#4a9eca;--green:#5aab7a;--red:#c45a5a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#0a0a1a 0%,#0f0e11 100%);border:1px solid var(--border);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:2rem}
+.hero h1{font-size:2.2rem;color:var(--gold);margin-bottom:.5rem}
+.hero .subtitle{color:var(--muted);font-size:1.1rem}
+.hero .meta{display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.badge{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.4rem 1rem;font-size:.85rem;color:var(--muted)}
+.badge span{color:var(--text)}
+section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.8rem;margin-bottom:1.5rem}
+section h2{color:var(--gold);font-size:1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+section h2::before{content:'';display:block;width:4px;height:1.3rem;background:var(--gold);border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem}
+.card h3{color:var(--blue);font-size:1rem;margin-bottom:.6rem}
+.card p,.card li{color:var(--muted);font-size:.9rem}
+.card ul{padding-left:1.2rem}
+.card li{margin-bottom:.3rem}
+.person{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;margin-bottom:1rem}
+.person h3{color:var(--green);margin-bottom:.4rem}
+.person .role{color:var(--gold);font-size:.8rem;font-weight:600;margin-bottom:.5rem}
+.person p{color:var(--muted);font-size:.9rem}
+.work{border-left:4px solid var(--purple);padding:.8rem 1rem;background:var(--card);border-radius:0 8px 8px 0;margin-bottom:.7rem}
+.work strong{color:var(--text)}
+.work span{color:var(--muted);font-size:.85rem;display:block;margin-top:.2rem}
+.concept{display:flex;gap:.8rem;align-items:flex-start;padding:1rem;background:var(--card);border-radius:8px;margin-bottom:.7rem}
+.concept .icon{font-size:1.4rem;flex-shrink:0}
+.concept h4{color:var(--text);margin-bottom:.3rem;font-size:.95rem}
+.concept p{color:var(--muted);font-size:.88rem}
+.quote{background:linear-gradient(135deg,#1a1020,#100a1a);border:1px solid var(--purple);border-radius:10px;padding:1.4rem 1.6rem;margin-bottom:1rem;position:relative}
+.quote::before{content:'"';position:absolute;top:-.3rem;left:1rem;font-size:3rem;color:var(--purple);opacity:.4;font-family:Georgia,serif;line-height:1}
+.quote p{color:var(--text);font-style:italic;font-size:.95rem;padding-left:.5rem}
+.quote .source{color:var(--muted);font-size:.8rem;margin-top:.6rem;padding-left:.5rem}
+.callout{background:linear-gradient(135deg,#111a0a,#0f0a1f);border:1px solid var(--green);border-radius:10px;padding:1.2rem;margin-top:1rem}
+.callout h4{color:var(--green);margin-bottom:.5rem}
+.callout p{color:var(--muted);font-size:.9rem}
+.triangle{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.6rem;margin:1rem 0;text-align:center}
+.triangle .node{display:inline-block;background:var(--surface);border:2px solid var(--gold);border-radius:10px;padding:.7rem 1.4rem;margin:.4rem;font-weight:600;font-size:.95rem}
+.triangle .node.mat{border-color:var(--blue);color:var(--blue)}
+.triangle .node.mind{border-color:var(--green);color:var(--green)}
+.triangle .node.abs{border-color:var(--gold);color:var(--gold)}
+.triangle p{color:var(--muted);font-size:.85rem;margin-top:.8rem}
+.tag{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:.2rem .7rem;font-size:.78rem;color:var(--muted);margin:.2rem}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div style="color:var(--muted);font-size:.9rem;margin-bottom:.5rem">Wykład 02 · Filozofia</div>
+  <h1>Metafizyka i filozofia religii</h1>
+  <div class="subtitle">Trójkąt platoński, jaskinia, pytania Kanta — i czy Bóg istnieje?</div>
+  <div class="meta">
+    <div class="badge">Dział: <span>Metafizyka / ontologia</span></div>
+    <div class="badge">Klucz: <span>Trójkąt platoński</span></div>
+    <div class="badge">Problem: <span>Istnienie Boga</span></div>
+  </div>
+</div>
+
+<section>
+  <h2>Punkt wyjścia — Rodin i pytanie o filozofię</h2>
+  <div class="person">
+    <h3>Auguste Rodin — <em>Myśliciel</em> (1880–1882, odlew 1902)</h3>
+    <div class="role">Rzeźba powszechnie znana; pierwotny tytuł: <em>Poeta</em></div>
+    <p>Rodin sam nazywał tę rzeźbę „poetą" — paralela między filozofowaniem a poetyzowaniem. Historyk sztuki Szymborska <em>też</em> bywa nazywana poetą-filozofem.</p>
+  </div>
+
+  <div class="person">
+    <h3>Karl Jaspers (1883–1969)</h3>
+    <div class="role">Egzystencjalista, psychiatra i filozof — <em>Wprowadzenie do filozofii</em> (seria wykładów radiowych w RFN, lata 50.)</div>
+    <p>Człowiek niezłamany przez nazizm; jego żona była Żydówką — miał problemy. Po wojnie stał się sumieniem Niemiec. Napisał <em>Problem winy</em>.</p>
+  </div>
+
+  <div class="quote">
+    <p>Czym jest filozofia i jaką ma wartość — to sprawa sporna. Już to oczekuje się od niej nadzwyczajnych odkryć. Już to lekceważy jako myślenie bezprzedmiotowe. [...] W samej rzeczy to, co występuje pod mianem filozofii, dostarcza przykładów na poparcie tak skrajnych ocen.</p>
+    <div class="source">— Karl Jaspers, <em>Wprowadzenie do filozofii</em>, rozdział I: <em>Czym jest filozofia?</em></div>
+  </div>
+</section>
+
+<section>
+  <h2>Plan wykładów — działy filozofii</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Metafizyka / ontologia</h3>
+      <p>Co istnieje? Jaka jest struktura rzeczywistości? Byt, absolut, Bóg.</p>
+    </div>
+    <div class="card">
+      <h3>Epistemologia</h3>
+      <p>Teoria poznania. <em>Co mogę wiedzieć?</em> Od Kartezjusza do Kanta.</p>
+    </div>
+    <div class="card">
+      <h3>Antropologia filozoficzna</h3>
+      <p><em>Kim jest człowiek?</em> Podmiot, ciało, duch, egzystencja.</p>
+    </div>
+    <div class="card">
+      <h3>Etyka</h3>
+      <p><em>Co powinienem czynić?</em> Imperatyw kategoryczny Kanta.</p>
+    </div>
+    <div class="card">
+      <h3>Filozofia religii</h3>
+      <p>Bóg jako fenomen filozoficzny. Dowody, fideizm, mistrze podejrzeń.</p>
+    </div>
+    <div class="card">
+      <h3>Sens życia</h3>
+      <p><em>Czego mogę się spodziewać?</em> Nadzieja, transcendencja, egzystencja.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Trzy (cztery) pytania Kanta</h2>
+  <div class="person">
+    <h3>Immanuel Kant — <em>Krytyka czystego rozumu</em> (1781, wyd. A; 1787, wyd. B)</h3>
+    <div class="role">Szczytowe dzieło filozofii oświeceniowej — cytowane jak Biblia własną paginacją (A/B)</div>
+    <p>Anegdota: za filozofa można się uważać, gdy się <em>przeczytało</em> i <em>zrozumiało</em> Krytykę — dwa warunki konieczne.</p>
+  </div>
+
+  <div class="quote">
+    <p>Wszelki interes mego rozumu [...] skupia się w następujących trzech pytaniach:<br>
+    <strong>1. Co mogę wiedzieć?</strong><br>
+    <strong>2. Co powinienem czynić?</strong><br>
+    <strong>3. Czego mogę się spodziewać?</strong></p>
+    <div class="source">— Kant, <em>Krytyka czystego rozumu</em>, zakończenie</div>
+  </div>
+
+  <div class="callout">
+    <h4>Czwarte pytanie (podskórne)</h4>
+    <p><strong>Kim jest człowiek?</strong> — przenika całą kantowską filozofię, a zdaniem prowadzącego jest jednym z najważniejszych pytań filozofii w ogóle.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Trójkąt platoński</h2>
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:1rem">Model rzeczywistości wg Platona (za: Arnold Zenbacher, <em>Wprowadzenie do filozofii</em>). Trzy wymiary bytu:</p>
+
+  <div class="triangle">
+    <div style="margin-bottom:.8rem">
+      <div class="node abs">Wymiar absolutny (idee / Bóg)</div>
+    </div>
+    <div style="display:flex;justify-content:center;gap:2rem">
+      <div class="node mat">Świat materialny</div>
+      <div class="node mind">Umysł / podmiot</div>
+    </div>
+    <p>Między wymiarem materialnym a umysłem pośredniczą zmysły i układ nerwowy.<br>
+    Wymiar absolutny (idealny) — wieczny, niezmienny — jest wzorem dla tego, co materialne.</p>
+  </div>
+
+  <div class="concept">
+    <div class="icon">🏛️</div>
+    <div>
+      <h4>Platoński idealizm</h4>
+      <p>Oprócz materialnej rzeczywistości i umysłu istnieje jeszcze wymiar <em>idei</em> — najwyższy rodzaj bytu. Odpowiednik tego, co za jaskinią (słońce, rzeczy na zewnątrz).</p>
+    </div>
+  </div>
+  <div class="concept">
+    <div class="icon">💡</div>
+    <div>
+      <h4>Blask i cień platonizmu</h4>
+      <p>Platonizm zaciążył nad całym rozwojem myśli europejskiej — zarówno jako inspiracja (idealizm, filozofia chrześcijańska), jak i problem (ucieczka od ciała i materii).</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Przypowieść o jaskini Platona</h2>
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:1rem"><em>Państwo</em>, księga VII (Dialog: Sokrates — Glaukon). Trzy poziomy metafory:</p>
+
+  <div class="work">
+    <strong>Więźniowie w jaskini</strong>
+    <span>Siedzą tyłem do wejścia od urodzenia. Widzą tylko cienie na ścianie — biorą je za rzeczywistość. Między sobą organizują konkursy: kto najlepiej przewidzi, co się pojawi.</span>
+  </div>
+  <div class="work">
+    <strong>Wyzwolony — wyjście z jaskini</strong>
+    <span>Jeden zostaje uwolniony. Najpierw rozpoznaje źródło cieni, potem wychodzi na zewnątrz. Najpierw cienie rzeczy, potem odbicia w wodzie, wreszcie samo słońce — sprawca widzialności i istnienia.</span>
+  </div>
+  <div class="work">
+    <strong>Powrót do jaskini</strong>
+    <span>Wracając, ma kłopoty z przyzwyczajeniem wzroku. Śmieją się z niego, a gdyby mogli — zabiliby go. Alegoria losu Sokratesa: demoralizowanie młodzieży + nieuznawanie bogów państwowych → śmierć przez wypicie trucizny.</span>
+  </div>
+
+  <div class="callout">
+    <h4>Sokrates — ofiara prawdziwego filozofa</h4>
+    <p>Platon złożył Sokratesowi trybut w przypowieści o jaskini. Sokrates sądzony za <em>(1) demoralizowanie młodzieży</em> i <em>(2) nieuznawanie bogów, których uznaje państwo</em>. Zamiast Daimoniona (wewnętrznego głosu-sumienia) miał wprowadzać własne bóstwa. Wypił cykutę ok. 399 p.n.e.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Metafizyka i filozofia religii</h2>
+
+  <div class="concept">
+    <div class="icon">📐</div>
+    <div>
+      <h4>Etymologia: meta + physika</h4>
+      <p>„To, co po fizyce" — tak Andronikos z Rodos (I w. p.n.e.) zatytułował pisma Arystotelesa ułożone po jego traktacie fizycznym. Metafizyka bada <em>byt jako byt</em>: ostateczne racje, konieczne warunki istnienia.</p>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Filozofia Boga</h3>
+      <p>Czy Bóg / absolut istnieje? Racjonalne argumenty za i przeciw. Atrybuty boskie i wynikające z nich problemy (np. problem zła — teodyceja).</p>
+    </div>
+    <div class="card">
+      <h3>Filozofia religii</h3>
+      <p>Religia jako fenomen ludzki — społeczny, psychologiczny, kulturowy. Można uprawiać filozofię religii <em>bez</em> rozstrzygania kwestii istnienia Boga.</p>
+    </div>
+  </div>
+
+  <div style="margin-top:1rem;padding:1rem;background:var(--card);border-radius:8px">
+    <div style="color:var(--gold);font-weight:600;margin-bottom:.5rem">Główne stanowiska</div>
+    <div style="display:flex;flex-wrap:wrap;gap:.4rem">
+      <span class="tag">Teizm — Bóg istnieje</span>
+      <span class="tag">Ateizm — Bóg nie istnieje</span>
+      <span class="tag">Agnostycyzm — nie wiemy</span>
+      <span class="tag">Deizm — Bóg stworzył i się wycofał</span>
+      <span class="tag">Panteizm — Bóg = natura</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Dowody na istnienie Boga i ich krytyka</h2>
+  <div class="work">
+    <strong>Dowód ontologiczny — Anzelm z Canterbury (XI w.)</strong>
+    <span>Bóg = byt, ponad który nic większego nie można pomyśleć. Jeśli istnieje w umyśle, musi też istnieć realnie — bo inaczej można pomyśleć coś większego (istniejące). Krytycy: błąd logiczny — z pojęcia nie wynika istnienie.</span>
+  </div>
+  <div class="work">
+    <strong>Pięć dróg Tomasza z Akwinu (XIII w.)</strong>
+    <span>Argumenty kosmologiczne: z ruchu (poruszyciel, który sam nie jest poruszany), z przyczynowości, z konieczności, ze stopni doskonałości, z celowości. Krytycy (Hume, Kant): reguły przyczynowości obowiązują w obrębie doświadczenia, nie poza nim.</span>
+  </div>
+  <div class="work">
+    <strong>Zakład Pascala (Blaise Pascal, XVII w.)</strong>
+    <span>Jeśli nie można racjonalnie rozstrzygnąć istnienia Boga, lepiej założyć, że istnieje. Jeśli istnieje i wierzę — zysk nieskończony (zbawienie). Jeśli nie istnieje i wierzę — strata skończona (kilka wyrzeczeń). Optymalna strategia: wierzyć.</span>
+  </div>
+
+  <div class="person">
+    <h3>Søren Kierkegaard (1813–1855)</h3>
+    <div class="role">Ojciec egzystencjalizmu — fideizm, „skok w wiarę"</div>
+    <p>Rozum doprowadza nas do granicy, za którą trzeba zrobić <em>skok w wiarę</em>. Fides — wiara — nie jest irracjonalna, ale trans-racjonalna. Bóg to „zupełnie inny" — paradoks jest właściwą formą relacji z transcendencją.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Mistrze podejrzeń</h2>
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:1rem">Termin Paula Ricœura — trzej myśliciele, którzy zdemontowali naiwne zaufanie do religii i świadomości:</p>
+  <div class="grid">
+    <div class="card">
+      <h3>Karol Marks (1818–1883)</h3>
+      <p>Religia jako „opium ludu" — ideologiczna nadbudowa stosunków produkcji. Maszyna reprodukcji istniejącego ładu społecznego.</p>
+    </div>
+    <div class="card">
+      <h3>Friedrich Nietzsche (1844–1900)</h3>
+      <p>„Bóg jest martwy" (<em>Bóg umarł</em>) — europejska kultura wybiła się na ten fundament, ale go porzuciła. Religia jako wyraz słabości, ressentiment.</p>
+    </div>
+    <div class="card">
+      <h3>Sigmund Freud (1856–1939)</h3>
+      <p>Religia jako iluzja — projekcja ojcowskiego obrazu i mechanizm radzenia sobie z lękiem. W liście: <em>„dla mnie Bóg nic takiego nie zrobił"</em>. Do śmierci <em>niewierny Żyd</em>.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Jaspers o milczeniu filozofów w kwestii Boga</h2>
+  <div class="quote">
+    <p>Filozofowie współcześni chętnie omijają kwestię istnienia Boga. Ani nie twierdzą, że Bóg istnieje, ani temu nie przeczą. A przecież ktoś, kto filozofuje, powinien zająć stanowisko. Na wątpliwości co do istnienia Boga winien dać odpowiedź, inaczej nie wyjdzie poza filozofię sceptyczną, która w ogóle niczego nie twierdzi, z niczym się nie zgadza i niczemu nie przeczy.</p>
+    <div class="source">— Karl Jaspers, <em>Wprowadzenie do filozofii</em>, rozdział <em>Idea Boga</em></div>
+  </div>
+  <p style="color:var(--muted);font-size:.88rem">Alternatywa: zaniechać filozofii i ograniczyć się do nauki. Wittgenstein: <em>„O czym nie można wiedzieć, o tym trzeba milczeć"</em> — ale wtedy opuszczamy grunt filozofii.</p>
+</section>
+
+<div style="text-align:center;color:var(--muted);font-size:.82rem;margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border)">
+  Filozofia · Wykład 02 · Notatki na podstawie transkrypcji
+</div>
+</div>
+</body>
+</html>

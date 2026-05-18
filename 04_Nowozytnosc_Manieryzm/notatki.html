@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W04 — Nowożytność: Wenecja, Manieryzm</title>
+<style>
+:root{--bg:#0f0e11;--surface:#1a1820;--card:#201e28;--border:#2e2b3a;--text:#e8e4f0;--muted:#9b96b0;--gold:#c4973f;--purple:#7b5ea7;--blue:#4a9eca;--green:#5aab7a;--red:#c45a5a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#0f1a2e 0%,#1a0f2e 100%);border:1px solid var(--border);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:2rem}
+.hero h1{font-size:2.4rem;color:var(--gold);margin-bottom:.5rem}
+.hero .subtitle{color:var(--muted);font-size:1.1rem}
+.hero .meta{display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.badge{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.4rem 1rem;font-size:.85rem;color:var(--muted)}
+.badge span{color:var(--text)}
+section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.8rem;margin-bottom:1.5rem}
+section h2{color:var(--gold);font-size:1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+section h2::before{content:'';display:block;width:4px;height:1.3rem;background:var(--gold);border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem}
+.card h3{color:var(--blue);font-size:1rem;margin-bottom:.6rem}
+.card p,.card li{color:var(--muted);font-size:.9rem}
+.card ul{padding-left:1.2rem}
+.card li{margin-bottom:.3rem}
+.person{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;margin-bottom:1rem}
+.person h3{color:var(--green);margin-bottom:.4rem}
+.person .role{color:var(--gold);font-size:.8rem;font-weight:600;margin-bottom:.5rem}
+.person p{color:var(--muted);font-size:.9rem}
+.work{border-left:4px solid var(--blue);padding:.8rem 1rem;background:var(--card);border-radius:0 8px 8px 0;margin-bottom:.7rem}
+.work strong{color:var(--text)}
+.work span{color:var(--muted);font-size:.85rem;display:block;margin-top:.2rem}
+.concept{display:flex;gap:.8rem;align-items:flex-start;padding:1rem;background:var(--card);border-radius:8px;margin-bottom:.7rem}
+.concept .icon{font-size:1.4rem;flex-shrink:0}
+.concept h4{color:var(--text);margin-bottom:.3rem;font-size:.95rem}
+.concept p{color:var(--muted);font-size:.88rem}
+.callout{background:linear-gradient(135deg,#1f1630,#162030);border:1px solid var(--purple);border-radius:10px;padding:1.2rem;margin-top:1rem}
+.callout h4{color:var(--purple);margin-bottom:.5rem}
+.callout p{color:var(--muted);font-size:.9rem}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+.vs-box{background:var(--card);border-radius:10px;padding:1rem}
+.vs-box h4{text-align:center;margin-bottom:.6rem;font-size:.95rem}
+.vs-box.left h4{color:var(--blue)}
+.vs-box.right h4{color:var(--purple)}
+.vs-box ul{list-style:none;padding:0}
+.vs-box li{color:var(--muted);font-size:.88rem;padding:.25rem 0;border-bottom:1px solid var(--border)}
+.vs-box li:last-child{border:none}
+.tag{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:.2rem .7rem;font-size:.78rem;color:var(--muted);margin:.2rem}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div style="color:var(--muted);font-size:.9rem;margin-bottom:.5rem">Wykład 04 · Historia Sztuki</div>
+  <h1>Nowożytność — XV wiek</h1>
+  <div class="subtitle">Szkoła wenecka · Manieryzm · Palladio · Tycjan</div>
+  <div class="meta">
+    <div class="badge">Temat: <span>Renesans dojrzały / późny</span></div>
+    <div class="badge">Czas: <span>XV–XVI wiek</span></div>
+    <div class="badge">Region: <span>Wenecja + Rzym</span></div>
+  </div>
+</div>
+
+<section>
+  <h2>Oś czasu — epoki renesansu</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Renesans wczesny (XIV–XV w.)</h3>
+      <ul><li>Quattrocento — wiek XV</li><li>Florencja jako centrum</li><li>Konkurs 1401 jako data symboliczna</li></ul>
+    </div>
+    <div class="card">
+      <h3>Renesans dojrzały (ok. 1480–1527)</h3>
+      <ul><li>Leonardo, Rafael, Michał Anioł</li><li>Rzym przejmuje pałeczkę od Florencji</li><li>Sacco di Roma 1527 = koniec</li></ul>
+    </div>
+    <div class="card">
+      <h3>Renesans późny + Manieryzm (XVI w.)</h3>
+      <ul><li>Cinquecento — wiek XVI</li><li>Sobór Trydencki 1545–1563</li><li>Most między renesansem a barokiem</li></ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Szkoła wenecka — odrębność</h2>
+  <div class="concept">
+    <div class="icon">🌊</div>
+    <div>
+      <h4>Dlaczego Wenecja jest inna?</h4>
+      <p>Wilgoć niszczy freski → malarze przechodzą na płótno (olej). Upadek Bizancjum 1453 → emigracja intelektualistów bizantyjskich. Handel z Bliskim Wschodem → egzotyczne wpływy, postacie w turbanach, przepych. Specyficzne weneckie światło — miękkie kontury, mgła, odbicia w kanałach.</p>
+    </div>
+  </div>
+  <div class="vs">
+    <div class="vs-box left">
+      <h4>Szkoła florencka/rzymska — Linearyzm</h4>
+      <ul>
+        <li>Rysunek jako podstawa (disegno)</li>
+        <li>Krawędzie zamykające formy</li>
+        <li>Idealizacja, pewna teatralność</li>
+        <li>Michał Anioł: „Wenecjanie nie umieją rysować"</li>
+        <li>Statyczność, harmonia, geometria</li>
+      </ul>
+    </div>
+    <div class="vs-box right">
+      <h4>Szkoła wenecka — Malarskość</h4>
+      <ul>
+        <li>Kolor i plama nad rysunkiem</li>
+        <li>Postać wtopiona w atmosferę barwną</li>
+        <li>Miękkie, nieokreślone kontury</li>
+        <li>Tycjan: kolorysta par excellence</li>
+        <li>Rubens → kolekcjoner weneckich dzieł</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">
+    <h4>Spór trwały: linearyzm vs. malarskość</h4>
+    <p>Ta opozycja powróci w baroku (Poussin vs. Rubens), w XIX w. (Ingres vs. Delacroix). Fundamentalny dylemat sztuk plastycznych niezależny od epoki.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Andrea Palladio — architektura renesansowa</h2>
+  <div class="person">
+    <h3>Andrea Palladio (1508–1580)</h3>
+    <div class="role">Architekt z Vicenzy — Cztery Księgi o Architekturze (traktat wzorowany na Witruwiuszu)</div>
+    <p>Swobodne dysponowanie elementami antycznymi. Proporcje, harmonia, czystość formy. Współczesna „palladiańska" architektura = jego spuścizna.</p>
+  </div>
+  <div class="work">
+    <strong>Villa Rotonda (Villa Capra), Vicenza, ok. 1570</strong>
+    <span>Budowla centralna, plan krzyżowy, 4 identyczne portyko. Stylistycznie: renesans dojrzały. Chronologicznie: renesans późny — przykład elastyczności periodyzacji.</span>
+  </div>
+  <div class="work">
+    <strong>Il Redentore, Wenecja, 1577–92</strong>
+    <span>Fasada: podwojone podpory, nakładające się tympanony. Wnętrze: bazylika z kaplicami bocznymi, kopuła. Łączy budowlę podłużną i centralną. Pierwowzory rozwiązań barokowych.</span>
+  </div>
+  <div class="work">
+    <strong>Serliana (motyw Palladio/Serlio)</strong>
+    <span>Łuk pełny flankowany węższymi otworami prostokątnymi, rozdzielonymi kolumnami. Zastosowanie w Bazylice Palladiańskiej w Vicenzy.</span>
+  </div>
+</section>
+
+<section>
+  <h2>Jacopo Sansovino — Biblioteka Marciana</h2>
+  <div class="concept">
+    <div class="icon">📚</div>
+    <div>
+      <h4>Biblioteca Marciana, Wenecja, ok. 1537</h4>
+      <p>Dwukondygnacyjna budowla horyzontalna, arkady ujęte podwojonymi podporami (porządek dorycki na dole, joński na górze), plastyczność elewacji przez kontrasty światłocieniowe. Historycy sztuki dostrzegają tu zaczątki manieryzmu.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Malarze weneccy i szkoła rzymska</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Andrea Mantegna</h3>
+      <ul>
+        <li>Zięć Bellinich — dostęp do sekretów malarstwa weneckiego</li>
+        <li>Camera degli Sposi, Mantua — Oculus (perspektywa sotto in sù)</li>
+        <li>Bardzo precyzyjny rysunek, rzeźbiarskość form</li>
+        <li>Eksperymentator iluzjonizmu</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Tycjan (Tiziano Vecellio)</h3>
+      <ul>
+        <li>Twarz szkoły weneckiej XVI w.</li>
+        <li>Portrecista cesarzy (Karol V)</li>
+        <li>Kolorysta: postać wtopiona w krajobraz</li>
+        <li>Anegdota: Karol V podniósł pędzel Tycjana</li>
+        <li>Albrecht Dürer zazdroszczył mu statusu w Wenecji</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Michał Anioł (kontekst)</h3>
+      <ul>
+        <li>Reprezentant szkoły florenckiej/rzymskiej</li>
+        <li>Rzeźbiarz myślący rysunkiem i bryłą</li>
+        <li>Długi żywot: renesans → manieryzm → barok</li>
+        <li>Sąd Ostateczny — Kaplica Sykstyńska</li>
+        <li>Protoplasta manieryzmu (chociaż sam go nie nazywał)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Piero della Francesca</h3>
+      <ul>
+        <li>Nurt naukowy szkoły florenckiej</li>
+        <li>Portret dyptyk Federigo da Montefeltro</li>
+        <li>Typ florencki: profil na tle krajobrazu</li>
+        <li>Relatywizm barwny, ale postać vs. pejzaż = różne rejestry</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Manieryzm — most między renesansem a barokiem</h2>
+  <div class="concept">
+    <div class="icon">🌀</div>
+    <div>
+      <h4>Cechy manieryzmu</h4>
+      <p>Figura serpentinata (skręcone ciało), przesadna miękkość lub twardość form, napięcie i niepokój, przeskakiwanie kolegów i rywali. Wyczerpanie w połowie XVI w. — potrzeba nowej jakości. Giulio Romano (uczeń Michała Anioła) jako przedstawiciel.</p>
+    </div>
+  </div>
+  <div class="callout">
+    <h4>Sobór Trydencki 1545–1563</h4>
+    <p>Punkt zwrotny: po Soborze artyści dostają precyzyjne wytyczne. Manieryzm wyczerpany. Zaczyna się szukanie nowego języka. Bracia Carracci zakładają Akademię w Bolonii (1585). Wkrótce: barok.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Kluczowe pojęcia</h2>
+  <div style="display:flex;flex-wrap:wrap;gap:.4rem">
+    <span class="tag">Cinquecento</span>
+    <span class="tag">Sacco di Roma 1527</span>
+    <span class="tag">Malarskość (pittoresco)</span>
+    <span class="tag">Linearyzm (disegno)</span>
+    <span class="tag">Sotto in sù (perspektywa z dołu)</span>
+    <span class="tag">Figura serpentinata</span>
+    <span class="tag">Serliana</span>
+    <span class="tag">Sobór Trydencki</span>
+    <span class="tag">Palladiański</span>
+    <span class="tag">Olej na płótnie (wenecka innowacja)</span>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notatki z wykładów</title>
+<style>
+:root{--bg:#0f0e11;--surface:#1a1820;--card:#201e28;--border:#2e2b3a;--text:#e8e4f0;--muted:#9b96b0;--gold:#c4973f;--purple:#7b5ea7;--blue:#4a9eca;--green:#5aab7a;--red:#c45a5a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7;min-height:100vh}
+.hero{background:linear-gradient(160deg,#0d0b14 0%,#0a0f1a 40%,#0f1428 100%);padding:4rem 2rem 3rem;text-align:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(196,151,63,.07) 0%,transparent 70%);pointer-events:none}
+.hero-label{color:var(--muted);font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem}
+.hero h1{font-size:clamp(2rem,5vw,3rem);color:var(--text);font-weight:700;margin-bottom:.6rem;line-height:1.2}
+.hero .subtitle{color:var(--muted);font-size:1.05rem;max-width:480px;margin:0 auto}
+.container{max-width:900px;margin:0 auto;padding:2.5rem 1rem 5rem}
+.course-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;margin-top:1rem}
+.course-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2rem;text-decoration:none;display:flex;flex-direction:column;gap:1rem;transition:border-color .2s,transform .15s,box-shadow .2s;position:relative;overflow:hidden}
+.course-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--accent),transparent)}
+.course-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 10px 32px rgba(0,0,0,.5)}
+.course-card .icon{font-size:2.5rem;line-height:1}
+.course-card h2{font-size:1.5rem;font-weight:700;color:var(--text);line-height:1.2}
+.course-card .desc{color:var(--muted);font-size:.9rem;line-height:1.5}
+.course-card .meta{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.2rem}
+.tag{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:.2rem .7rem;font-size:.78rem;color:var(--muted)}
+.course-card .footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:1rem;border-top:1px solid var(--border)}
+.footer-count{font-size:.85rem;color:var(--muted)}
+.footer-arrow{color:var(--muted);font-size:1rem;transition:transform .2s,color .2s}
+.course-card:hover .footer-arrow{transform:translateX(4px);color:var(--accent)}
+.hs{--accent:#c4973f}
+.filo{--accent:#7b5ea7}
+footer{border-top:1px solid var(--border);padding:2rem;text-align:center;color:var(--muted);font-size:.82rem}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-label">UAP Poznań · Semestr letni</div>
+  <h1>Notatki z wykładów</h1>
+  <div class="subtitle">Historia Sztuki i Filozofia — notatki na podstawie transkrypcji</div>
+</div>
+
+<div class="container">
+  <div class="course-grid">
+
+    <a class="course-card hs" href="historia_sztuki.html">
+      <div class="icon">🎨</div>
+      <h2>Historia Sztuki</h2>
+      <div class="desc">Od renesansu florenckiego po barok hiszpański — Giotto, Donatello, Tycjan, Caravaggio, Velázquez, Rembrandt.</div>
+      <div class="meta">
+        <span class="tag">Renesans</span>
+        <span class="tag">Barok</span>
+        <span class="tag">XV–XVII w.</span>
+      </div>
+      <div class="footer">
+        <span class="footer-count">10 dostępnych wykładów</span>
+        <span class="footer-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="course-card filo" href="filozofia/index.html">
+      <div class="icon">🧠</div>
+      <h2>Filozofia</h2>
+      <div class="desc">Metafizyka, filozofia religii, Jaspers i Ogarniające — od śmiechu jako startu myślenia po podmiot i przedmiot.</div>
+      <div class="meta">
+        <span class="tag">Metafizyka</span>
+        <span class="tag">Jaspers</span>
+        <span class="tag">II semestr</span>
+      </div>
+      <div class="footer">
+        <span class="footer-count">8 dostępnych wykładów</span>
+        <span class="footer-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<footer>
+  Notatki wygenerowane na podstawie transkrypcji wykładów
+</footer>
+
+</body>
+</html>

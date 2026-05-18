@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W10 — Barok Hiszpański: Velázquez</title>
+<style>
+:root{--bg:#0f0e11;--surface:#1a1820;--card:#201e28;--border:#2e2b3a;--text:#e8e4f0;--muted:#9b96b0;--gold:#c4973f;--purple:#7b5ea7;--blue:#4a9eca;--green:#5aab7a;--red:#c45a5a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#1a0a14 0%,#0a1020 100%);border:1px solid var(--border);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:2rem}
+.hero h1{font-size:2.4rem;color:var(--gold);margin-bottom:.5rem}
+.hero .subtitle{color:var(--muted);font-size:1.1rem}
+.hero .meta{display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.badge{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.4rem 1rem;font-size:.85rem;color:var(--muted)}
+.badge span{color:var(--text)}
+section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.8rem;margin-bottom:1.5rem}
+section h2{color:var(--gold);font-size:1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+section h2::before{content:'';display:block;width:4px;height:1.3rem;background:var(--gold);border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem}
+.card h3{color:var(--blue);font-size:1rem;margin-bottom:.6rem}
+.card p,.card li{color:var(--muted);font-size:.9rem}
+.card ul{padding-left:1.2rem}
+.card li{margin-bottom:.3rem}
+.person{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;margin-bottom:1rem}
+.person h3{color:var(--green);margin-bottom:.4rem}
+.person .role{color:var(--gold);font-size:.8rem;font-weight:600;margin-bottom:.5rem}
+.person p{color:var(--muted);font-size:.9rem}
+.work{border-left:4px solid var(--blue);padding:.8rem 1rem;background:var(--card);border-radius:0 8px 8px 0;margin-bottom:.7rem}
+.work strong{color:var(--text)}
+.work span{color:var(--muted);font-size:.85rem;display:block;margin-top:.2rem}
+.concept{display:flex;gap:.8rem;align-items:flex-start;padding:1rem;background:var(--card);border-radius:8px;margin-bottom:.7rem}
+.concept .icon{font-size:1.4rem;flex-shrink:0}
+.concept h4{color:var(--text);margin-bottom:.3rem;font-size:.95rem}
+.concept p{color:var(--muted);font-size:.88rem}
+.callout{background:linear-gradient(135deg,#200a14,#0a1220);border:1px solid var(--red);border-radius:10px;padding:1.2rem;margin-top:1rem}
+.callout h4{color:var(--red);margin-bottom:.5rem}
+.callout p{color:var(--muted);font-size:.9rem}
+.callout2{background:linear-gradient(135deg,#1f1630,#162030);border:1px solid var(--purple);border-radius:10px;padding:1.2rem;margin-top:1rem}
+.callout2 h4{color:var(--purple);margin-bottom:.5rem}
+.callout2 p{color:var(--muted);font-size:.9rem}
+.timeline{border-left:3px solid var(--gold);padding-left:1.5rem;margin-top:1rem}
+.timeline-item{margin-bottom:1.2rem;position:relative}
+.timeline-item::before{content:'';position:absolute;left:-1.85rem;top:.4rem;width:10px;height:10px;background:var(--gold);border-radius:50%}
+.timeline-item .date{color:var(--gold);font-size:.85rem;font-weight:700}
+.timeline-item p{color:var(--muted);font-size:.9rem;margin-top:.2rem}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+.vs-box{background:var(--card);border-radius:10px;padding:1rem}
+.vs-box h4{text-align:center;margin-bottom:.6rem;font-size:.95rem}
+.vs-box.left h4{color:var(--gold)}
+.vs-box.right h4{color:var(--blue)}
+.vs-box ul{list-style:none;padding:0}
+.vs-box li{color:var(--muted);font-size:.88rem;padding:.25rem 0;border-bottom:1px solid var(--border)}
+.vs-box li:last-child{border:none}
+.tag{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:.2rem .7rem;font-size:.78rem;color:var(--muted);margin:.2rem}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div style="color:var(--muted);font-size:.9rem;margin-bottom:.5rem">Wykład 10 · Historia Sztuki</div>
+  <h1>Barok Hiszpański</h1>
+  <div class="subtitle">Velázquez — realista, dworzanin, geniusz pędzla</div>
+  <div class="meta">
+    <div class="badge">Temat: <span>Barok hiszpański</span></div>
+    <div class="badge">Czas: <span>XVII wiek</span></div>
+    <div class="badge">Region: <span>Sewilla → Madryt</span></div>
+  </div>
+</div>
+
+<section>
+  <h2>Kontekst — Hiszpania XVII wieku</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Polityka i religia</h3>
+      <ul>
+        <li>Kontrreformacja gorliwie przyjęta przez Hiszpanów</li>
+        <li>Inkwizycja działała w ścisłym związku z królem</li>
+        <li>Wiek XV: potęga morska i kolonialna (szczytu)</li>
+        <li>XVII w.: powolny upadek, Holandia zyskuje</li>
+        <li>Uznanie niepodległości Holandii: 1648</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Mistycy i ich wpływ na sztukę</h3>
+      <ul>
+        <li>Św. Jan od Krzyża — zjednoczenie z Bogiem przez miłość</li>
+        <li>Św. Teresa z Ávili — ekstaza, bezpośredni kontakt z Bogiem</li>
+        <li>Mistycyzm → malarze pokazują ekstazę poprzez realizm</li>
+        <li>Oszczędne użycie krwi (wbrew konwencji włoskiej)</li>
+        <li>Głęboka emocja religijna, nie widowiskowe cierpienie</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Mecenat i struktura społeczna</h3>
+      <ul>
+        <li>Brak warstwy mieszczańskiej — mecenat arystokratyczny</li>
+        <li>Główni mecenasi: król, arystokracja, zakony</li>
+        <li>Sewilla — port, krzyżówka wpływów artystycznych</li>
+        <li>Madryt — centrum kariery (dwór Habsburgów)</li>
+        <li>Dominujące tematy: pokuta, ekstaza, portret, historia</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Habsburgowie — dynastia degeneracji</h3>
+      <ul>
+        <li>Małżeństwa w bliskiej rodzinie → degeneracja</li>
+        <li>Charakterystyczne cechy: wysunięta żuchwa, dolna warga</li>
+        <li>Karol V → Filip II (kolekcjoner) → Filip IV (mecenas Velázqueza)</li>
+        <li>Polityka dynastyczna → tysiące portretów</li>
+        <li>Kolekcja flandryjska, niderlandzka, włoska w Prado</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">
+    <h4>Flandria pod Habsburgami</h4>
+    <p>Flandria (dzisiejsza Belgia) należała do hiszpańskich Habsburgów. Północne Niderlandy zbuntowały się i proklamowały Holandię. Stąd: kolekcje Boscha, van Eycka, van der Weydena w Prado — dostępne dla Velázqueza. Rubens (Flandria) i Velázquez (Hiszpania) znali się osobiście — różnica wieku: 22 lata.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Diego Velázquez — „malarz wszystkich malarzy"</h2>
+  <div class="person">
+    <h3>Diego Rodríguez de Silva y Velázquez (1599–1660)</h3>
+    <div class="role">Nadworny malarz Filipa IV — „książę malarzy" (Édouard Manet)</div>
+    <p>Urodzony w Sewilli. Nauka u Francisca Pacheco (przyszłego teścia). Technika: alla prima, długi pędzel, szybkość. Jako szambelan — klucz do wszystkich komnat królewskich + ogromne obowiązki dworskie. Umarł wyczerpany pracą, 61 lat. W 1658 r. (2 lata przed śmiercią) wreszcie uzyskał upragniony tytuł kawalera Zakonu Santiago.</p>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="date">ok. 1617 — Sewilla</div>
+      <p>Kształcenie u Francisca Pacheco. Karawagionizm sewilski. Pierwsze bodegones — sceny kuchenne z martwą naturą. Kontrast starzy/młodzi, światłocień.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">1623 — Madryt</div>
+      <p>Protekcja Olivaresa (portret konny generała → zachwyca króla). Zostaje nadwornym malarzem Filipa IV. Dostęp do kolekcji królewskiej: Tycjan, Rubens, Bosch, van Eyck w jednym pałacu.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">1628 — Spotkanie z Rubensem</div>
+      <p>Rubens w Madrycie — namawiał Velázqueza do wyjazdu do Włoch. Inspiracja koloryzmem flamandzkim.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">1629–31 — Pierwszy pobyt we Włoszech</div>
+      <p>Studia nad antykiem, Tycjanem, Guido Renim. Potrety, Kuźnia Wulkana, pejzaże Villa Medici (impresjonistyczne avant la lettre).</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">1648–51 — Drugi pobyt we Włoszech</div>
+      <p>Portret Innocentego X — „zbyt prawdziwy" (papież). Romans z Włoszką → Wenus z lustrem. Pobyt przedłuża się, król się niecierpliwi.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">1656 — Las Meninas</div>
+      <p>Arcydzieło. Realność, meta-obraz, lustro, perspektywa. Velázquez domalowuje sobie krzyż Zakonu Santiago (retrospektywnie).</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">1660 — Śmierć</div>
+      <p>Wyczerpany obowiązkami dworskimi. 61 lat.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Sewilski okres — bodegones i karawagionizm</h2>
+  <div class="concept">
+    <div class="icon">🍳</div>
+    <div>
+      <h4>Bodegón — hiszpańska martwa natura ze sceną rodzajową</h4>
+      <p>Typ obrazu: scena kuchenna z osobami przy pracy, na pierwszym planie precyzyjna martwa natura (ceramika, szkło, wiklinowy koszyk, jajka, ryby). Kontrast faktur materialnych, kontrast starość/młodość. Karawagionistyczny światłocień wydobywający bryły z mroku.</p>
+    </div>
+  </div>
+  <div class="work">
+    <strong>Stara kobieta smażąca jajka (ok. 1618)</strong>
+    <span>Sewilla. Velázquez namalował moment ścinania się jajka — jak Bernini moment ruchu w rzeźbie. Kontrast: stara kobieta / młody chłopiec. Martwa natura: ceramika, szkło, wiklinowy kosz.</span>
+  </div>
+  <div class="work">
+    <strong>Sprzedawca wody z Sewilli (ok. 1618–22)</strong>
+    <span>Wellington Collection, Londyn. Wielka ceramiczna amphora na pierwszym planie, szklany kielich ze złożoną feerią barwną w wodzie, trzy etapy życia w tle: starzec, mężczyzna, chłopiec. Można odczytywać wody (vita activa) lub metaforę przemijania.</span>
+  </div>
+  <div class="work">
+    <strong>Chrystus w domu Marii i Marty (ok. 1618)</strong>
+    <span>National Gallery. Podwójna narracja: na pierwszym planie sfrustrowana służąca pracująca w kuchni (martwa natura: jajka, ryby, czosnek), w tle (przez okno lub lustro) — Chrystus u sióstr. Biblijny obraz gatunku rodzajowego.</span>
+  </div>
+</section>
+
+<section>
+  <h2>Malarstwo madryckie — portrety i sceny mitologiczne</h2>
+  <div class="work">
+    <strong>Portret Olivaresa (konny, ok. 1634)</strong>
+    <span>Prado. Przepustka do dworu — ten portret zobaczył Filip IV. Virtuozeria oddania materii zbroi i stroju.</span>
+  </div>
+  <div class="work">
+    <strong>Los Borrachos / Triumf Bachusa (ok. 1628–29)</strong>
+    <span>Prado. „Bachus karawagionistyczny" wśród wieśniaków. Ironia: wśród promilowych chłopów idealizowany bóg wina. Dialog z karawagionistycznym Bachusem.</span>
+  </div>
+  <div class="work">
+    <strong>Kuźnia Wulkana (1630)</strong>
+    <span>Prado. Po pierwszym pobycie włoskim. Akty kowali — studia nad rzeźbą antyczną. Apollo (idealizowany à la Guido Reni) przynosi Wulkanowi wieść o zdradzie Afrodyty.</span>
+  </div>
+  <div class="work">
+    <strong>Poddanie Bredy (Las Lanzas, 1634–35)</strong>
+    <span>Prado. Zlecony do dekoracji Pałacu Buen Retiro. Przełom ikonograficzny: Velázquez rezygnuje z upokorzenia pokonanych. Generał Spinola kładzie rękę na ramieniu Justusa van Nassaua — gest szacunku. Dwie grupy: Holendrzy (lewo) vs. Hiszpanie z lasami pik (prawo). Propaganda, ale humanistyczna.</span>
+  </div>
+  <div class="work">
+    <strong>Portret Innocentego X (1650)</strong>
+    <span>Galeria Doria Pamphilj, Rzym. „Troppo vero" — papież powiedział, że jest „zbyt prawdziwy". Splatający się dialog z Rafaelem i Tycjanem. Francis Bacon miał obsesję na jego punkcie — namalował całą serię Studium do portretu Innocentego X według Velázqueza, nie widząc oryginału.</span>
+  </div>
+  <div class="work">
+    <strong>Wenus z lustrem (ok. 1647–51)</strong>
+    <span>National Gallery, Londyn. Jedyny akt kobiecy Velázqueza — możliwy tylko w Rzymie, poza zasięgiem inkwizycji. Akt widziany od tyłu, twarz odbiciu w lustrze — chwyt iluzjonistyczny zaczerpnięty od van Eycka (lustro Arnolfinich).</span>
+  </div>
+</section>
+
+<section>
+  <h2>Portrety dworskie — infantki i dworzanie</h2>
+  <div class="concept">
+    <div class="icon">🖼️</div>
+    <div>
+      <h4>Portrety na eksport i portrety psychologiczne</h4>
+      <p>Infantki (np. Małgorzata Teresa) — portretowane w różnych etapach życia, wysyłane jako „wizytówki dynastyczne" do przyszłych dworów. Ale Velázquez maluje też ludzi, których nikt mu nie zleca: karłów dworskich, aktora Pabla de Valladolid, Don Sebastiana de Morra. Neutralne tło, portret psychologiczny — rewolucja, którą powtórzy Manet.</p>
+    </div>
+  </div>
+  <div class="work">
+    <strong>Pablo de Valladolid (ok. 1636–37)</strong>
+    <span>Prado. Aktor teatralny na absolutnie neutralnym tle bez żadnych akcesoriów — rewolucja portretowa. Manet jeździł do Prado specjalnie by studiować ten obraz.</span>
+  </div>
+  <div class="work">
+    <strong>Don Sebastián de Morra (ok. 1645)</strong>
+    <span>Prado. Portret karła dworskiego — z szacunkiem, bez eksponowania deficytów fizycznych. Głęboka psychologia, kontakt wzrokowy. Velázquez „widzi człowieka".</span>
+  </div>
+</section>
+
+<section>
+  <h2>Las Meninas (1656) — arcydzieło meta-obrazu</h2>
+  <div class="concept">
+    <div class="icon">👁️</div>
+    <div>
+      <h4>Las Meninas — „Damy dworu"</h4>
+      <p>Prado. Velázquez maluje siebie przy wielkim płótnie (które widzimy od tyłu). Infantka Małgorzata Teresa otoczona damami dworu (meninas) i karłami. W lustrze na ścianie — odbicie króla i królowej (modele?). Kto jest przedmiotem obrazu? Infantka? Król oglądający płótno? My — widzowie stojący w miejscu króla? Meta-obraz, refleksja o naturze malarstwa.</p>
+    </div>
+  </div>
+  <div class="callout2">
+    <h4>Krzyż Zakonu Santiago na piersi Velázqueza</h4>
+    <p>Kiedy obraz powstawał (1656), Velázquez jeszcze nie był kawalerem zakonu — tytuł otrzymał w 1658. Krzyż został domalowany post factum (przez króla? przez samego Velázqueza?). Symbol: malarstwo = szlachta, nie rzemiosło.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Inni malarze barokowi Hiszpanii</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Francisco de Zurbarán (1598–1664)</h3>
+      <ul>
+        <li>Malarz zakonów — zlecenia klasztorne</li>
+        <li>Asceza, pokuta, mistycyzm</li>
+        <li>Twardość form białych habitów vs. głęboka czerń</li>
+        <li>Biel szat — niemal rzeźbiarska plastyczność</li>
+        <li>Sceny Sv. Franciszka, mnichów w ekstazie</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Bartolomé Esteban Murillo (1617–1682)</h3>
+      <ul>
+        <li>Sewilla — sceny uliczne + dewocyjne</li>
+        <li>Dzieci żebrzące (realizm sewilski)</li>
+        <li>Niepokalane Poczęcie — wizjonerskie, słodkie</li>
+        <li>Miękki sfumato, ciepły koloryt</li>
+        <li>Najbardziej popularny w XVIII–XIX w.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>José de Ribera (1591–1652)</h3>
+      <ul>
+        <li>Działał w Neapolu (pod władaniem Habsburgów)</li>
+        <li>Martyrologia — brutalne sceny męczeństwa</li>
+        <li>Silny karawagionizm: tenebrizm, realizm</li>
+        <li>Św. Bartłomiej, Tytus, Sylen pijany</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>El Greco (1541–1614)</h3>
+      <ul>
+        <li>Kreteńczyk w Toledo — pomost Bizancjum–Barok</li>
+        <li>Wydłużone postacie, intensywne kolory</li>
+        <li>Velázquez jeździł do Toledo by studiować El Greca</li>
+        <li>Portret kardynała Niña de Guevara — wzorzec dla portretu Innocentego X</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Kluczowe pojęcia</h2>
+  <div style="display:flex;flex-wrap:wrap;gap:.4rem">
+    <span class="tag">Velázquez</span>
+    <span class="tag">Alla prima</span>
+    <span class="tag">Bodegón</span>
+    <span class="tag">Karawagionizm sewilski</span>
+    <span class="tag">Las Meninas</span>
+    <span class="tag">Poddanie Bredy</span>
+    <span class="tag">Wenus z lustrem</span>
+    <span class="tag">Portret Innocentego X</span>
+    <span class="tag">Habsburgowie / polityka dynastyczna</span>
+    <span class="tag">Mistycyzm hiszpański</span>
+    <span class="tag">Zurbarán</span>
+    <span class="tag">El Greco</span>
+    <span class="tag">Zakon Santiago</span>
+    <span class="tag">Meta-obraz (lustro)</span>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

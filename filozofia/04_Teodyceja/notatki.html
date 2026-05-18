@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W04 — Teodyceja i atrybuty Boga</title>
+<style>
+:root{--bg:#0f0e11;--surface:#1a1820;--card:#201e28;--border:#2e2b3a;--text:#e8e4f0;--muted:#9b96b0;--gold:#c4973f;--purple:#7b5ea7;--blue:#4a9eca;--green:#5aab7a;--red:#c45a5a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#0a0a1a 0%,#0f0e11 100%);border:1px solid var(--border);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:2rem}
+.hero h1{font-size:2.2rem;color:var(--gold);margin-bottom:.5rem}
+.hero .subtitle{color:var(--muted);font-size:1.1rem}
+.hero .meta{display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.badge{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.4rem 1rem;font-size:.85rem;color:var(--muted)}
+.badge span{color:var(--text)}
+section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.8rem;margin-bottom:1.5rem}
+section h2{color:var(--gold);font-size:1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+section h2::before{content:'';display:block;width:4px;height:1.3rem;background:var(--gold);border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem}
+.card h3{color:var(--blue);font-size:1rem;margin-bottom:.6rem}
+.card p,.card li{color:var(--muted);font-size:.9rem}
+.card ul{padding-left:1.2rem}
+.card li{margin-bottom:.3rem}
+.person{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;margin-bottom:1rem}
+.person h3{color:var(--green);margin-bottom:.4rem}
+.person .role{color:var(--gold);font-size:.8rem;font-weight:600;margin-bottom:.5rem}
+.person p{color:var(--muted);font-size:.9rem}
+.work{border-left:4px solid var(--purple);padding:.8rem 1rem;background:var(--card);border-radius:0 8px 8px 0;margin-bottom:.7rem}
+.work strong{color:var(--text)}
+.work span{color:var(--muted);font-size:.85rem;display:block;margin-top:.2rem}
+.concept{display:flex;gap:.8rem;align-items:flex-start;padding:1rem;background:var(--card);border-radius:8px;margin-bottom:.7rem}
+.concept .icon{font-size:1.4rem;flex-shrink:0}
+.concept h4{color:var(--text);margin-bottom:.3rem;font-size:.95rem}
+.concept p{color:var(--muted);font-size:.88rem}
+.quote{background:linear-gradient(135deg,#1a1020,#100a1a);border:1px solid var(--purple);border-radius:10px;padding:1.4rem 1.6rem;margin-bottom:1rem;position:relative}
+.quote::before{content:'"';position:absolute;top:-.3rem;left:1rem;font-size:3rem;color:var(--purple);opacity:.4;font-family:Georgia,serif;line-height:1}
+.quote p{color:var(--text);font-style:italic;font-size:.95rem;padding-left:.5rem}
+.quote .source{color:var(--muted);font-size:.8rem;margin-top:.6rem;padding-left:.5rem}
+.callout{background:linear-gradient(135deg,#111a0a,#0f0a1f);border:1px solid var(--green);border-radius:10px;padding:1.2rem;margin-top:1rem}
+.callout h4{color:var(--green);margin-bottom:.5rem}
+.callout p{color:var(--muted);font-size:.9rem}
+.schema{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.6rem;margin:1rem 0}
+.schema-row{display:flex;align-items:center;justify-content:center;gap:1rem;margin:.6rem 0;flex-wrap:wrap}
+.schema-box{background:var(--surface);border:2px solid var(--gold);border-radius:8px;padding:.5rem 1.2rem;font-size:.9rem;font-weight:600;text-align:center}
+.tag{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:.2rem .7rem;font-size:.78rem;color:var(--muted);margin:.2rem}
+table{width:100%;border-collapse:collapse;margin-top:.8rem}
+th{background:var(--card);color:var(--gold);font-size:.85rem;padding:.6rem 1rem;text-align:left;border-bottom:1px solid var(--border)}
+td{color:var(--muted);font-size:.85rem;padding:.6rem 1rem;border-bottom:1px solid var(--border)}
+tr:last-child td{border-bottom:none}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div style="color:var(--muted);font-size:.9rem;margin-bottom:.5rem">Wykład 04 · Filozofia</div>
+  <h1>Teodyceja i atrybuty Boga</h1>
+  <div class="subtitle">Problem zła, orzekanie analogiczne i teologia apofatyczna</div>
+  <div class="meta">
+    <div class="badge">Problem: <span>Teodyceja</span></div>
+    <div class="badge">Metoda: <span>Analogia pojęciowa</span></div>
+    <div class="badge">Myśliciel: <span>Tomasz z Akwinu</span></div>
+  </div>
+</div>
+
+<section>
+  <h2>Atrybuty Boga i trzy stanowiska</h2>
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:1rem">Różne stanowiska inaczej rozkładają akcenty na klasyczne atrybuty boskie:</p>
+  <table>
+    <tr><th>Stanowisko</th><th>Stosunek do atrybutów</th></tr>
+    <tr><td style="color:var(--text)">Teizm</td><td>Przyjmuje wszystkie: wszechmoc, wszechwiedzę, dobroć, transcendencję, osobowość Boga</td></tr>
+    <tr><td style="color:var(--text)">Deizm</td><td>Sceptyczny wobec antropomorficznych cech; Bóg jako „wielki zegarmistrz" lub „wielki architekt" — metafory, nie dosłowność</td></tr>
+    <tr><td style="color:var(--text)">Panteizm</td><td>Odrzuca boską transcendencję i osobowość — Bóg = natura/wszechświat</td></tr>
+  </table>
+
+  <div style="margin-top:1.2rem">
+    <p style="color:var(--muted);font-size:.9rem">Wewnętrzne napięcia w teizmie:</p>
+    <div class="concept" style="margin-top:.8rem">
+      <div class="icon">⚡</div>
+      <div>
+        <h4>Wszechwiedzą a wszechmoc</h4>
+        <p>Jeśli Bóg zna przyszłość w sposób pewny, nie może jej zmienić → nie jest wszechmocny. Albo nie zna jej pewnie → nie jest wszechwiedzący.</p>
+      </div>
+    </div>
+    <div class="concept">
+      <div class="icon">🌍</div>
+      <div>
+        <h4>Transcendencja a wszechobecność</h4>
+        <p>Jeśli Bóg jest transcendentny (poza światem), jak może być jednocześnie wszechobecny (w świecie)?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Problem teodycei</h2>
+  <div class="concept">
+    <div class="icon">❓</div>
+    <div>
+      <h4>Definicja</h4>
+      <p><strong style="color:var(--text)">Teodyceja</strong> (gr. <em>theos</em> + <em>dike</em> = sprawiedliwość Boga) — pytanie: jak pogodzić istnienie Boga wszechmocnego, wszechwiedzącego i nieskończenie dobrego z istnieniem zła w świecie?</p>
+    </div>
+  </div>
+  <div class="grid" style="margin-top:1rem">
+    <div class="card">
+      <h3>Zło moralne</h3>
+      <p>Zło czynione przez człowieka — wynikające z wolnej woli (np. zbrodnie, krzywda zadana drugiemu)</p>
+    </div>
+    <div class="card">
+      <h3>Zło naturalne</h3>
+      <p>Cierpienie niezawinione przez człowieka — choroby, trzęsienia ziemi, klęski żywiołowe, ból fizyczny</p>
+    </div>
+  </div>
+  <div class="callout" style="margin-top:1rem">
+    <h4>Praktyczne znaczenie</h4>
+    <p>Teodyceja to nie tylko teoretyczny problem — prowadzący sugeruje, że wielu ludzi staje się ateistami lub agnostykami właśnie dlatego, że nie może pogodzić cierpienia z obrazem dobrego i wszechmocnego Boga.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Odpowiedź 1: Orzekanie analogiczne</h2>
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:1rem">Teoria sformułowana przez Tomasza z Akwinu na podstawie Arystotelesa. Pozwala mówić o Bogu bez popadania w dosłowność ani w milczenie.</p>
+
+  <div class="concept">
+    <div class="icon">🔤</div>
+    <div>
+      <h4>Definicja: nazwa analogiczna</h4>
+      <p>Treść wyrażona w nazwie jest orzekana o jej desygnatach <em>w znaczeniu zasadniczo różnym, choć pod pewnym względem takim samym</em>. Pośrednia droga między jednoznacznością a wieloznacznością.</p>
+    </div>
+  </div>
+
+  <div style="margin-top:1rem">
+    <p style="color:var(--gold);font-size:.9rem;font-weight:600;margin-bottom:.6rem">Klasyczny przykład Arystotelesa: słowo „zdrowy"</p>
+    <div class="schema">
+      <div class="schema-row">
+        <div class="schema-box" style="border-color:var(--green);color:var(--green)">Zdrowy <em>człowiek</em><br><small style="font-weight:400">sens właściwy / pierwotny</small></div>
+      </div>
+      <div class="schema-row" style="gap:2rem">
+        <div class="schema-box" style="font-size:.82rem;padding:.4rem .8rem;border-color:var(--blue);color:var(--blue)">Zdrowa <em>cera</em><br><small style="font-weight:400">zewnętrzny znak zdrowia</small></div>
+        <div class="schema-box" style="font-size:.82rem;padding:.4rem .8rem;border-color:var(--blue);color:var(--blue)">Zdrowe <em>lekarstwo</em><br><small style="font-weight:400">środek przywrócenia zdrowia</small></div>
+        <div class="schema-box" style="font-size:.82rem;padding:.4rem .8rem;border-color:var(--blue);color:var(--blue)">Zdrowe <em>jedzenie</em><br><small style="font-weight:400">środek zachowania zdrowia</small></div>
+      </div>
+      <p style="text-align:center;color:var(--muted);font-size:.83rem;margin-top:.8rem">Analogia atrybucji — wszystkie odnoszą się do zdrowia, ale w różny sposób</p>
+    </div>
+  </div>
+
+  <div style="margin-top:1rem">
+    <p style="color:var(--gold);font-size:.9rem;font-weight:600;margin-bottom:.6rem">Zastosowanie do Boga</p>
+    <div class="concept">
+      <div class="icon">✨</div>
+      <div>
+        <h4>„Bóg jest dobry" — co to znaczy?</h4>
+        <p>W sensie właściwym — dobry jest tylko Bóg (źródło i przyczyna dobra). Człowiek i jego czyny są dobre <em>przez odniesienie</em> do tej pierwotnej, absolutnej dobroci Bożej. Analogia pozwala mówić o Bogu bez dosłowności.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote">
+    <p>Gdy wybierał się w drogę, przybiegł pewien człowiek i upadłszy przed nim na kolana, pytał go: „Nauczycielu dobry, co mam czynić, aby osiągnąć życie wieczne?" Jezus mu rzekł: „Czemu nazywasz mnie dobrym? Nikt nie jest dobry, tylko sam Bóg".</p>
+    <div class="source">Ewangelia Łukasza, 18:19 — cytowana jako wsparcie tezy o pierwotności dobroci Bożej</div>
+  </div>
+
+  <p style="color:var(--muted);font-size:.88rem;margin-top:.8rem">Odniesienie: Józef Maria Bocheński, <em>Ku filozoficznemu myśleniu</em> — fragment czytany na wykładzie jako ilustracja trudności mówienia o Bogu.</p>
+</section>
+
+<section>
+  <h2>Odpowiedź 2: Teologia apofatyczna (negatywna)</h2>
+  <div class="concept">
+    <div class="icon">🤫</div>
+    <div>
+      <h4>Zasada</h4>
+      <p>O Bogu możemy mówić tylko o tym, czym <em>nie jest</em> — nie tym, czym jest. Kierunek ku milczeniu, bo Bóg przekracza wszelkie pojęcia.</p>
+    </div>
+  </div>
+  <div class="concept">
+    <div class="icon">↔️</div>
+    <div>
+      <h4>Relacja do orzekania analogicznego</h4>
+      <p>Teologia apofatyczna to nie „antyteologia" — jest uzupełnieniem, nie zaprzeczeniem podejścia analogicznego. Oba przyznają, że Bóg radykalnie różni się od wszystkiego innego. Teologia negatywna wyciąga z tego bardziej radykalny wniosek: milczenie.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Myśliciele</h2>
+
+  <div class="person">
+    <h3>Tomasz z Akwinu (1225–1274)</h3>
+    <div class="role">Scholastyka, dominikanin, filozof chrześcijański</div>
+    <p>Twórca teorii orzekania analogicznego jako rozwiązania problemu mówienia o Bogu. Korzystał z metafizyki Arystotelesa. Jego teologia naturalna stanowi do dziś podstawę filozofii chrześcijańskiej (neotomizm).</p>
+  </div>
+
+  <div class="person">
+    <h3>Arystoteles (384–322 p.n.e.)</h3>
+    <div class="role">Grecki filozof, uczeń Platona</div>
+    <p>Autor pojęcia desygnatu i przykładu analogii „zdrowy". Jego koncepcja analogii pojęciowej stała się fundamentem tomistycznego sposobu mówienia o Bogu.</p>
+  </div>
+
+  <div class="person">
+    <h3>Józef Maria Bocheński (1902–1995)</h3>
+    <div class="role">Dominikanin, logik i filozof analityczny</div>
+    <div class="work"><strong><em>Ku filozoficznemu myśleniu</em></strong><span>Popularna książka filozoficzna — czytany fragment dotyczy trudności przypisywania atrybutów Bogu: „Bóg musi się całkowicie różnić od wszystkiego innego, a zarazem musi mu przysługiwać wszystko, co uważamy za najwyższe formy bytu".</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>Kultura popularna na wykładzie</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>The Big Lebowski (1998)</h3>
+      <p>Film braci Coen — kadr z kręgielni użyty jako ilustracja „zdrowego człowieka" (John Turturro jako Jesus Quintana). Prowadzący poleca też Fargo i inne filmy z repertuaru Coenów.</p>
+    </div>
+    <div class="card">
+      <h3>Arthur Schopenhauer</h3>
+      <p>Słynny mem internetowy ze Schopenhauerem jako ilustracja „zdrowego lekarstwa" (żartobliwie — eutanazja). Prowadzący pyta studentów o rozpoznanie filozofa.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Schemat pojęciowy</h2>
+  <div class="schema">
+    <div class="schema-row">
+      <div class="schema-box" style="border-color:var(--red);color:var(--red)">Problem teodycei<br><small style="font-weight:400">Bóg wszechmocny + wszechwiedzący + dobry → a zło istnieje</small></div>
+    </div>
+    <div class="schema-row"><span style="color:var(--muted)">↓ dwie odpowiedzi</span></div>
+    <div class="schema-row" style="gap:2rem">
+      <div class="schema-box" style="border-color:var(--gold);color:var(--gold)">Orzekanie analogiczne<br><small style="font-weight:400">Tomasz z Akwinu<br>o Bogu można mówić — ale analogicznie</small></div>
+      <div class="schema-box" style="border-color:var(--purple);color:var(--purple)">Teologia apofatyczna<br><small style="font-weight:400">Via negativa<br>o Bogu można mówić tylko, czym nie jest</small></div>
+    </div>
+  </div>
+</section>
+
+<div style="text-align:center;margin-top:2rem;padding:1rem">
+  <a href="../index.html" style="color:var(--muted);text-decoration:none;font-size:.9rem">← Powrót do listy wykładów</a>
+</div>
+
+</div>
+</body>
+</html>

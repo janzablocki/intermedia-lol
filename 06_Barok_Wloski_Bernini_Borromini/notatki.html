@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W06 — Barok Włoski: Bernini vs. Borromini</title>
+<style>
+:root{--bg:#0f0e11;--surface:#1a1820;--card:#201e28;--border:#2e2b3a;--text:#e8e4f0;--muted:#9b96b0;--gold:#c4973f;--purple:#7b5ea7;--blue:#4a9eca;--green:#5aab7a;--red:#c45a5a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#1a100a 0%,#0f0a1a 100%);border:1px solid var(--border);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:2rem}
+.hero h1{font-size:2.4rem;color:var(--gold);margin-bottom:.5rem}
+.hero .subtitle{color:var(--muted);font-size:1.1rem}
+.hero .meta{display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.badge{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.4rem 1rem;font-size:.85rem;color:var(--muted)}
+.badge span{color:var(--text)}
+section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.8rem;margin-bottom:1.5rem}
+section h2{color:var(--gold);font-size:1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+section h2::before{content:'';display:block;width:4px;height:1.3rem;background:var(--gold);border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem}
+.card h3{color:var(--blue);font-size:1rem;margin-bottom:.6rem}
+.card p,.card li{color:var(--muted);font-size:.9rem}
+.card ul{padding-left:1.2rem}
+.card li{margin-bottom:.3rem}
+.person{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;margin-bottom:1rem}
+.person h3{color:var(--green);margin-bottom:.4rem}
+.person .role{color:var(--gold);font-size:.8rem;font-weight:600;margin-bottom:.5rem}
+.person p{color:var(--muted);font-size:.9rem}
+.work{border-left:4px solid var(--blue);padding:.8rem 1rem;background:var(--card);border-radius:0 8px 8px 0;margin-bottom:.7rem}
+.work strong{color:var(--text)}
+.work span{color:var(--muted);font-size:.85rem;display:block;margin-top:.2rem}
+.quote{border-left:4px solid var(--gold);padding:1rem 1.2rem;background:var(--card);border-radius:0 8px 8px 0;margin:1rem 0;font-style:italic;color:var(--muted)}
+.concept{display:flex;gap:.8rem;align-items:flex-start;padding:1rem;background:var(--card);border-radius:8px;margin-bottom:.7rem}
+.concept .icon{font-size:1.4rem;flex-shrink:0}
+.concept h4{color:var(--text);margin-bottom:.3rem;font-size:.95rem}
+.concept p{color:var(--muted);font-size:.88rem}
+.callout{background:linear-gradient(135deg,#1f1630,#1a0f0a);border:1px solid var(--gold);border-radius:10px;padding:1.2rem;margin-top:1rem}
+.callout h4{color:var(--gold);margin-bottom:.5rem}
+.callout p{color:var(--muted);font-size:.9rem}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+.vs-box{background:var(--card);border-radius:10px;padding:1rem}
+.vs-box h4{text-align:center;margin-bottom:.6rem;font-size:.95rem}
+.vs-box.left h4{color:var(--gold)}
+.vs-box.right h4{color:var(--blue)}
+.vs-box ul{list-style:none;padding:0}
+.vs-box li{color:var(--muted);font-size:.88rem;padding:.25rem 0;border-bottom:1px solid var(--border)}
+.vs-box li:last-child{border:none}
+.tag{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:.2rem .7rem;font-size:.78rem;color:var(--muted);margin:.2rem}
+.pope-row{display:flex;gap:1rem;margin:.5rem 0;padding:.8rem;background:var(--card);border-radius:8px;align-items:flex-start}
+.pope-row .pope{color:var(--purple);font-weight:700;min-width:100px;font-size:.9rem}
+.pope-row p{color:var(--muted);font-size:.88rem;margin:0}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div style="color:var(--muted);font-size:.9rem;margin-bottom:.5rem">Wykład 06 · Historia Sztuki</div>
+  <h1>Barok Włoski</h1>
+  <div class="subtitle">Bernini vs. Borromini — rywalizacja która zmieniła Rzym</div>
+  <div class="meta">
+    <div class="badge">Temat: <span>Barok włoski / wczesny</span></div>
+    <div class="badge">Czas: <span>XVII wiek</span></div>
+    <div class="badge">Region: <span>Rzym</span></div>
+  </div>
+</div>
+
+<section>
+  <h2>Kontekst — kontrreformacja</h2>
+  <div class="callout">
+    <h4>Sobór Trydencki (1545–1563)</h4>
+    <p>Odpowiedź Kościoła na reformację Lutra. Karol Boromeusz (biskup Mediolanu) formułuje precyzyjne zasady dla sztuki: ortodoksyjna ikonografia, zakaz nagości w scenach religijnych, klarowność przekazu, emocjonalne poruszenie widza. Jezuici (Ignacy Loyola) — „ku większej chwale Boga" (AMDG). Po Soborze: barok wczesny (kontreformacyjny).</p>
+  </div>
+  <div class="quote">"Ani w kościele, ani w żadnym innym miejscu nie można przedstawiać świętego obrazu, który by zawierał fałszywy dogmat. [...] trzeba unikać wszystkiego, co świeckie, szpetne lub nieprzyzwoite." — Karol Boromeusz</div>
+  <div class="concept">
+    <div class="icon">💧</div>
+    <div>
+      <h4>Fontanny barokowe</h4>
+      <p>Na początku XVII w. do Rzymu doprowadzono wodę z antycznych akweduktów. Pojawiło się zapotrzebowanie na artystyczne zagospodarowanie wody — Bernini jako mistrz fontann. Woda = medium rzeźbiarskie.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Papieże i ich faworytów</h2>
+  <div class="pope-row"><div class="pope">Urban VIII<br/>(1623–44)</div><p>Faworyt: Bernini. Wielkie zlecenia dla Berniniego — Baldachim w bazylice Świętego Piotra, Fontanna Tritonów.</p></div>
+  <div class="pope-row"><div class="pope">Innocenty X<br/>(1644–55)</div><p>Faworyt: Borromini. Bernini traci łaski. Borromini projektuje San Carlino. Portret papieski Velázqueza.</p></div>
+  <div class="pope-row"><div class="pope">Aleksander VII<br/>(1655–67)</div><p>Bernini wraca do łask. Kolumnada Świętego Piotra. Ekstatyczne projekty.</p></div>
+</section>
+
+<section>
+  <h2>Il Gesù — prototyp kościoła barokowego</h2>
+  <div class="person">
+    <h3>Kościół Il Gesù, Rzym (Jezuici)</h3>
+    <div class="role">Architekci: Giacomo da Vignola (plan) + Giacomo della Porta (fasada), ok. 1568–84</div>
+    <p>Pierwsza ważna realizacja reprezentująca barok wczesny kontreformacyjny. Plan: bazylika z kaplicami bocznymi (zamiast naw bocznych) — umożliwia prywatną dewocję przy dobrej akustyce dla kazań jezuickich. Fasada: dwukondygnacyjna, woluty łączące kondygnacje, nisze z figurami, plastyczność ściany. Sklepienie: Triumf Imienia Jezus (freski Baciccia — iluzjonizm!).</p>
+  </div>
+</section>
+
+<section>
+  <h2>Gian Lorenzo Bernini — rzeźba i architektura</h2>
+  <div class="person">
+    <h3>Gian Lorenzo Bernini (1598–1680)</h3>
+    <div class="role">Architekt, rzeźbiarz, malarz — geniusz barokowego Rzymu</div>
+    <p>Syn rzeźbiarza Pietro Berniniego. Dziecięcy geniusz — papieże zlecali mu prace od wczesnej młodości. Od 1620 r.: główny architekt bazyliki Świętego Piotra (po Carlo Maderno). Miał cały zespół architektów i budowniczych. Operował we wszystkich dziedzinach jednocześnie — rzeźba + architektura + fontanny = <em>opera totale</em>.</p>
+  </div>
+  <div class="work">
+    <strong>Baldachim (Ciborium) w bazylice Świętego Piotra, 1623–34</strong>
+    <span>Brąz (zrabowany z Panteonu — stąd: „Quod non fecerunt barbari, fecerunt Barberini"). Kręcone kolumny salomoniczne. Punkt kulminacyjny wnętrza nad grobem Świętego Piotra pod kopułą Michała Anioła.</span>
+  </div>
+  <div class="work">
+    <strong>Kolumnada Świętego Piotra, 1656–67</strong>
+    <span>Dwa półkoliste ramiona z 284 kolumnami. Jak ramiona kościoła ogarniające wiernych. Bernini: „Kościół wyciąga ramiona ku herettykom, by ich przygarnąć."</span>
+  </div>
+  <div class="work">
+    <strong>Ekstaza Świętej Teresy z Ávili, 1645–52</strong>
+    <span>Kaplica Cornaro, Santa Maria della Vittoria. Marmur — wygląda jak tkanina. Teatr mistycznego przeżycia. Rodzina Cornaro „ogląda" scenę z lóż po bokach.</span>
+  </div>
+  <div class="work">
+    <strong>Fontanna Czterech Rzek (Piazza Navona), 1648–51</strong>
+    <span>Nil, Ganges, Dunaj, La Plata — rzeki czterech kontynentów. Obelisk na szczycie. Legenda: Nil zakrywa oczy, bo nie chce patrzeć na kościół Borominiego (Sant'Agnese in Agone).</span>
+  </div>
+</section>
+
+<section>
+  <h2>Francesco Borromini — architekt niepokoju</h2>
+  <div class="person">
+    <h3>Francesco Borromini (1599–1667)</h3>
+    <div class="role">Architekt — mistrz dynamicznej formy i geometrii nieeuklidesowej</div>
+    <p>Introwertyk, trudny w obsłudze, zazdrosny o sukcesy Berniniego. Faworyt papieża Innocentego X. Jego architektura: falujące ściany, elipsy, spirale, formy wklęsło-wypukłe. Zakończył życie samobójstwem.</p>
+  </div>
+  <div class="work">
+    <strong>San Carlo alle Quattro Fontane (San Carlino), 1638–41</strong>
+    <span>Najmniejszy barokowy kościół Rzymu, mieszczący się w jednym filarze bazyliki Świętego Piotra. Eliptyczny plan, falująca fasada, genialna geometria złudna przestrzeni.</span>
+  </div>
+  <div class="work">
+    <strong>Sant'Ivo alla Sapienza, 1642–60</strong>
+    <span>Plan gwiazdy Dawida z zaoblonymi narożnikami. Spiralna latarnia — unikat w architekturze europejskiej.</span>
+  </div>
+</section>
+
+<section>
+  <h2>Bernini vs. Borromini</h2>
+  <div class="vs">
+    <div class="vs-box left">
+      <h4>Bernini</h4>
+      <ul>
+        <li>Ekstatyczny, teatralny</li>
+        <li>Rzeźba + architektura</li>
+        <li>Nurt idealistyczny</li>
+        <li>Papieże: Urban VIII, Aleksander VII</li>
+        <li>Towarzyski, dworski</li>
+        <li>Kolumnada, Baldachim</li>
+      </ul>
+    </div>
+    <div class="vs-box right">
+      <h4>Borromini</h4>
+      <ul>
+        <li>Geometria dynamiczna, falujące ściany</li>
+        <li>Tylko architektura</li>
+        <li>Innowator formy</li>
+        <li>Papież: Innocenty X</li>
+        <li>Introwertyczny, samotniczy</li>
+        <li>San Carlino, Sant'Ivo</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Kluczowe pojęcia</h2>
+  <div style="display:flex;flex-wrap:wrap;gap:.4rem">
+    <span class="tag">Barok kontreformacyjny</span>
+    <span class="tag">Jezuici (AMDG)</span>
+    <span class="tag">Il Gesù (typ planu)</span>
+    <span class="tag">Woluty</span>
+    <span class="tag">Baldachim</span>
+    <span class="tag">Kolumny salomoniczne</span>
+    <span class="tag">Opera totale</span>
+    <span class="tag">Elipsa (Borromini)</span>
+    <span class="tag">Fontanna barokowa</span>
+    <span class="tag">Falująca fasada</span>
+    <span class="tag">Ekstaza mistyczna w rzeźbie</span>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

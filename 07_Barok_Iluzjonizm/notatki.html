@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W07 — Barokowy Iluzjonizm</title>
+<style>
+:root{--bg:#0f0e11;--surface:#1a1820;--card:#201e28;--border:#2e2b3a;--text:#e8e4f0;--muted:#9b96b0;--gold:#c4973f;--purple:#7b5ea7;--blue:#4a9eca;--green:#5aab7a;--red:#c45a5a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#0a1020 0%,#20100a 100%);border:1px solid var(--border);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:2rem}
+.hero h1{font-size:2.4rem;color:var(--gold);margin-bottom:.5rem}
+.hero .subtitle{color:var(--muted);font-size:1.1rem}
+.hero .meta{display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.badge{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.4rem 1rem;font-size:.85rem;color:var(--muted)}
+.badge span{color:var(--text)}
+section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.8rem;margin-bottom:1.5rem}
+section h2{color:var(--gold);font-size:1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+section h2::before{content:'';display:block;width:4px;height:1.3rem;background:var(--gold);border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem}
+.card h3{color:var(--blue);font-size:1rem;margin-bottom:.6rem}
+.card p,.card li{color:var(--muted);font-size:.9rem}
+.card ul{padding-left:1.2rem}
+.card li{margin-bottom:.3rem}
+.work{border-left:4px solid var(--blue);padding:.8rem 1rem;background:var(--card);border-radius:0 8px 8px 0;margin-bottom:.7rem}
+.work strong{color:var(--text)}
+.work span{color:var(--muted);font-size:.85rem;display:block;margin-top:.2rem}
+.concept{display:flex;gap:.8rem;align-items:flex-start;padding:1rem;background:var(--card);border-radius:8px;margin-bottom:.7rem}
+.concept .icon{font-size:1.4rem;flex-shrink:0}
+.concept h4{color:var(--text);margin-bottom:.3rem;font-size:.95rem}
+.concept p{color:var(--muted);font-size:.88rem}
+.callout{background:linear-gradient(135deg,#1f1630,#162030);border:1px solid var(--purple);border-radius:10px;padding:1.2rem;margin-top:1rem}
+.callout h4{color:var(--purple);margin-bottom:.5rem}
+.callout p{color:var(--muted);font-size:.9rem}
+.timeline{border-left:3px solid var(--gold);padding-left:1.5rem;margin-top:1rem}
+.timeline-item{margin-bottom:1.2rem;position:relative}
+.timeline-item::before{content:'';position:absolute;left:-1.85rem;top:.4rem;width:10px;height:10px;background:var(--gold);border-radius:50%}
+.timeline-item .date{color:var(--gold);font-size:.85rem;font-weight:700}
+.timeline-item p{color:var(--muted);font-size:.9rem;margin-top:.2rem}
+.tag{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:.2rem .7rem;font-size:.78rem;color:var(--muted);margin:.2rem}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+.vs-box{background:var(--card);border-radius:10px;padding:1rem}
+.vs-box h4{text-align:center;margin-bottom:.6rem;font-size:.95rem}
+.vs-box.left h4{color:var(--gold)}
+.vs-box.right h4{color:var(--red)}
+.vs-box ul{list-style:none;padding:0}
+.vs-box li{color:var(--muted);font-size:.88rem;padding:.25rem 0;border-bottom:1px solid var(--border)}
+.vs-box li:last-child{border:none}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div style="color:var(--muted);font-size:.9rem;margin-bottom:.5rem">Wykład 07 · Historia Sztuki</div>
+  <h1>Barokowy Iluzjonizm</h1>
+  <div class="subtitle">Malarstwo plafonowe — od Masaccia do Berniniego</div>
+  <div class="meta">
+    <div class="badge">Temat: <span>Iluzjonizm / malarstwo plafon.</span></div>
+    <div class="badge">Czas: <span>XV–XVII wiek</span></div>
+    <div class="badge">Region: <span>Włochy</span></div>
+  </div>
+</div>
+
+<section>
+  <h2>Trompe-l'œil — co to jest?</h2>
+  <div class="concept">
+    <div class="icon">👁️</div>
+    <div>
+      <h4>Trompe-l'œil (fr. „okłamuj oko")</h4>
+      <p>Technika malarska tworząca złudzenie, że dwuwymiarowa powierzchnia jest trójwymiarowa. Dotyczy zarówno małych form (namalowane przedmioty wyglądające jak prawdziwe) jak i wielkich plafonów (namalowane niebo wydaje się prawdziwym niebem). Barok nie wynalazł tej techniki — rozwijała się od renesansu.</p>
+    </div>
+  </div>
+  <div class="vs">
+    <div class="vs-box left">
+      <h4>Nurt idealistyczny</h4>
+      <ul>
+        <li>Freski na plafonach kościołów</li>
+        <li>Idealizacja postaci i przestrzeni</li>
+        <li>Otwierające się niebo</li>
+        <li>Ekstatyczna rzeczywistość</li>
+        <li>Annibale Carracci, Baciccio</li>
+      </ul>
+    </div>
+    <div class="vs-box right">
+      <h4>Nurt realistyczny</h4>
+      <ul>
+        <li>Realizm w odtwarzaniu rzeczywistości</li>
+        <li>Brudne stopy, biedota w obrazach religijnych</li>
+        <li>Chiaroscuro (światłocień) dramatyczny</li>
+        <li>Przekonywanie przez prawdę</li>
+        <li>Caravaggio (następny wykład)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Historia iluzjonizmu — od gotyku do baroku</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="date">ok. 1430 — Paolo Uccello</div>
+      <p>Nagrobek Johna Hawkwooda, Santa Maria Novella. Namalowany nagrobek imitujący rzeźbę (brąz/marmur). Dwie perspektywy — mało przekonujące, ale pionierskie.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">1426–28 — Masaccio</div>
+      <p>Trójca Święta, Santa Maria Novella, Florencja. Jeden punkt zbiegu na poziomie oczu widza. Florentyńczycy: „Masaccio przebił ścianę!" Punkt zbiegu = na poziomie patrzącego.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">ok. 1465–74 — Andrea Mantegna</div>
+      <p>Camera degli Sposi (Sala Małżonków), Palazzo Ducale, Mantua. Oculus — iluzjonistyczna dziura w suficie, przez którą wyglądają postacie. Perspektywa <em>sotto in sù</em> (z dołu w górę). Nad łożem małżeńskim — Gonzagowie kochali przepych.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">1508–12 — Michał Anioł</div>
+      <p>Sklepienie Kaplicy Sykstyńskiej. Pierwotnie: gwiaździste niebo → Michał Anioł buduje iluzjonistyczną architekturę jako stelaż dla scen z Księgi Rodzaju. Ignudi, prorocy, sybille. Program ikonograficzny niezwykłej złożoności.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">ok. 1526–34 — Giulio Romano</div>
+      <p>Palazzo del Te, Mantua — Sala dei Giganti. Iluzjonistyczna kopuła, walące się ściany, Jowisz miażdżący gigantów. Pełny manieryzm: napięcie, ekspresja, muskulatura.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">ok. 1560–70 — Paolo Veronese</div>
+      <p>Villa Barbaro a Maser. Iluzjonistyczne przeprucie ścian i sufitu — właścicielka ze służącą wyglądają zza namalowanych drzwi. Gdyby nie datowanie: byłby to barok. Uczta w domu Lewiego — prawie spalił życiem za ten obraz (inkwizycja).</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">1585 — Akademia Braci Carraccich</div>
+      <p>Accademia degli Incaminati, Bolonia. Koniec manieryzmu. Nowe malarstwo: synteza antyku, Michała Anioła, Rafaela i natury. Annibale Carracci → Galeria Farnese, Rzym.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="date">XVII w. — Baciccio (Barok)</div>
+      <p>Triumph Imienia Jezus — plafon Il Gesù, Rzym. Postaci rzeźbione i malowane nierozróżnialne z dołu. Wylewa się na widza jasność imienia Jezus. Szczyt malarstwa iluzjonistycznego.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Kluczowe dzieła iluzjonizmu</h2>
+  <div class="work">
+    <strong>Masaccio — Trójca Święta (1426–28)</strong>
+    <span>Perspektywa zbieżna. Punkt zbiegu na poziomie oczu. Iluzja wnęki. Nagrobek rodziny Lenzi pod spodem.</span>
+  </div>
+  <div class="work">
+    <strong>Mantegna — Camera degli Sposi, Oculus (ok. 1465–74)</strong>
+    <span>Palazzo Ducale, Mantua. Iluzjonistyczna dziura w suficie z wyglądającymi postaciami. Perspektywa sotto in sù. Kręcone kolumny w ostrych skrótach.</span>
+  </div>
+  <div class="work">
+    <strong>Michał Anioł — Sklepienie Kaplicy Sykstyńskiej (1508–12)</strong>
+    <span>Iluzjonistyczna architektura jako ramy dla scen Genesis. Ignudi, prorocy, sybille. Spandrylle z Przodkami Chrystusa. Program ikonograficzny zawoalowany.</span>
+  </div>
+  <div class="work">
+    <strong>Giulio Romano — Sala dei Giganti, Palazzo del Te (ok. 1530–32)</strong>
+    <span>Mantua. Iluzjonistycznie walące się ściany i sufit. Jowisz piorunuje gigantów. Pełny manieryzm.</span>
+  </div>
+  <div class="work">
+    <strong>Annibale Carracci — Galeria Farnese (1597–1608)</strong>
+    <span>Rzym. Mitologiczne sceny miłosne (Owidiusz). Połączenie iluzjonistycznej architektury i quadri riportati (jakby wiszące obrazy).</span>
+  </div>
+  <div class="work">
+    <strong>Baciccio — Triumf Imienia Jezus, Il Gesù (1679)</strong>
+    <span>Rzym. Postacie stukowe i malowane stapiają się w jedno. Widz zalany chwałą bożą z góry. Apogeum iluzjonizmu barokowego.</span>
+  </div>
+</section>
+
+<section>
+  <h2>Techniki iluzjonizmu</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Sotto in sù</h3>
+      <p style="color:var(--muted)">Perspektywa z dołu do góry — ostry skrót perspektywiczny. Postaci oglądane od spodu. Mantegna, potem Barok.</p>
+    </div>
+    <div class="card">
+      <h3>Quadratura</h3>
+      <p style="color:var(--muted)">Namalowana architektura rozszerzająca rzeczywistą przestrzeń. Iluzjonistyczne kolumny, arkady, kopuły.</p>
+    </div>
+    <div class="card">
+      <h3>Quadri riportati</h3>
+      <p style="color:var(--muted)">Namalowane obrazy „zawieszone" na suficie jak prawdziwe płótna. Pozorują ram.</p>
+    </div>
+    <div class="card">
+      <h3>Stuk + freski</h3>
+      <p style="color:var(--muted)">Rzeźbione elementy gipsowe (stuko) integrują się z malonymi partiami — z dołu niemożliwe do odróżnienia.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Kluczowe pojęcia</h2>
+  <div style="display:flex;flex-wrap:wrap;gap:.4rem">
+    <span class="tag">Trompe-l'œil</span>
+    <span class="tag">Sotto in sù</span>
+    <span class="tag">Quadratura</span>
+    <span class="tag">Quadri riportati</span>
+    <span class="tag">Plafon / fresk</span>
+    <span class="tag">Stuko</span>
+    <span class="tag">Akademia Carraccich (1585)</span>
+    <span class="tag">Nurt idealistyczny vs. realistyczny</span>
+    <span class="tag">Baciccio</span>
+    <span class="tag">Oculus (Mantegna)</span>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

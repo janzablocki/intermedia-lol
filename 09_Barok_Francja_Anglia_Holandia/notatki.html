@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W09 — Barok: Francja, Anglia, Holandia</title>
+<style>
+:root{--bg:#0f0e11;--surface:#1a1820;--card:#201e28;--border:#2e2b3a;--text:#e8e4f0;--muted:#9b96b0;--gold:#c4973f;--purple:#7b5ea7;--blue:#4a9eca;--green:#5aab7a;--red:#c45a5a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#0a1428 0%,#1a0f0a 100%);border:1px solid var(--border);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:2rem}
+.hero h1{font-size:2.4rem;color:var(--gold);margin-bottom:.5rem}
+.hero .subtitle{color:var(--muted);font-size:1.1rem}
+.hero .meta{display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.badge{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.4rem 1rem;font-size:.85rem;color:var(--muted)}
+.badge span{color:var(--text)}
+section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.8rem;margin-bottom:1.5rem}
+section h2{color:var(--gold);font-size:1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+section h2::before{content:'';display:block;width:4px;height:1.3rem;background:var(--gold);border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem}
+.card h3{color:var(--blue);font-size:1rem;margin-bottom:.6rem}
+.card p,.card li{color:var(--muted);font-size:.9rem}
+.card ul{padding-left:1.2rem}
+.card li{margin-bottom:.3rem}
+.person{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;margin-bottom:1rem}
+.person h3{color:var(--green);margin-bottom:.4rem}
+.person .role{color:var(--gold);font-size:.8rem;font-weight:600;margin-bottom:.5rem}
+.person p{color:var(--muted);font-size:.9rem}
+.work{border-left:4px solid var(--blue);padding:.8rem 1rem;background:var(--card);border-radius:0 8px 8px 0;margin-bottom:.7rem}
+.work strong{color:var(--text)}
+.work span{color:var(--muted);font-size:.85rem;display:block;margin-top:.2rem}
+.concept{display:flex;gap:.8rem;align-items:flex-start;padding:1rem;background:var(--card);border-radius:8px;margin-bottom:.7rem}
+.concept .icon{font-size:1.4rem;flex-shrink:0}
+.concept h4{color:var(--text);margin-bottom:.3rem;font-size:.95rem}
+.concept p{color:var(--muted);font-size:.88rem}
+.callout{background:linear-gradient(135deg,#0f1a2e,#1f1630);border:1px solid var(--purple);border-radius:10px;padding:1.2rem;margin-top:1rem}
+.callout h4{color:var(--purple);margin-bottom:.5rem}
+.callout p{color:var(--muted);font-size:.9rem}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+.vs-box{background:var(--card);border-radius:10px;padding:1rem}
+.vs-box h4{text-align:center;margin-bottom:.6rem;font-size:.95rem}
+.vs-box.left h4{color:var(--gold)}
+.vs-box.right h4{color:var(--blue)}
+.vs-box ul{list-style:none;padding:0}
+.vs-box li{color:var(--muted);font-size:.88rem;padding:.25rem 0;border-bottom:1px solid var(--border)}
+.vs-box li:last-child{border:none}
+.tag{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:.2rem .7rem;font-size:.78rem;color:var(--muted);margin:.2rem}
+.country-header{color:var(--purple);font-size:1rem;font-weight:700;margin:1.2rem 0 .6rem;padding-left:.3rem;border-left:3px solid var(--purple)}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div style="color:var(--muted);font-size:.9rem;margin-bottom:.5rem">Wykład 09 · Historia Sztuki</div>
+  <h1>Barok Klasycyzujący</h1>
+  <div class="subtitle">Francja, Anglia, Holandia — barok poza Włochami</div>
+  <div class="meta">
+    <div class="badge">Temat: <span>Barok klasycyzujący</span></div>
+    <div class="badge">Czas: <span>XVII wiek</span></div>
+    <div class="badge">Region: <span>Francja, Anglia, Amsterdam</span></div>
+  </div>
+</div>
+
+<section>
+  <h2>Barok klasycyzujący — co to jest?</h2>
+  <div class="vs">
+    <div class="vs-box left">
+      <h4>Barok włoski (Rzym)</h4>
+      <ul>
+        <li>Dynamika, ekspresja, teatralność</li>
+        <li>Falujące ściany, spirale</li>
+        <li>Rzeźba i architektura jako opera totale</li>
+        <li>Bernini, Borromini</li>
+        <li>Emocje nad rozumem</li>
+      </ul>
+    </div>
+    <div class="vs-box right">
+      <h4>Barok klasycyzujący (Francja, Anglia)</h4>
+      <ul>
+        <li>Symetria, ład, harmonia, umiar</li>
+        <li>Kąty proste, czytelne podziały</li>
+        <li>Rysunek nad kolorem</li>
+        <li>Grand goût — wielki smak</li>
+        <li>Rozum nad emocją</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">
+    <h4>Dlaczego Francja jest inna?</h4>
+    <p>Racjonalna mentalność Francuzów + chęć odróżnienia się od Rzymu (barok papieski) + instytucjonalizacja sztuki w Akademii Królewskiej (1648) → nowy styl z własnymi zasadami: rysunek &gt; kolor, idealizacja natury, hierarchia gatunków malarskich.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Akademia Królewska w Paryżu (1648)</h2>
+  <div class="concept">
+    <div class="icon">🏛️</div>
+    <div>
+      <h4>Académie royale de peinture et de sculpture</h4>
+      <p>Założona z inicjatywy ministrów królewskich, z pieniędzmi Ludwika XIV. Pierwszy rektor: Charles Le Brun (nadworny malarz króla). Akademia kodyfikuje sztukę jako system możliwy do nauczenia — rysunek jako fundament, idealizacja natury, wzorce antyczne i klasyczne, hierarchia gatunków. Artysta akademicki = nobilitowany ponad rzemieślnika.</p>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <h3>Hierarchia gatunków</h3>
+      <ul>
+        <li>1. Malarstwo historyczne (mit, Biblia)</li>
+        <li>2. Portret</li>
+        <li>3. Pejzaż heroizowany</li>
+        <li>4. Scena rodzajowa</li>
+        <li>5. Martwa natura (najniżej)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Zasady akademii</h3>
+      <ul>
+        <li>Rysunek &gt; kolor (idea vs. emocja)</li>
+        <li>Naśladowanie natury, ale idealizowanej</li>
+        <li>Wzorce antyczne i klasyczne</li>
+        <li>Pejzaż tylko heroizowany, nie plener</li>
+        <li>Spór: pusinisci vs. rubeniści</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Francja — architektura i Wersal</h2>
+  <div class="concept">
+    <div class="icon">👑</div>
+    <div>
+      <h4>Ludwik XIV — Król Słońce (panowanie 1643–1715)</h4>
+      <p>Sztuka jako narzędzie propagandy absolutyzmu. Utożsamia się z Apollem (słońcem). 1672: przeprowadzka z Luwru do Wersalu — kontrola arystokracji. Wersal jako model dla całej Europy (Schönbrunn, Wilanów). Patron Berniniego, ale odrzucił jego projekt Luwru.</p>
+    </div>
+  </div>
+  <div class="work">
+    <strong>Pałac Wersalski — typ entre cour et jardin</strong>
+    <span>Architekci: Louis Le Vau (pałac), Charles Le Brun (wnętrza), André Le Nôtre (ogrody). Symetria, rytm, trzy arterie do Paryża przed pałacem. Ogrody geometryczne — dziesiątki hektarów, fontanny, kanały, rzeźby mitologiczne. Fasada ogrodowa: 3 kondygnacje, ryzality kolumnowe.</span>
+  </div>
+  <div class="work">
+    <strong>Galeria Zwierciadlana, Wersal</strong>
+    <span>Piano nobile. Wielkie okna portfenêtre skorelowane z lustrami naprzeciw — najdroższe wnętrze epoki. Plafon wzorowany na Galerii Apollina w Luwrze. Przejście do sali audiencji królewskiej.</span>
+  </div>
+  <div class="work">
+    <strong>Wschodnia fasada Luwru — Claude Perrault (ok. 1667–74)</strong>
+    <span>Jeden z najelegantszych przykładów baroku klasycyzującego: rytmiczne kolumnady parzyste, ryzality zamykające poziomą fasadę, piano nobile z Galerią Apollina.</span>
+  </div>
+  <div class="work">
+    <strong>Kościół Inwalidów (Hôtel des Invalides), Jules Hardouin-Mansart</strong>
+    <span>Kompleks dla weteranów Ludwika XIV. Kopuła, kąty proste, kolumnady, tympanony — umiar i majestat zamiast wybujalości.</span>
+  </div>
+</section>
+
+<section>
+  <h2>Rzeźba barokowa we Francji</h2>
+  <div class="person">
+    <h3>François Girardon (1628–1715)</h3>
+    <div class="role">Rzeźbiarz — realizator ogrodów wersalskich, nagrobków</div>
+    <p>Wielokrotne podróże do Rzymu, studium rzeźby antycznej. Autor znacznej części rzeźb wersalskich, głównie tematyki mitologicznej. Stonowane emocje na twarzach — kontrast z ekspresją Berniniego.</p>
+  </div>
+  <div class="work">
+    <strong>Porwanie Prozerpiny, Wersal</strong>
+    <span>Prawie 3-metrowa rzeźba z jednego bloku marmuru. Spiralna kompozycja — „dyskusja" z Giambologną i Berninim. Dynamika przy zachowaniu klasycyzującego umiaru w wyrazie twarzy.</span>
+  </div>
+  <div class="work">
+    <strong>Apollo obsługiwany przez nimfy (grota Wersalu)</strong>
+    <span>Grupa rzeźbiarska w sztucznej grocie. Apolon wzorowany na Apollu Belwederskim. Woda + rzeźba = medium barokowe.</span>
+  </div>
+  <div class="work">
+    <strong>Nagrobek kardynała Richelieu</strong>
+    <span>Omdlewający kardynał otoczony płaczącymi niewiastami. Powściągliwość emocji vs. berniński dramatyzm.</span>
+  </div>
+  <div class="person">
+    <h3>Étienne Maurice Falconet (1716–1791)</h3>
+    <div class="role">Rzeźbiarz późnobarokowy — na granicy rokoka</div>
+    <p>Jego Milon z Krotonu (dynamiczna walka z lwem) to jeszcze pełny późny barok. Kąpiąca się (ok. 80 cm) — taneczny rytm, elegancja rokoka. Największe dzieło: pomnik Piotra Wielkiego w Petersburgu.</p>
+  </div>
+  <div class="work">
+    <strong>Jeździec Miedziany — Pomnik Piotra I, Petersburg (1782)</strong>
+    <span>Zlecenie carycy Katarzyny II (za radą Diderota). Koń na dwóch nogach, podparty ogonem na wężu (symbol Szwecji, wroga Rosji). Twarz cara — dzieło uczennicy Falconeta, Marie-Anne Collot. Jeden z najsłynniejszych pomników konnych epoki.</span>
+  </div>
+</section>
+
+<section>
+  <h2>Malarstwo francuskie</h2>
+  <div class="person">
+    <h3>Nicolas Poussin (1594–1665)</h3>
+    <div class="role">Malarz — „malarz-filozof", lider pusinistów, cały czas w Rzymie</div>
+    <p>Samouk lub prawie. Wielki erudyta — historyk, mitolog. Od 1624 r. w Rzymie z własnego wyboru. Studiuje antyk, Rafaela, Tycjana, Domenichiniego. Raz sprowadzony przez Richelieu do Paryża — wrócił do Rzymu przy pierwszej okazji. Dbał o prawdę historyczną (apostołowie leżą przy stole jak Rzymianie). Priorytety: rysunek, idea, intelekt.</p>
+  </div>
+  <div class="work">
+    <strong>Rzeź Niewiniątek (ok. 1628–29)</strong>
+    <span>Bardzo wczesne — dynamika, teatralność, zrozpaczona matka powstrzymująca żołnierza. Obraz, który zdumił Francisa Bacona krzyczącymi ustami matki.</span>
+  </div>
+  <div class="work">
+    <strong>Natchnienie Poety</strong>
+    <span>Dojrzałe dzieło. Synteza: weneckie światło, monumentalna skala baroku, idealizacja postaci à la Rafael. Kompozycja prosta, koloryt lokalny.</span>
+  </div>
+  <div class="person">
+    <h3>Philippe de Champaigne (1602–1674)</h3>
+    <div class="role">Portrecista oficjalny — wzorzec portretu reprezentacyjnego</div>
+    <p>Stworzył kanoniczny model portretu oficjalnego baroku francuskiego: postać od stóp do głów (en pied), teatralnie rozwinięta kotara, elementy architektury klasycyzującej, idealizacja + fizjonomiczne podobieństwo.</p>
+  </div>
+  <div class="work">
+    <strong>Hyacinthe Rigaud — Portret Ludwika XIV w stroju koronacyjnym (1701)</strong>
+    <span>Inspirowany de Champagnem i Van Dyckiem. Gronostajowy płaszcz, berło, korona, lilie burbońskie, kolumna władzy. Lekki kontrapost à la taniec. Silna idealizacja — król już starszy, ale wychudza go malarz.</span>
+  </div>
+  <div class="work">
+    <strong>Georges de La Tour (1593–1652) — nurt karawagionistyczny</strong>
+    <span>Nie należy do oficjalnego nurtu akademickiego. Tenebrizm, sceny przy świecy, codzienność mieszczan i żebraków. Dłużnik Caravaggia.</span>
+  </div>
+</section>
+
+<section>
+  <h2>Anglia — Inigo Jones, Christopher Wren</h2>
+  <div class="concept">
+    <div class="icon">🔥</div>
+    <div>
+      <h4>Wielki Pożar Londynu (1666)</h4>
+      <p>Zniszczył znaczną część średniowiecznego Londynu łącznie z katedrą Świętego Pawła w formie gotyckiej. Otwarcie na wielki projekt urbanistyczny — Christopher Wren zaproponował całkowitą przebudowę Londynu, lecz zrealizowano tylko część planów (konflikty własnościowe).</p>
+    </div>
+  </div>
+  <div class="person">
+    <h3>Christopher Wren (1632–1723)</h3>
+    <div class="role">Architekt — znajomy króla Karola II Stewarta od dzieciństwa</div>
+    <p>Wielokrotne podróże do Paryża, obserwacja rozbudowy miasta. Wielka szansa po pożarze Londynu.</p>
+  </div>
+  <div class="work">
+    <strong>Katedra Świętego Pawła, Londyn (1675–1710)</strong>
+    <span>Barok klasycyzujący: formy proste, kąty proste, kolumny parzyste, tympanony, pilastry. Kopuła na przecięciu nawy i transeptu. Wnętrze eleganckie i rozświetlone. Wzorowane na katedrach Wren zaprojektował jeszcze ~50 innych londyńskich kościołów po pożarze.</span>
+  </div>
+  <div class="person">
+    <h3>Inigo Jones (1573–1652)</h3>
+    <div class="role">Architekt — wprowadził palladianizm do Anglii</div>
+    <p>Podróże do Włoch, bezpośredni kontakt z architekturą Palladia. Pierwszy świadomie klasyczny budynek Wielkiej Brytanii.</p>
+  </div>
+  <div class="work">
+    <strong>Queen's House, Greenwich (1616–35)</strong>
+    <span>Palladianizm: kąty proste, białe ściany, wyraźne podziały, kolumnady boczne łączące skrzydła. Eleganckie wnętrze — wzorzec dla arystokratycznych rezydencji angielskich.</span>
+  </div>
+  <div class="callout">
+    <h4>Palladianizm — alternatywa dla baroku papieskiego</h4>
+    <p>W krajach protestanckich (Anglia, Holandia) palladianizm staje się świadomym wyborem odróżniającym się od dekoracyjnego baroku rzymskiego — synonimem sztuki papieskiej. Palladio = protestancki klasycy.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Holandia — Ratusz Amsterdamski</h2>
+  <div class="work">
+    <strong>Ratusz w Amsterdamie (Jacob van Campen, 1648–65)</strong>
+    <span>Fundator: burmistrz Nicolaes Tulp (znany z Lekcji Anatomii Rembrandta). Dziś pałac królewski. Wielki porządek pilastrów, ryzalit centralny z tympanonem, kąty proste. Znakomity przykład holenderskiego baroku klasycyzującego — powściągliwego, mieszczańskiego.</span>
+  </div>
+</section>
+
+<section>
+  <h2>Kluczowe pojęcia</h2>
+  <div style="display:flex;flex-wrap:wrap;gap:.4rem">
+    <span class="tag">Barok klasycyzujący</span>
+    <span class="tag">Grand goût</span>
+    <span class="tag">Akademia Królewska Paryż (1648)</span>
+    <span class="tag">Wersal (entre cour et jardin)</span>
+    <span class="tag">Ogród francuski</span>
+    <span class="tag">Pusinisci vs. rubeniści</span>
+    <span class="tag">Nicolas Poussin</span>
+    <span class="tag">Hiérarchie des genres</span>
+    <span class="tag">Palladianizm</span>
+    <span class="tag">Wielki Pożar Londynu (1666)</span>
+    <span class="tag">Katedra Świętego Pawła (Wren)</span>
+    <span class="tag">Portret oficjalny (en pied)</span>
+    <span class="tag">Jeździec Miedziany (Falconet)</span>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

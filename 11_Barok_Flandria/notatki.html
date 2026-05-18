@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barok we Flandrii — Notatki z wykładu</title>
+  <style>
+    :root {
+      --bg: #0f0e11;
+      --surface: #1a1820;
+      --card: #201e28;
+      --border: #2e2a3a;
+      --accent: #c4973f;
+      --accent2: #7b5ea7;
+      --accent3: #4a9eca;
+      --text: #e8e4f0;
+      --muted: #8a85a0;
+      --tag-bg: #2a2535;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 16px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      background: linear-gradient(135deg, #1a0f2e 0%, #0f1a2e 50%, #1a0f0a 100%);
+      padding: 80px 40px 60px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 30% 40%, rgba(196,151,63,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 75% 60%, rgba(123,94,167,0.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 400;
+      letter-spacing: -0.5px;
+      color: #fff;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub {
+      font-size: 16px;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 30px;
+    }
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .meta-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 60px 30px;
+    }
+
+    /* ── TOC ── */
+    .toc {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 60px;
+    }
+    .toc h3 {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-family: 'Courier New', monospace;
+      margin-bottom: 16px;
+    }
+    .toc ol {
+      list-style: none;
+      counter-reset: toc;
+    }
+    .toc ol li {
+      counter-increment: toc;
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      color: var(--muted);
+      transition: color .2s;
+    }
+    .toc ol li:last-child { border-bottom: none; }
+    .toc ol li::before {
+      content: counter(toc, decimal-leading-zero) ' ';
+      color: var(--accent);
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      margin-right: 10px;
+    }
+    .toc a { color: inherit; text-decoration: none; }
+    .toc a:hover { color: var(--text); }
+
+    /* ── Sections ── */
+    .section {
+      margin-bottom: 60px;
+      scroll-margin-top: 20px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .section-num {
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 2px;
+      white-space: nowrap;
+    }
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, var(--border), transparent);
+    }
+    h2 {
+      font-size: 22px;
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: 0.3px;
+    }
+    h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 24px 0 10px;
+      letter-spacing: 0.5px;
+    }
+    p {
+      color: var(--text);
+      margin-bottom: 16px;
+      font-size: 15.5px;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 20px;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--accent);
+      font-family: 'Georgia', serif;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Quote ── */
+    .quote {
+      border-left: 3px solid var(--accent2);
+      padding: 20px 24px;
+      background: var(--card);
+      border-radius: 0 10px 10px 0;
+      margin: 28px 0;
+      font-style: italic;
+      color: #d0c8e8;
+      font-size: 17px;
+      line-height: 1.65;
+      position: relative;
+    }
+    .quote::before {
+      content: '\201C';
+      font-size: 64px;
+      color: var(--accent2);
+      opacity: 0.3;
+      position: absolute;
+      top: -10px;
+      left: 10px;
+      line-height: 1;
+      font-family: Georgia, serif;
+    }
+    .quote cite {
+      display: block;
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--muted);
+      font-style: normal;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Tags ── */
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+    .tag {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-family: 'Courier New', monospace;
+    }
+    .tag.gold { border-color: var(--accent); color: var(--accent); }
+    .tag.purple { border-color: var(--accent2); color: var(--accent2); }
+    .tag.blue { border-color: var(--accent3); color: var(--accent3); }
+
+    /* ── Timeline ── */
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+    .tl-item {
+      position: relative;
+      margin-bottom: 22px;
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -28px;
+      top: 7px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(196,151,63,0.5);
+    }
+    .tl-year {
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 1px;
+      margin-bottom: 2px;
+    }
+    .tl-text { font-size: 14.5px; color: var(--text); }
+
+    /* ── People grid ── */
+    .people-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .person-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      transition: border-color .2s;
+    }
+    .person-card:hover { border-color: var(--accent2); }
+    .person-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .person-role {
+      font-size: 12px;
+      color: var(--accent);
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+    .person-desc { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+
+    /* ── Works ── */
+    .works-list { list-style: none; }
+    .works-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14.5px;
+    }
+    .works-list li:last-child { border-bottom: none; }
+    .work-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .work-title { font-weight: 700; color: #fff; margin-bottom: 2px; }
+    .work-meta { font-size: 12px; color: var(--muted); }
+
+    /* ── Callout ── */
+    .callout {
+      background: linear-gradient(135deg, rgba(196,151,63,0.08), rgba(123,94,167,0.05));
+      border: 1px solid rgba(196,151,63,0.25);
+      border-radius: 12px;
+      padding: 22px 26px;
+      margin: 24px 0;
+    }
+    .callout-title {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-family: 'Courier New', monospace;
+      margin-bottom: 10px;
+    }
+    .callout p { margin: 0; font-size: 14.5px; }
+
+    /* ── Divider ── */
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 50px 20px 40px; }
+      .container { padding: 40px 20px; }
+      .hero-meta { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-badge">Wykład 11 · Historia Sztuki</div>
+  <h1>Barok we <span>Flandrii</span></h1>
+  <p class="hero-sub">„Piękno nadmiaru" — od Habsburgów do Rubensa</p>
+  <div class="hero-meta">
+    <div class="meta-item"><div class="meta-dot"></div>27 kwietnia 2026</div>
+    <div class="meta-item"><div class="meta-dot" style="background:var(--accent2)"></div>1 godz. 21 min.</div>
+    <div class="meta-item"><div class="meta-dot" style="background:var(--accent3)"></div>~10 500 słów transkrypcji</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ═══ TOC ═══ -->
+  <nav class="toc">
+    <h3>Spis treści</h3>
+    <ol>
+      <li><a href="#kontekst">Kontekst geograficzny i polityczny</a></li>
+      <li><a href="#historia">Historia Flandrii — Habsburgowie i reformacja</a></li>
+      <li><a href="#kultura">Kultura flandryjska i sztuka katolicka</a></li>
+      <li><a href="#rubens">Piotr Paweł Rubens — główny bohater</a></li>
+      <li><a href="#biografia">Biografia i życie prywatne</a></li>
+      <li><a href="#warsztat">Warsztat, współpracownicy, styl</a></li>
+      <li><a href="#dziela">Kluczowe dzieła</a></li>
+      <li><a href="#debata">Rubenisci vs. pusiniści</a></li>
+      <li><a href="#podsumowanie">Podsumowanie i kontekst następnego wykładu</a></li>
+    </ol>
+  </nav>
+
+  <!-- ═══ 01 KONTEKST ═══ -->
+  <section class="section" id="kontekst">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>Kontekst geograficzny i polityczny</h2>
+
+    <p>Flandria to historyczny region odpowiadający dzisiejszej Belgii oraz częściowo pograniczu belgijsko-holendersko-francuskiemu. W omawianym okresie Flandria należała do <strong>monarchii Habsburgów</strong> i pozostawała pod panowaniem królów Hiszpanii od połowy XV wieku.</p>
+
+    <div class="card-grid">
+      <div class="stat-card">
+        <span class="stat-num">1609</span>
+        <span class="stat-label">mapa hrabstw Flandrii pod panowaniem Hiszpanii</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">1648</span>
+        <span class="stat-label">pokój westfalski — ustanowienie dwóch odrębnych księstw</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">2</span>
+        <span class="stat-label">kluczowe miasta: Gandawa i Antwerpia</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Kluczowe miasta</h3>
+      <p><strong>Gandawa</strong> — miasto historycznie bardzo bogate, wzbogacone na płótnie żeglarskim i suknie. Siedziba banków Medyceuszy. Znana z kościoła Świętego Bawona i przesławnego Ołtarza Gandawskiego (Ołtarza Baranka Mistycznego).</p>
+      <p><strong>Antwerpia</strong> — leżąca na pograniczu Flandrii i Brabancji, tętniąca życiem metropolia. W XV–XVII w. intensywnie się rozwijała. Centrum artystyczne i handlowe epoki. Siedziba pracowni Rubensa.</p>
+      <p><strong>Bruksela</strong> — stolica Belgii, centrum kolekcjonerskie namiestników habsburskich. Arcyksiążę Leopold Wilhelm zgromadził tam wielką kolekcję dzieł sztuki.</p>
+    </div>
+  </section>
+
+  <!-- ═══ 02 HISTORIA ═══ -->
+  <section class="section" id="historia">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>Historia Flandrii — Habsburgowie i reformacja</h2>
+
+    <p>Flandria funkcjonowała w cieniu wojen religijnych. Reformacja i kontrreformacja wstrząsnęły regionem, generując krwawe konflikty i kształtując politykę artystyczną. Habsburgowie hiszpańscy poczynali sobie bezwzględnie — traktowali Niderlandy jak kolonię, nakładając wysokie podatki i blokując kariery mieszkańców.</p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">XV w.</div>
+        <div class="tl-text">Flandria należy do królów Hiszpanii z dynastii Habsburgów. Niderlandy wzbogacają się na handlu, stają się potęgą artystyczną i finansową.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">od 1506</div>
+        <div class="tl-text">Reformacja i kontrreformacja — napięcia religijne narastają między protestanckimi mieszkańcami a ultrakatolickimi Habsburgami.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Bunt Niderlandów</div>
+        <div class="tl-text">Niderlandy buntują się przeciwko Hiszpanom. Flandria sprytnie opowiada się po stronie Habsburgów, wyłączając się z wojny. Siedem Zjednoczonych Prowincji Północnych (Holandia) rozpoczyna krwawą wojnę 80-letnią.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1648</div>
+        <div class="tl-text">Pokój westfalski oficjalnie ustanawia dwa odrębne byty: Flandria (przy Habsburgach) i Zjednoczone Prowincje Północne (Holandia). Holandia przeżywa niebywalny rozkwit gospodarczy — „złoty wiek".</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Po wymarciu Habsburgów hiszpańskich</div>
+        <div class="tl-text">Boczna gałąź Habsburgów austriackich przejmuje Flandrię dziedzicznie.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Kluczowe rozróżnienie</div>
+      <p>Niderlandy w XV w. → Flandria i Zjednoczone Prowincje Północne (Holandia) po 1648 r. Oba regiony rozwinęły odmienną sztukę: katolicka Flandria — barok religijny; protestancka Holandia — malarstwo świeckie, rodzajowe, pejzaż.</p>
+    </div>
+  </section>
+
+  <!-- ═══ 03 KULTURA ═══ -->
+  <section class="section" id="kultura">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>Kultura flandryjska i sztuka katolicka</h2>
+
+    <p>Flandryjczycy pozostali katolikami — podobnie jak Hiszpanie. Liturgia katolicka potrzebowała oprawy artystycznej: tworzono dzieła o tematyce religijnej, obrazy ołtarzowe do dekoracji kościołów. Architektura kościołów to zwykle gotyk brabancki (przykład: katedra Świętej Marii Panny w Antwerpii) — wyposażenie aktualizowano w stylu baroku.</p>
+
+    <div class="card">
+      <h3>Wpływy artystyczne</h3>
+      <p><strong>Wzorce włoskie:</strong> Flandryjscy artyści regularnie odbywali podróże do Włoch (Rzym, Florencja, Wenecja). Wykształcony artysta epoki musiał zetknąć się z najlepszą sztuką włoską.</p>
+      <p><strong>Sobór trydencki:</strong> Ikonografia sztuki flandryjskiej kształtowała się pod jego wpływem. Szczególnie poczytny był traktat o świętych obrazach <em>Johanesa Molanusa</em>, skąd czerpano pomysły do cyklów artystycznych związanych z życiem świętych i męczenników.</p>
+      <p><strong>Relacje z Hiszpanią:</strong> Polityczno-kulturalna zależność od Habsburgów oznaczała stały przepływ artystów i zleceń między Flandrią a Madrytem.</p>
+    </div>
+
+    <div class="tags">
+      <span class="tag gold">malarstwo religijne</span>
+      <span class="tag gold">obrazy ołtarzowe</span>
+      <span class="tag">gotyk brabancki</span>
+      <span class="tag purple">sobór trydencki</span>
+      <span class="tag blue">wpływy włoskie</span>
+      <span class="tag">kolekcjonerstwo</span>
+    </div>
+  </section>
+
+  <!-- ═══ 04 RUBENS ═══ -->
+  <section class="section" id="rubens">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>Piotr Paweł Rubens — główny bohater</h2>
+
+    <p>Rubens jest uznawany za <strong>najważniejszą postać baroku flandryjskiego</strong> i jednego z największych artystów w historii. Jego twórczość stała się kwintesencją barokowego przepychu i wyznacznikiem ołtarzowych obrazów epoki.</p>
+
+    <div class="quote">
+      Celem malarstwa jest w równym stopniu oświecać umysł i łudzić oczy. Złudzenie, jakie ono budzi w oczach, ma podstawę w ich funkcjonowaniu — oczy same nauczyły się, jak mają być wprowadzane w błąd.
+      <cite>— Piotr Paweł Rubens</cite>
+    </div>
+
+    <div class="quote">
+      Kolor jest uchwyceniem wszystkich barw, przez które wzrok postrzega przedmioty. Ma się do rysunku tak jak poezja do wersyfikacji.
+      <cite>— Piotr Paweł Rubens, o kolorze</cite>
+    </div>
+
+    <div class="card">
+      <h3>Charakterystyka twórczości</h3>
+      <p><strong>Podstawowy środek plastyczny:</strong> kolor i barwa — Rubens był mistrzem koloru, szlachetnej, głębokiej, wieloaspektowej barwy. Zamaszysty dukt pędzla. Inspirował się wenecjanami, przede wszystkim <em>Tycjanem</em>.</p>
+      <p><strong>Cielesność i mięsistość:</strong> Rubens to „malarz ciała" — jego akty i postacie cechuje haptyczna, zmysłowa cielesność (Rembrandt — „malarz duszy").</p>
+      <p><strong>Iluzjonizm:</strong> Malarstwo ma łudzić oczy — kategoria iluzjonizmu jest kluczową cechą jego podejścia.</p>
+      <p><strong>Imaginacja:</strong> Cenił wyobraźnię jako atrybut malarza, która pozwala wypracować rozwiązania zmierzające do odtwarzania złudzenia rzeczywistości.</p>
+    </div>
+
+    <h3>Gatunki malarskie w twórczości Rubensa</h3>
+    <div class="card">
+      <ul class="works-list">
+        <li><div class="work-icon">✝</div><div><div class="work-title">Malarstwo religijne</div><div class="work-meta">Spektakularne sceny — to one uczyniły go nieśmiertelnym. Wyznaczył modelowe układy kompozycyjne ołtarzy barokowych.</div></div></li>
+        <li><div class="work-icon">⚡</div><div><div class="work-title">Sceny mitologiczne</div><div class="work-meta">Genialne kompozycje mitologiczne — jeden z jego największych atutów.</div></div></li>
+        <li><div class="work-icon">👤</div><div><div class="work-title">Portrety</div><div class="work-meta">Budował sławę na europejskich dworach jako portrecista potrafiący odtwarzać materiały tkanin i podobieństwo fizjonomiczne z drobną idealizacją.</div></div></li>
+        <li><div class="work-icon">🏛</div><div><div class="work-title">Sceny alegoryczne i mitologiczno-historyczne</div><div class="work-meta">Mitologia i historia w jednej „orkiestrze". Cykl obrazów dla Marii Medycejskiej.</div></div></li>
+        <li><div class="work-icon">🌿</div><div><div class="work-title">Pejzaże</div><div class="work-meta">Pod koniec życia — zawsze ze sztafażem figuralnym.</div></div></li>
+        <li><div class="work-icon">🎭</div><div><div class="work-title">Sceny rodzajowe / akty</div><div class="work-meta">Zwykle de facto portrety żony i dzieci, ujęte swobodnie i kameralnie.</div></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══ 05 BIOGRAFIA ═══ -->
+  <section class="section" id="biografia">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>Biografia i życie prywatne</h2>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">dzieciństwo</div>
+        <div class="tl-text">Rodzina ucieka do Kolonii z powodu wybuchu wojny 80-letniej. Rubens uczy się tam języka niemieckiego. Po powrocie zostaje paziem na dworze księżnej Małgorzaty de Lalang w Antwerpii.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">edukacja</div>
+        <div class="tl-text">Szeroka edukacja humanistyczno-artystyczna. Główny mistrz malarski: Otto van Veen (Venius). Oficjalny egzamin zdany w 1598 r. Studiował historię, literaturę, mitologię, Biblię.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">8 lat we Włoszech</div>
+        <div class="tl-text">Dyplomata i malarz na dworze Gonzagów w Mantui. Intensywne studia sztuki włoskiej (Tycjan, Michał Anioł, Karavaggio). Liczne misje dyplomatyczne, m.in. do Hiszpanii. Opanowanie języka włoskiego i hiszpańskiego.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1608 — powrót do Antwerpii</div>
+        <div class="tl-text">Wraca jako artysta topowej klasy. Zakłada świetnie prosperującą pracownię. Żeni się z Izabelą Brand. Kupuje luksusowy dom, który rozbudowuje według własnego projektu (mieszkanie + pracownia + kolekcja).</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">ok. 1623</div>
+        <div class="tl-text">Dramat: umiera ukochana 12-letnia córka Serena, a wkrótce po niej żona Izabela Brand. Rubens — wdowiec z dwójką synów (Albert, 8 l. i Nikolas, 7 l.) — rzuca się w wir pracy.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">ok. 1630</div>
+        <div class="tl-text">Poślubia Helenę Furman (53 l. on, 16 l. ona). Helena daje mu ciepły dom i rodzinę. Wielokrotna modelka w jego późnych obrazach.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Tryb dnia Rubensa</h3>
+      <p>Wstawał o 4:00 → msza święta → praca w pracowni do południa → obiad z rodziną → praca lub przyjmowanie gości / negocjacje biznesowe → praca do zmierzchu → wieczór z rodziną lub towarzysko. <strong>Tytan pracy</strong> — człowiek o nieprawdopodobnej dyscyplinie.</p>
+    </div>
+
+    <div class="card">
+      <h3>Języki i dyplomacja</h3>
+      <p>Rubens władał perfekcyjnie: <strong>flamandzkim, niemieckim, włoskim, hiszpańskim, łaciną</strong> i zapewne francuskim. Był wielokrotnie wysyłany w misje dyplomatyczne do Francji, Holandii, Anglii, Hiszpanii — jako negocjator i mediator w wojnach niderlandzkich. Ceniony za ogładę, inteligencję i dyskrecję.</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Mecenasi i kontakty</div>
+      <p>Namiestnik Albert VI Habsburg i Izabela Klara Eugenia, Maria Medycejska (wizyta w jego domu w Antwerpii — wielkie wyróżnienie), generał Ambrogio Spinola. Rubens jest <em>zaprzeczeniem</em> stereotypu niezrozumianego artysty żyjącego w biedzie.</p>
+    </div>
+  </section>
+
+  <!-- ═══ 06 WARSZTAT ═══ -->
+  <section class="section" id="warsztat">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>Warsztat, współpracownicy, studia nad mistrzami</h2>
+
+    <p>Rubens był doskonałym pedagogiem i organizatorem pracowni. Zatrudniał wyspecjalizowanych asystentów do poszczególnych elementów obrazów:</p>
+
+    <div class="people-grid">
+      <div class="person-card">
+        <div class="person-name">Jan Brueghel Aksamitny</div>
+        <div class="person-role">kwiaty w obrazach Rubensa</div>
+        <div class="person-desc">Malował Rubensowi kwiaty, następnie usamodzielnił się jako wybitny malarz.</div>
+      </div>
+      <div class="person-card">
+        <div class="person-name">Franz Snyders</div>
+        <div class="person-role">martwe natury</div>
+        <div class="person-desc">Specjalista od martwych natur — uzupełniał kompozycje Rubensa o elementy przyrodnicze.</div>
+      </div>
+      <div class="person-card">
+        <div class="person-name">Anton van Dyck</div>
+        <div class="person-role">kompozycje figuralne</div>
+        <div class="person-desc">Malował postacie ludzkie w pracowni Rubensa, by później stać się jednym z największych portrecistów Europy.</div>
+      </div>
+    </div>
+
+    <h3>Studia nad mistrzami</h3>
+    <div class="card">
+      <ul class="works-list">
+        <li><div class="work-icon">🎨</div><div><div class="work-title">Tycjan</div><div class="work-meta">Największy wzór kolorystyczny. Rubens kolekcjonował jego dzieła — do jego kolekcji należał autoportret Tycjana. Podziw dla weneckiej szkoły malarskiej.</div></div></li>
+        <li><div class="work-icon">💪</div><div><div class="work-title">Michał Anioł / Laokoon</div><div class="work-meta">Muskulatura postaci wzorowana na Michale Aniele i starożytnej grupie Laokoona, którą Rubens studiował na Watykanie. Szkice stały się podstawą sylwetki Chrystusa w „Podniesieniu krzyża".</div></div></li>
+        <li><div class="work-icon">🕯</div><div><div class="work-title">Caravaggio</div><div class="work-meta">Wielbiciel i propagator — starał się sprowadzić „Madonnę Różańcową" do Antwerpii. Namalował kopię „Złożenia do grobu". Karavaggistyczne kontrasty światła i cienia widoczne w jego dziełach.</div></div></li>
+        <li><div class="work-icon">📝</div><div><div class="work-title">Leonardo da Vinci</div><div class="work-meta">Dzięki szkicom Rubensa znamy jedyny ślad „Bitwy pod Anghiari" Leonarda — malowidło spłynęło jeszcze za życia artysty z powodu eksperymentu z enkaustą; Rubens wykonał przerys pozostałości.</div></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══ 07 DZIEŁA ═══ -->
+  <section class="section" id="dziela">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>Kluczowe dzieła</h2>
+
+    <ul class="works-list">
+      <li>
+        <div class="work-icon">✝</div>
+        <div>
+          <div class="work-title">Podniesienie krzyża (tryptyk)</div>
+          <div class="work-meta">Pierwotnie w kościele Świętej Walpurgi w Antwerpii; po jego zniszczeniu przeniesiony do katedry. Chrystus w ekspresyjnej, dynamicznej pozie — diagonala ciała i krzyża wyznacza kompozycję. Muskulatury wzorowane na Michale Aniele i Laokoonie.</div>
+        </div>
+      </li>
+      <li>
+        <div class="work-icon">✝</div>
+        <div>
+          <div class="work-title">Zdjęcie z krzyża (tryptyk)</div>
+          <div class="work-meta">Katedra w Antwerpii. Trzy panele: lewy — Nawiedzenie (Madonna z zaokrąglonym brzuszkiem spotyka Elżbietę), środkowy — zdjęcie z krzyża na tle wyludnionego krajobrazu, prawy — scena we wnętrzu kościoła. Panele zunifikowane postacią Matki Boskiej. Po lewej mrok i czerń, po prawej rozświetlone niebo.</div>
+        </div>
+      </li>
+      <li>
+        <div class="work-icon">💑</div>
+        <div>
+          <div class="work-title">Autoportret z Izabelą Brand (ok. 1609–1610)</div>
+          <div class="work-meta">Pinakoteka Monachijska. Widoczne partnerstwo i radość związku. Helena kładzie rękę z pierścionkiem na jego otwartej dłoni — gest równości (w odróżnieniu od „Małżeństwa Arnolfinich" Van Eycka). Roślina capryfolium symbolizuje miłość.</div>
+        </div>
+      </li>
+      <li>
+        <div class="work-icon">🏰</div>
+        <div>
+          <div class="work-title">Cykl dla Marii Medycejskiej</div>
+          <div class="work-meta">Wielki cykl namalowany podczas pobytu we Francji. Monumentalne płótna alegoryczno-historyczne sławiące królową Francji.</div>
+        </div>
+      </li>
+      <li>
+        <div class="work-icon">🖼</div>
+        <div>
+          <div class="work-title">Autoportret z przyjaciółmi na dworze Gonzagów w Mantui</div>
+          <div class="work-meta">Pożegnalny wyraz szacunku wobec mecenasów. Młody Rubens zwrócony twarzą do widza.</div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ═══ 08 DEBATA ═══ -->
+  <section class="section" id="debata">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>Rubenisci vs. pusiniści</h2>
+
+    <p>Twórczość Rubensa stała się centrum jednego z najważniejszych sporów estetycznych epoki:</p>
+
+    <div class="card-grid">
+      <div class="card" style="border-color: var(--accent); border-top: 3px solid var(--accent);">
+        <h3 style="color: var(--accent); margin-top:0">Rubenisci</h3>
+        <p style="font-size:14px">Podstawowy środek: <strong>KOLOR i barwa</strong>. Malarskość, ekspresja, emocja. Wzorzec: Rubens i wenecjanie (Tycjan). Dominuje w Akademii w Paryżu — frakcja kolorystów.</p>
+        <div class="tags"><span class="tag gold">kolor</span><span class="tag gold">malarskość</span><span class="tag gold">ekspresja</span></div>
+      </div>
+      <div class="card" style="border-color: var(--accent2); border-top: 3px solid var(--accent2);">
+        <h3 style="color: var(--accent2); margin-top:0">Pusiniści</h3>
+        <p style="font-size:14px">Podstawowy środek: <strong>RYSUNEK i linearyzm</strong>. Kolor — tylko dopełnienie. Wzorzec: Nicolas Poussin i szkoła rzymska (Rafael, Michał Anioł). Klasycyzujące podejście do sztuki.</p>
+        <div class="tags"><span class="tag purple">rysunek</span><span class="tag purple">linearyzm</span><span class="tag purple">klasycyzm</span></div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Historyczny kontekst sporu</div>
+      <p>Nie jest to spór nowy — w XV wieku analogiczny podział istniał między <strong>szkołą rzymską</strong> (Rafael, Michał Anioł — rysunek) a <strong>szkołą wenecką</strong> (Tycjan — kolor). Spór rubenistów i pusinistów w XVII w. szczególnie podzielił środowiska akademickie w Paryżu.</p>
+    </div>
+  </section>
+
+  <!-- ═══ 09 PODSUMOWANIE ═══ -->
+  <section class="section" id="podsumowanie">
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>Podsumowanie i następny wykład</h2>
+
+    <div class="card">
+      <h3>Co zapamiętać z tego wykładu</h3>
+      <ul style="list-style:none; padding:0">
+        <li style="padding:8px 0; border-bottom:1px solid var(--border); font-size:14.5px">🗺 Flandria = historyczna Belgia, pod panowaniem Habsburgów (najpierw hiszpańskich, potem austriackich)</li>
+        <li style="padding:8px 0; border-bottom:1px solid var(--border); font-size:14.5px">⚔ Podział Niderlandów: katolicka Flandria (przy Habsburgach) vs. protestancka Holandia (Zjednoczone Prowincje Północne)</li>
+        <li style="padding:8px 0; border-bottom:1px solid var(--border); font-size:14.5px">🎨 Rubens = kwintesencja baroku flandryjskiego; mistrz koloru, iluzjonizmu i kompozycji ołtarzowych</li>
+        <li style="padding:8px 0; border-bottom:1px solid var(--border); font-size:14.5px">📚 Rubens był poliglotą, dyplomatą, kolekcjonerem i tytanem pracy (4:00 rano — zmierzch)</li>
+        <li style="padding:8px 0; border-bottom:1px solid var(--border); font-size:14.5px">🏛 Kluczowe dzieła: „Podniesienie krzyża" i „Zdjęcie z krzyża" w katedrze w Antwerpii</li>
+        <li style="padding:8px 0; font-size:14.5px">⚖ Spór rubenistów vs. pusinistów = kolor vs. rysunek (analogiczny do Wenecja vs. Rzym w XV w.)</li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Następny wykład — 11 maja</div>
+      <p>Holandia — Zjednoczone Prowincje Północne. „Złoty wiek" holenderski, malarstwo protestanckie, pejzaż, martwa natura, sceny rodzajowe. Wielkim rywalem Rubensa na własnych zasadach — Rembrandt.</p>
+    </div>
+  </section>
+
+  <hr>
+
+  <div style="text-align:center; color:var(--muted); font-size:13px; font-style:italic; padding-bottom:20px">
+    Notatki wygenerowane automatycznie z transkrypcji wykładu.<br>
+    Nagranie: <code style="font-size:11px">wykład.mp4</code> · Transkrypcja: <code style="font-size:11px">transkrypcja.txt</code>
+  </div>
+
+</div>
+
+<footer>
+  Historia Sztuki · Wykład 11 · Barok we Flandrii · 27.04.2026
+</footer>
+
+</body>
+</html>

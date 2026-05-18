@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filozofia — Notatki z wykładów</title>
+<style>
+:root{--bg:#0f0e11;--surface:#1a1820;--card:#201e28;--border:#2e2b3a;--text:#e8e4f0;--muted:#9b96b0;--gold:#c4973f;--purple:#7b5ea7;--blue:#4a9eca;--green:#5aab7a;--red:#c45a5a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7;min-height:100vh}
+.hero{background:linear-gradient(160deg,#0d0b14 0%,#0a0f1a 40%,#0f0e11 100%);padding:4rem 2rem 3rem;text-align:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(123,94,167,.08) 0%,transparent 70%);pointer-events:none}
+.hero-label{color:var(--muted);font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--purple);font-weight:700;margin-bottom:.6rem;line-height:1.2}
+.hero .subtitle{color:var(--muted);font-size:1.1rem;max-width:520px;margin:0 auto 2rem}
+.hero-stats{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap}
+.stat{text-align:center}
+.stat .num{font-size:2rem;font-weight:700;color:var(--purple);line-height:1}
+.stat .lbl{color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;margin-top:.2rem}
+.search-wrap{max-width:900px;margin:2.5rem auto 0;padding:0 1rem}
+.search-box{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.85rem 1.2rem;font-size:1rem;color:var(--text);outline:none;transition:border-color .2s}
+.search-box::placeholder{color:var(--muted)}
+.search-box:focus{border-color:var(--purple)}
+.container{max-width:900px;margin:0 auto;padding:2rem 1rem 4rem}
+.section-label{color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:1rem;padding-left:.2rem}
+.lectures{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-bottom:3rem}
+.lecture-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.4rem;text-decoration:none;display:flex;flex-direction:column;gap:.8rem;transition:border-color .2s,transform .15s,box-shadow .2s;position:relative;overflow:hidden}
+.lecture-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--card-accent,var(--purple)),transparent)}
+.lecture-card:hover{border-color:var(--card-accent,var(--purple));transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.lecture-card.unavailable{opacity:.45;cursor:not-allowed;pointer-events:none}
+.card-num{font-size:.75rem;font-weight:700;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.card-title{font-size:1.05rem;font-weight:600;color:var(--text);line-height:1.35}
+.card-subtitle{font-size:.85rem;color:var(--muted);line-height:1.4}
+.card-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.2rem}
+.card-tag{font-size:.72rem;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:.15rem .6rem;color:var(--muted)}
+.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:.6rem;border-top:1px solid var(--border)}
+.card-era{font-size:.78rem;color:var(--muted)}
+.card-arrow{color:var(--muted);font-size:1rem;transition:transform .2s,color .2s}
+.lecture-card:hover .card-arrow{transform:translateX(4px);color:var(--purple)}
+.badge-na{font-size:.72rem;background:rgba(196,90,90,.15);border:1px solid var(--red);color:var(--red);border-radius:20px;padding:.15rem .6rem}
+footer{border-top:1px solid var(--border);padding:2rem 1rem;text-align:center;color:var(--muted);font-size:.82rem}
+.era-intro{--card-accent:#7b5ea7}
+.era-meta{--card-accent:#c4973f}
+.era-jaspers{--card-accent:#4a9eca}
+.era-na{--card-accent:#c45a5a}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-label">Kurs · Semestr letni</div>
+  <h1>Filozofia</h1>
+  <div class="subtitle">Notatki z wykładów — od śmiechu i metafizyki po Ogarniające Jaspersa</div>
+  <div class="hero-stats">
+    <div class="stat"><div class="num">8</div><div class="lbl">Wykładów</div></div>
+    <div class="stat"><div class="num">II</div><div class="lbl">Semestr</div></div>
+    <div class="stat"><div class="num">UAP</div><div class="lbl">Uczelnia</div></div>
+  </div>
+</div>
+
+<div class="search-wrap">
+  <input class="search-box" type="search" placeholder="Szukaj wykładu, filozofa, pojęcia…" id="search" autocomplete="off">
+</div>
+
+<div class="container">
+
+  <div class="section-label">Wykłady</div>
+  <div class="lectures" id="lecture-list">
+
+    <a class="lecture-card era-intro" href="01_Wprowadzenie/notatki.html"
+       data-keywords="wprowadzenie smiec myslenie benjamin bergson rabelais nietzsche kant szymborska sapere aude filozofia nudna seks niezbędny koniunkcja">
+      <div class="card-num">Wykład 01</div>
+      <div class="card-title">Wprowadzenie do filozofii</div>
+      <div class="card-subtitle">Śmiech, graffiti na UAM i odwaga posługiwania się własnym rozumem</div>
+      <div class="card-tags">
+        <span class="card-tag">Benjamin</span>
+        <span class="card-tag">Bergson</span>
+        <span class="card-tag">Sapere aude</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-era">Wykład wstępny</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="lecture-card era-meta" href="02_Metafizyka_Religia/notatki.html"
+       data-keywords="metafizyka religia trojkat platonski jaskinia platon kant trzy pytania krytyke czystego rozumu jaspers dowody boga pascal kierkegaard mistrze podejrzen marks nietzsche freud fideizm teodyceja">
+      <div class="card-num">Wykład 02</div>
+      <div class="card-title">Metafizyka i filozofia religii</div>
+      <div class="card-subtitle">Trójkąt platoński, jaskinia Platona, pytania Kanta, dowody na istnienie Boga</div>
+      <div class="card-tags">
+        <span class="card-tag">Platon</span>
+        <span class="card-tag">Kant</span>
+        <span class="card-tag">Jaspers</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-era">Metafizyka / ontologia</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="lecture-card era-jaspers" href="03_Jaspers_Ogarniajace/notatki.html"
+       data-keywords="jaspers ogarniajace das umgreifende podmiot przedmiot wittgenstein schopenhauer kartezjusz descartes nietzsche tales presokratycy arche metafizyka kryzys szyfry bytu">
+      <div class="card-num">Wykład 03</div>
+      <div class="card-title">Jaspers: Das Umgreifende</div>
+      <div class="card-subtitle">Podmiot, przedmiot i Ogarniające — granice metafizyki i szyfry bytu</div>
+      <div class="card-tags">
+        <span class="card-tag">Ogarniające</span>
+        <span class="card-tag">Wittgenstein</span>
+        <span class="card-tag">Presokratycy</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-era">Egzystencjalizm / ontologia</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="lecture-card era-jaspers" href="04_Teodyceja/notatki.html"
+       data-keywords="teodyceja problem zla atrybuty boga tomasz akwinu arystoteles orzekanie analogiczne teologia apofatyczna negatywna deizm panteizm wszechmoc dobroc celsus big lebowski">
+      <div class="card-num">Wykład 04</div>
+      <div class="card-title">Teodyceja i atrybuty Boga</div>
+      <div class="card-subtitle">Problem zła, orzekanie analogiczne Tomasza i teologia apofatyczna</div>
+      <div class="card-tags">
+        <span class="card-tag">Teodyceja</span>
+        <span class="card-tag">Tomasz z Akwinu</span>
+        <span class="card-tag">Analogia</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-era">Filozofia religii</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="lecture-card era-meta" href="05_Epistemologia_Arystoteles/notatki.html"
+       data-keywords="arystoteles akt potencja argument kosmologiczny tomasz piec drog ruch przyczynowosci koniecznosci paley zegarek amicus plato veritas duchamp budzacy sie niewolnik michal aniol">
+      <div class="card-num">Wykład 05</div>
+      <div class="card-title">Argument kosmologiczny i metafizyka Arystotelesa</div>
+      <div class="card-subtitle">Akt i potencja, dowód z ruchu, zegarek Paleya</div>
+      <div class="card-tags">
+        <span class="card-tag">Akt / Potencja</span>
+        <span class="card-tag">Tomasz — 5 dróg</span>
+        <span class="card-tag">William Paley</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-era">Metafizyka / dowody na Boga</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="lecture-card era-intro" href="06_Pascal_James/notatki.html"
+       data-keywords="pascal zaklad agnostycyzm william james pragmatyzm wola wiary will to believe kalkulacja nieskonczonosc skoncznosc myśli pensees hektopaskal kalkulator">
+      <div class="card-num">Wykład 06</div>
+      <div class="card-title">Zakład Pascala i William James</div>
+      <div class="card-subtitle">Agnostycyzm jako ukryty wybór i pragmatyzm religijny</div>
+      <div class="card-tags">
+        <span class="card-tag">Zakład Pascala</span>
+        <span class="card-tag">William James</span>
+        <span class="card-tag">Pragmatyzm</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-era">Filozofia wiary</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="lecture-card era-jaspers" href="07_Marks_Materializm/notatki.html"
+       data-keywords="marks marksizm opium ludu baza nadbudowa materializm historyczny alienacja praca mistrze podejrzen ricoeur ideologia stosunki produkcji sily wytworcze kapitalizm">
+      <div class="card-num">Wykład 07</div>
+      <div class="card-title">Marks i materializm historyczny</div>
+      <div class="card-subtitle">Religia jako opium ludu, baza materialna i nadbudowa ideologiczna</div>
+      <div class="card-tags">
+        <span class="card-tag">Opium ludu</span>
+        <span class="card-tag">Baza / Nadbudowa</span>
+        <span class="card-tag">Alienacja</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-era">Filozofia społeczna</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="lecture-card era-meta" href="08_Nietzsche_Resentyment/notatki.html"
+       data-keywords="nietzsche resentyment smierc boga gott ist tot nihilizm moralnosc pana niewolnika chrzescijanstwo genealogia moralnosci wola mocy zaratustra celsus">
+      <div class="card-num">Wykład 08</div>
+      <div class="card-title">Nietzsche: resentyment i śmierć Boga</div>
+      <div class="card-subtitle">Nihilizm, moralność słabych i niuansowanie krytyki chrześcijaństwa</div>
+      <div class="card-tags">
+        <span class="card-tag">Resentyment</span>
+        <span class="card-tag">Gott ist tot</span>
+        <span class="card-tag">Nihilizm</span>
+      </div>
+      <div class="card-footer">
+        <span class="card-era">Filozofia kultury</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+</div>
+
+<footer>
+  Filozofia · Notatki wygenerowane na podstawie transkrypcji wykładów
+</footer>
+
+<script>
+const search = document.getElementById('search');
+const cards = document.querySelectorAll('.lecture-card:not(.unavailable)');
+search.addEventListener('input', () => {
+  const q = search.value.toLowerCase().trim();
+  cards.forEach(card => {
+    const text = (card.textContent + ' ' + (card.dataset.keywords || '')).toLowerCase();
+    card.style.display = (!q || text.includes(q)) ? '' : 'none';
+  });
+});
+</script>
+</body>
+</html>

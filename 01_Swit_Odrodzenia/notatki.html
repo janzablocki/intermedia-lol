@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W01 — Świt Odrodzenia</title>
+<style>
+:root{--bg:#0f0e11;--surface:#1a1820;--card:#201e28;--border:#2e2b3a;--text:#e8e4f0;--muted:#9b96b0;--gold:#c4973f;--purple:#7b5ea7;--blue:#4a9eca;--green:#5aab7a;--red:#c45a5a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#1a1428 0%,#0f1a2e 100%);border:1px solid var(--border);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:2rem}
+.hero h1{font-size:2.4rem;color:var(--gold);margin-bottom:.5rem}
+.hero .subtitle{color:var(--muted);font-size:1.1rem}
+.hero .meta{display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.badge{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.4rem 1rem;font-size:.85rem;color:var(--muted)}
+.badge span{color:var(--text)}
+section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.8rem;margin-bottom:1.5rem}
+section h2{color:var(--gold);font-size:1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+section h2::before{content:'';display:block;width:4px;height:1.3rem;background:var(--gold);border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem}
+.card h3{color:var(--blue);font-size:1rem;margin-bottom:.6rem}
+.card p,.card li{color:var(--muted);font-size:.9rem}
+.card ul{padding-left:1.2rem}
+.card li{margin-bottom:.3rem}
+.timeline{border-left:3px solid var(--purple);padding-left:1.5rem;margin-top:1rem}
+.timeline-item{margin-bottom:1.2rem;position:relative}
+.timeline-item::before{content:'';position:absolute;left:-1.85rem;top:.4rem;width:10px;height:10px;background:var(--purple);border-radius:50%}
+.timeline-item .date{color:var(--gold);font-size:.85rem;font-weight:700}
+.timeline-item p{color:var(--muted);font-size:.9rem;margin-top:.2rem}
+.person{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;margin-bottom:1rem}
+.person h3{color:var(--green);margin-bottom:.4rem}
+.person .role{color:var(--gold);font-size:.8rem;font-weight:600;margin-bottom:.5rem}
+.person p{color:var(--muted);font-size:.9rem}
+.work{border-left:4px solid var(--blue);padding:.8rem 1rem;background:var(--card);border-radius:0 8px 8px 0;margin-bottom:.7rem}
+.work strong{color:var(--text)}
+.work span{color:var(--muted);font-size:.85rem}
+.quote{border-left:4px solid var(--gold);padding:1rem 1.2rem;background:var(--card);border-radius:0 8px 8px 0;margin:1rem 0;font-style:italic;color:var(--muted)}
+.concept{display:flex;gap:.8rem;align-items:flex-start;padding:1rem;background:var(--card);border-radius:8px;margin-bottom:.7rem}
+.concept .icon{font-size:1.4rem;flex-shrink:0}
+.concept h4{color:var(--text);margin-bottom:.3rem;font-size:.95rem}
+.concept p{color:var(--muted);font-size:.88rem}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+.vs-box{background:var(--card);border-radius:10px;padding:1rem}
+.vs-box h4{text-align:center;margin-bottom.8rem}
+.vs-box.left h4{color:var(--purple)}
+.vs-box.right h4{color:var(--gold)}
+.vs-box ul{list-style:none;padding:0}
+.vs-box li{color:var(--muted);font-size:.88rem;padding:.25rem 0;border-bottom:1px solid var(--border)}
+.vs-box li:last-child{border:none}
+.tag{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:.2rem .7rem;font-size:.78rem;color:var(--muted);margin:.2rem}
+.callout{background:linear-gradient(135deg,#1f1630,#162030);border:1px solid var(--purple);border-radius:10px;padding:1.2rem;margin-top:1rem}
+.callout h4{color:var(--purple);margin-bottom:.5rem}
+.callout p{color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div style="color:var(--muted);font-size:.9rem;margin-bottom:.5rem">Wykład 01 · Historia Sztuki</div>
+  <h1>Świt Odrodzenia</h1>
+  <div class="subtitle">Protorenesans — między gotykiem a nowożytnością</div>
+  <div class="meta">
+    <div class="badge">Temat: <span>Protorenesans</span></div>
+    <div class="badge">Czas: <span>XIII–XIV/pocz. XV w.</span></div>
+    <div class="badge">Region: <span>Europa Płn. + Włochy</span></div>
+  </div>
+</div>
+
+<section>
+  <h2>Geografia sztuki — podział Europą Alpami</h2>
+  <div class="vs">
+    <div class="vs-box left">
+      <h4>Europa Północna</h4>
+      <ul>
+        <li>Gotyk dominuje do XVI w.</li>
+        <li>Anglia — gotyk płomienny do XVI w.</li>
+        <li>Flandria, Burgundia — bogaci mecenasi</li>
+        <li>Malarstwo tablicowe i książkowe</li>
+        <li>Precyzja detalu, realizm materialny</li>
+      </ul>
+    </div>
+    <div class="vs-box right">
+      <h4>Europa Południowa (Italia)</h4>
+      <ul>
+        <li>Spuścizna antyku — wcześniejsze otwarcie</li>
+        <li>Sąsiedztwo Bizancjum (do 1453)</li>
+        <li>Maniera greca → przełom wcześniejszy</li>
+        <li>Florencja i Siena — dwie rywalizujące republiki</li>
+        <li>Protorenesans jako włoskie zjawisko XIV w.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Rzeźba gotycka — zwiastuny nowego</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Rzeźby z Reims (XIII w.)</h3>
+      <ul>
+        <li>Grupy Nawiedzenia i Zwiastowania</li>
+        <li>Mistrz Figur Antycznych — kontrapost</li>
+        <li>Styl mokrych szat — wpływ włoski</li>
+        <li>Wyzwalanie się rzeźby spod prawa ramy</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Fundatorzy z Naumburga (ok. 1250)</h3>
+      <ul>
+        <li>Herman i Regelinda — Mistrz z Naumburga</li>
+        <li>Gesty podpatrzone u konkretnych osób</li>
+        <li>Palec przytrzymujący połę płaszcza</li>
+        <li>Indywidualizacja wyrazu twarzy</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Piotr Parler — autoportret (Praga)</h3>
+      <ul>
+        <li>Katedra Świętego Wita, Praga</li>
+        <li>Własny wizerunek wśród fundatorów</li>
+        <li>Geneza portretu nowożytnego</li>
+        <li>Architekt + inżynier (Zegar Orloj)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Wit Stwosz — Ołtarz Mariacki (1477–89)</h3>
+      <ul>
+        <li>Lipowe drewno, polichromia, złocenia</li>
+        <li>Styl łamany szat — typowy gotyk późny</li>
+        <li>Modele: rajcy miasta Krakowa (żylaki!)</li>
+        <li>Krucyfiks lakerowski — perizonium w ruchu</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Malarstwo książkowe i tablicowe</h2>
+  <div class="person">
+    <h3>Bracia Limburg — Herman, Jean, Paul</h3>
+    <div class="role">Iluminatorzy z Flandrii, czynni ok. 1400–1416</div>
+    <p>Twórcy <em>Très Riches Heures du Duc de Berry</em> — najsłynniejszego kalendarza miniatorskiego. Każdy miesiąc: sceny pracy, pejzaże, architektura zamków. Orzający chłop rzuca cień — niemal nowożytne widzenie. Miniatury =  „powiększone" obrazy tablicowe. Zginęli na zarazę (1416); manuskrypt dokończono ok. 1450 (Barthélemy d'Eyck) i ok. 1485 (Colombe).</p>
+  </div>
+  <div class="person">
+    <h3>Robert Campin (Mistrz z Flémalle)</h3>
+    <div class="role">Malarstwo tablicowe, Flandria, pocz. XV w.</div>
+    <p><strong>Tryptyk Mérode</strong> — Zwiastowanie. Scena religijna we wnętrzu niderlandzkiej izby mieszczańskiej: wygaszona świeca (Matka Boska brzemienna = nie potrzeba już ziemskiego światła), lilia, pułapka na myszy św. Józefa (diabeł), widok Brugii za oknem. Nauczyciel Jana van Eycka (hipoteza).</p>
+  </div>
+</section>
+
+<section>
+  <h2>Włochy XIV w. — Maniera Greca i przełom</h2>
+  <div class="concept">
+    <div class="icon">🎨</div>
+    <div>
+      <h4>Maniera greca / Maniera Bizantina</h4>
+      <p>Styl malowania wzorowany na ikonach bizantyjskich. Hierarchiczny układ, frontalność, złote tło, brak modelunku światłocieniowego, wydłużone postaci, szrafowania. Dominował we Włoszech do XIII/XIV w.</p>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <h3>Cimabue (ok. 1240–1302)</h3>
+      <ul>
+        <li>Maestà z Luwru — klasyczna maniera greca</li>
+        <li>Złote tło, hierarchia aniołów</li>
+        <li>Uczeń: Duccio i Giotto</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Duccio di Buoninsegna</h3>
+      <ul>
+        <li>Madonna Rucellai — szkoła sieneńska</li>
+        <li>Delikatniejsze modelowanie twarzy</li>
+        <li>Trochę mniej płaski niż Cimabue</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Giotto — ojciec malarstwa nowożytnego</h2>
+  <div class="quote">"Przetłumaczył malarską sztukę z Greki na łacinę i przez to uczynił nowoczesną." — Cennino Cennini</div>
+  <div class="grid">
+    <div class="card">
+      <h3>Innowacje Giotta</h3>
+      <ul>
+        <li>Naturalizm — obserwacja rzeczywistości</li>
+        <li>Modelowanie postaci na sposób rzeźbiarski</li>
+        <li>Tron budowany w głąb — pierwsze ujęcia przestrzenne</li>
+        <li>Emocjonalność i ekspresja postaci</li>
+        <li>Sceny narracyjne, gest, fizyczność</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Kaplica Scrovegnich (Arena), Padwa</h3>
+      <ul>
+        <li>Fresk — cykl 1304–1306</li>
+        <li>Sceny z życia Chrystusa i Marii</li>
+        <li>Iluzjonistyczna architektura jako ramy</li>
+        <li>Technika grisaille w dolnych strefach</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Wpływ zakonów żebraczych na sztukę</h2>
+  <div class="concept">
+    <div class="icon">✝️</div>
+    <div>
+      <h4>Franciszkanie</h4>
+      <p>Emocjonalny, bezpośredni stosunek do Boga. Pochwała Bożego Stworzenia — świat materialny nie jest zły. Propagują realizm i obserwację natury.</p>
+    </div>
+  </div>
+  <div class="concept">
+    <div class="icon">📖</div>
+    <div>
+      <h4>Dominikanie</h4>
+      <p>Intelektualna analiza rzeczywistości. Zakony kaznodziejskie w miastach. Pochwała Bożego Stworzenia przez metodę naukową i filozoficzną.</p>
+    </div>
+  </div>
+  <div class="callout">
+    <h4>Wniosek</h4>
+    <p>Oba zakony dały „zielone światło" dla obserwacji świata i człowieka w sztuce. Stało się to siłą napędową zmian, które doprowadzą do renesansu. Kościół — dotychczasowy cenzor sztuki — sam staje się motorem zmian.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Kluczowe pojęcia</h2>
+  <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem">
+    <span class="tag">Protorenesans</span>
+    <span class="tag">Maniera greca</span>
+    <span class="tag">Styl łamany (szaty)</span>
+    <span class="tag">Malarstwo książkowe</span>
+    <span class="tag">Tryptyk</span>
+    <span class="tag">Maesta</span>
+    <span class="tag">Kontrapost</span>
+    <span class="tag">Styl mokrych szat</span>
+    <span class="tag">Grisaille</span>
+    <span class="tag">Nowożytność = 1401 w historii sztuki</span>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item"><div class="date">~1250</div><p>Mistrz z Naumburga — fundatorzy katedry, indywidualizacja postaci</p></div>
+    <div class="timeline-item"><div class="date">1280–1310</div><p>Cimabue, Duccio — przełom w Toscanii</p></div>
+    <div class="timeline-item"><div class="date">1304–06</div><p>Giotto — Kaplica Arena, Padwa</p></div>
+    <div class="timeline-item"><div class="date">ok. 1400</div><p>Bracia Limburg — Très Riches Heures du Duc de Berry</p></div>
+    <div class="timeline-item"><div class="date">ok. 1420</div><p>Robert Campin — Tryptyk Mérode</p></div>
+    <div class="timeline-item"><div class="date">1483</div><p>Wit Stwosz — Ołtarz Mariacki, Kraków (gotyk + nowożytna obserwacja)</p></div>
+    <div class="timeline-item"><div class="date">1453</div><p>Upadek Konstantynopola → koniec Bizancjum → koniec średniowiecza</p></div>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

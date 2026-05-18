@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W08 — Nietzsche: resentyment i śmierć Boga</title>
+<style>
+:root{--bg:#0f0e11;--surface:#1a1820;--card:#201e28;--border:#2e2b3a;--text:#e8e4f0;--muted:#9b96b0;--gold:#c4973f;--purple:#7b5ea7;--blue:#4a9eca;--green:#5aab7a;--red:#c45a5a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;line-height:1.7;padding:2rem 1rem}
+.container{max-width:900px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#0a0a1a 0%,#0f0e11 100%);border:1px solid var(--border);border-radius:16px;padding:3rem 2rem;text-align:center;margin-bottom:2rem}
+.hero h1{font-size:2.2rem;color:var(--gold);margin-bottom:.5rem}
+.hero .subtitle{color:var(--muted);font-size:1.1rem}
+.hero .meta{display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.badge{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.4rem 1rem;font-size:.85rem;color:var(--muted)}
+.badge span{color:var(--text)}
+section{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.8rem;margin-bottom:1.5rem}
+section h2{color:var(--gold);font-size:1.3rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+section h2::before{content:'';display:block;width:4px;height:1.3rem;background:var(--gold);border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem}
+.card h3{color:var(--blue);font-size:1rem;margin-bottom:.6rem}
+.card p,.card li{color:var(--muted);font-size:.9rem}
+.card ul{padding-left:1.2rem}
+.card li{margin-bottom:.3rem}
+.person{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;margin-bottom:1rem}
+.person h3{color:var(--green);margin-bottom:.4rem}
+.person .role{color:var(--gold);font-size:.8rem;font-weight:600;margin-bottom:.5rem}
+.person p{color:var(--muted);font-size:.9rem}
+.work{border-left:4px solid var(--purple);padding:.8rem 1rem;background:var(--card);border-radius:0 8px 8px 0;margin-bottom:.7rem}
+.work strong{color:var(--text)}
+.work span{color:var(--muted);font-size:.85rem;display:block;margin-top:.2rem}
+.concept{display:flex;gap:.8rem;align-items:flex-start;padding:1rem;background:var(--card);border-radius:8px;margin-bottom:.7rem}
+.concept .icon{font-size:1.4rem;flex-shrink:0}
+.concept h4{color:var(--text);margin-bottom:.3rem;font-size:.95rem}
+.concept p{color:var(--muted);font-size:.88rem}
+.quote{background:linear-gradient(135deg,#1a1020,#100a1a);border:1px solid var(--purple);border-radius:10px;padding:1.4rem 1.6rem;margin-bottom:1rem;position:relative}
+.quote::before{content:'"';position:absolute;top:-.3rem;left:1rem;font-size:3rem;color:var(--purple);opacity:.4;font-family:Georgia,serif;line-height:1}
+.quote p{color:var(--text);font-style:italic;font-size:.95rem;padding-left:.5rem}
+.quote .source{color:var(--muted);font-size:.8rem;margin-top:.6rem;padding-left:.5rem}
+.callout{background:linear-gradient(135deg,#111a0a,#0f0a1f);border:1px solid var(--green);border-radius:10px;padding:1.2rem;margin-top:1rem}
+.callout h4{color:var(--green);margin-bottom:.5rem}
+.callout p{color:var(--muted);font-size:.9rem}
+.schema{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.6rem;margin:1rem 0}
+.schema-row{display:flex;align-items:center;justify-content:center;gap:1rem;margin:.6rem 0;flex-wrap:wrap}
+.schema-box{background:var(--surface);border:2px solid var(--gold);border-radius:8px;padding:.5rem 1.2rem;font-size:.9rem;font-weight:600;text-align:center}
+.tag{display:inline-block;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:.2rem .7rem;font-size:.78rem;color:var(--muted);margin:.2rem}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div style="color:var(--muted);font-size:.9rem;margin-bottom:.5rem">Wykład 08 · Filozofia</div>
+  <h1>Nietzsche: resentyment i śmierć Boga</h1>
+  <div class="subtitle">Nihilizm, chrześcijaństwo jako moralność słabych, niuansowanie krytyki</div>
+  <div class="meta">
+    <div class="badge">Pojęcie: <span>Resentyment</span></div>
+    <div class="badge">Teza: <span>Gott ist tot</span></div>
+    <div class="badge">Problem: <span>Nihilizm</span></div>
+  </div>
+</div>
+
+<section>
+  <h2>Recap: „Bóg jest martwy" i nihilizm</h2>
+  <div class="quote">
+    <p>Gott ist tot. Gott bleibt tot. Und wir haben ihn getötet.</p>
+    <div class="source">Friedrich Nietzsche, <em>Wiedza radosna</em> (1882), afm. 125 — „Szaleniec"</div>
+  </div>
+  <div class="concept">
+    <div class="icon">🌑</div>
+    <div>
+      <h4>Co znaczy „Bóg jest martwy"?</h4>
+      <p>Nie teza ateistyczna, lecz diagnoza kulturowa. Zachodnia kultura zbudowała swoje fundamenty na chrześcijańskim Bogu — ale go porzuciła. Nietzsche przewiduje, że skutki tego wyparcia będą ogromne przez następne dwa stulecia: nihilizm.</p>
+    </div>
+  </div>
+  <div class="concept">
+    <div class="icon">⬇️</div>
+    <div>
+      <h4>Nihilizm niekompletny</h4>
+      <p>Wszelki nowoczesny ateizm jest dla Nietzschego „połowicznym nihilizmem" — odrzuca się Boga, ale zachowuje się dawne wartości (moralność, prawo, postęp, naród). To nie wychodzenie z nihilizmu, tylko jego maskowanie. Nietzsche prorokował 126 lat przed datą wykładu — jesteśmy „w sercu rodzącego się nihilizmu".</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Resentyment — kluczowe pojęcie</h2>
+  <div class="concept">
+    <div class="icon">😤</div>
+    <div>
+      <h4>Etymologia i historia terminu</h4>
+      <p>Słowo z języka francuskiego (<em>ressentiment</em>) — do języka filozoficznego wprowadzone przez Montaigne'a. U Nietzschego odgrywa rolę zarówno analityczną (co to jest) jak i normatywną (to jest złe).</p>
+    </div>
+  </div>
+
+  <div class="quote">
+    <p>Resentyment to zakamuflowana nienawiść, zemsta ludzi pozbawionych mocy.</p>
+    <div class="source">Friedrich Nietzsche, <em>Z genealogii moralności</em> (1887)</div>
+  </div>
+
+  <div class="concept">
+    <div class="icon">🔄</div>
+    <div>
+      <h4>Struktura resentymentu</h4>
+      <p>Niszczące uczucie reaktywne: ktoś odrzuca określony zespół wartości <em>dlatego tylko</em>, że nie jest w stanie ich osiągnąć. Jednocześnie tworzy nową moralność, która wartości dawnych „silnych" przedstawia jako zło — a własną słabość jako cnotę.</p>
+    </div>
+  </div>
+
+  <div class="schema">
+    <div class="schema-row">
+      <div class="schema-box" style="border-color:var(--red);color:var(--red)">Słabi — nie mogą osiągnąć wartości silnych</div>
+    </div>
+    <div class="schema-row"><span style="color:var(--muted)">↓ resentyment</span></div>
+    <div class="schema-row">
+      <div class="schema-box" style="border-color:var(--purple);color:var(--purple)">Przewartościowanie: moc → zło, słabość → cnota</div>
+    </div>
+    <div class="schema-row"><span style="color:var(--muted)">↓ efekt</span></div>
+    <div class="schema-row">
+      <div class="schema-box" style="border-color:var(--gold);color:var(--gold)">Moralność „owcza" / „niewolnicza" staje się normą kulturową</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <h4>Lektura: <em>Z genealogii moralności. Pismo polemiczne</em> (1887)</h4>
+    <p>Jedna z nielicznych książek Nietzschego napisanych spójnym wykładem (nie tylko aforyzmy). Szczegółowa analiza resentymentu, moralności pana i niewolnika. Prowadzący poleca jako pierwsze wprowadzenie do Nietzschego.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Chrześcijaństwo i resentyment</h2>
+  <div class="concept">
+    <div class="icon">✝️</div>
+    <div>
+      <h4>Główny zarzut Nietzschego</h4>
+      <p>Chrześcijaństwo jest religią resentymentu: powstało wśród słabych (chrześcijanie jako żydowska sekta w Imperium Romanum), którzy nie mogąc pokonać silnych (Rzymian) odwrócili system wartości — zrobili z pokory cnotę, z mocy grzech.</p>
+    </div>
+  </div>
+
+  <div class="quote">
+    <p>Ani przez godzinę w mem życiu nie byłem chrześcijaninem. Wszystko co widziałem jako chrześcijanizm uważam za dwuznaczność słów zasługującą na wzgardę, za rzeczywiste tchórzostwo przed wszelkimi potęgami, jakie zresztą panują.</p>
+    <div class="source">Friedrich Nietzsche, <em>Wola mocy</em> (kompilacja posthuma)</div>
+  </div>
+
+  <div class="concept">
+    <div class="icon">🔄</div>
+    <div>
+      <h4>Niuansowanie: Nietzsche a chrześcijaństwo</h4>
+      <p>Prowadzący zaznacza, że krytykę Nietzschego trzeba niuansować. Nietzsche odrzuca dogmat i system, ale uznaje autentyczność Jezusa (jedyny „prawdziwy chrześcijanin"). Podziwiał psychologię chrześcijaństwa, nienawidził chrześcijaństwa instytucjonalnego.</p>
+    </div>
+  </div>
+
+  <div class="concept">
+    <div class="icon">💀</div>
+    <div>
+      <h4>Chrześcijaństwo a nihilizm</h4>
+      <p>Nietzsche diagnozuje paradoks: odrzuca się chrześcijaństwo jako dogmat, ale pragnie się zachować jego etykę. „Chrześcijaństwo jako moralność" wstępuje w dziurę po dawnych najwyższych wartościach. To jest właśnie nihilizm niekompletny.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Moralność pana i moralność niewolnika</h2>
+  <div class="grid">
+    <div class="card" style="border-color:var(--gold)">
+      <h3 style="color:var(--gold)">Moralność pana</h3>
+      <ul>
+        <li>Wartości: moc, radość, życie</li>
+        <li>Dobre = co silne, twórcze, piękne</li>
+        <li>Złe = co słabe, małostkowe, żałosne</li>
+        <li>Aktywna, twórcza, „szlachetna"</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:var(--red)">
+      <h3 style="color:var(--red)">Moralność niewolnika (resentyment)</h3>
+      <ul>
+        <li>Wartości: pokorność, uległość, cierpliwość</li>
+        <li>Dobre = co słabe, bierne, „niegroźne"</li>
+        <li>Złe = co silne, dumne, radosne</li>
+        <li>Reaktywna, oparta na negacji i zemście</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Celsus i Nietzsche — największy krytyk chrześcijaństwa</h2>
+  <div class="concept">
+    <div class="icon">📜</div>
+    <div>
+      <h4>Celsus (II w. n.e.)</h4>
+      <p>Pogański filozof — autor traktatu przeciw chrześcijaństwu (<em>Prawdziwe słowo</em>). Znany tylko z cytowań u Orygenesa (<em>Contra Celsum</em>). Prowadzący stawia Nietzschego obok Celsusa jako dwóch największych krytyków chrześcijaństwa w historii Zachodu.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Kultura popularna: Dunkle Learning Guide</h2>
+  <div class="concept">
+    <div class="icon">📚</div>
+    <div>
+      <h4>Melvyna Grant — „We Go to the Gallery" (Dung Beetle Books)</h4>
+      <p>Artystka nawiązująca do serii LadyBird Books (brytyjskie obrazkowe książeczki dla dzieci). Tworzy „alternatywne" wersje dla dorosłych — ironia, subwersja. Prowadzący pokazuje okładkę z wariantem na temat „Gott ist tot" jako wprowadzenie do Nietzschego.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Myśliciele</h2>
+
+  <div class="person">
+    <h3>Friedrich Nietzsche (1844–1900)</h3>
+    <div class="role">Filozof, filolog klasyczny, poeta</div>
+    <div class="work"><strong><em>Wiedza radosna</em> (1882)</strong><span>Tu po raz pierwszy „Gott ist tot" w aforyzmie 125 — opowieść o szaleńcu szukającym Boga na targu.</span></div>
+    <div class="work"><strong><em>Z genealogii moralności. Pismo polemiczne</em> (1887)</strong><span>Szczegółowa analiza resentymentu, moralności pana i niewolnika, ascetycznego ideału. Polecana jako pierwsze poważne czytanie Nietzschego.</span></div>
+    <div class="work"><strong><em>Wola mocy</em> (pośmiertnie, 1901)</strong><span>Kompilacja notatek — nie autoryzowana przez Nietzschego. Jego siostra Elisabeth ingerowała w materiał. Kontrowersyjna pozycja — zawiera cytowany fragment o „niegodzeniu się na bycie chrześcijaninem".</span></div>
+    <p style="margin-top:.5rem;font-size:.85rem">Prowadzący pisał magisterkę na temat „Nietzsche a religia" — ma do niego stosunek „love-hate relation".</p>
+  </div>
+</section>
+
+<div style="text-align:center;margin-top:2rem;padding:1rem">
+  <a href="../index.html" style="color:var(--muted);text-decoration:none;font-size:.9rem">← Powrót do listy wykładów</a>
+</div>
+
+</div>
+</body>
+</html>
