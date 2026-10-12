@@ -20,7 +20,7 @@
 <style>:root{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
-<title>Intermedia II rok · zima 26/27</title>
+<title>Plan zajęć · Intermedia UAP 2026/27</title>
 <style>
 /* Layout: short header → pick studios → workload charts → week grid → file settings; sticky export bar */
 :root {
@@ -1384,14 +1384,36 @@ async function saveOne(dl, f) {
 // temporary host until intermedia.lol DNS moves to Cloudflare; then https://e.intermedia.lol/e
 const STATS_URL = 'https://e-intermedia.obieg.art/e';
 const statsOn = location.hostname === 'intermedia.lol';
-let vid = null;
-try { vid = localStorage.getItem('intermedia-vid') || (localStorage.setItem('intermedia-vid', crypto.randomUUID()), localStorage.getItem('intermedia-vid')); } catch (e) {}
+const sid = (crypto.randomUUID && crypto.randomUUID()) || String(Math.random()).slice(2);
+const t0 = Date.now();
+let vid = null, returning = false, actions = 0, maxStep = 0, errors = 0;
+try {
+  vid = localStorage.getItem('intermedia-vid'); returning = !!vid;
+  if (!vid) { vid = crypto.randomUUID(); localStorage.setItem('intermedia-vid', vid); }
+} catch (e) {}
 function track(t, extra = {}) {
   if (!statsOn) return;
-  const ev = { t, v: vid, p: state.prog, m: MQ.matches, ...extra };
+  if (t !== 'view' && t !== 'leave') actions++;
+  const ev = { t, v: vid, s: sid, p: state.prog, m: MQ.matches, ...extra };
   try { navigator.sendBeacon(STATS_URL, new Blob([JSON.stringify(ev)], { type: 'text/plain' })); } catch (e) {}
 }
-const pickedNames = () => [...state.picked].map(id => BY_ID[id] && BY_ID[id].short).filter(Boolean).sort().join(' + ');
+const pickedList = () => [...state.picked].map(id => BY_ID[id] && BY_ID[id].short).filter(Boolean).sort();
+const pickedNames = () => pickedList().join(' + ');
+const courseOfKey = k => { const e = planEvents().find(x => x.key === k); return e ? e.c.short : null; };
+// shape of the exported plan and the file settings it was made with (free-text fields only as yes/no)
+function planMeta(files, kind) {
+  const evs = planEvents(), file = fileEvents(evs), o = state.opts;
+  const hours = file.filter(e => !e.allDay && !e.free).reduce((a, e) => a + (mins(e.end) - mins(e.start)) / 60, 0);
+  return { events: file.length, hours: Math.round(hours * 10) / 10, clashes: clashInfo(evs).keys.size, excluded: state.excluded.size, files: files.length, kind,
+    o: { split: !!o.split, range: o.range, titleStyle: o.titleStyle, prefix: !!o.prefix, calName: !!o.calName, teacherInTitle: !!o.teacherInTitle,
+      onlineTag: !!o.onlineTag, remind: o.remind, remindAllDay: o.remindAllDay, allDayMode: o.allDayMode, weekly: !!o.weekly, busy: o.busy,
+      details: !!o.details, ...(BY_ID.wf ? { wfMode: o.wfMode } : {}) } };
+}
+function exported(type, files, kind) {
+  track(type, { n: fileEvents(planEvents()).length, i: pickedNames(), c: pickedList(), meta: planMeta(files, kind) });
+}
+addEventListener('error', ev => { if (errors++ < 3) track('error', { i: `${ev.message} @${ev.lineno}:${ev.colno}` }); });
+addEventListener('pagehide', () => track('leave', { n: Math.round((Date.now() - t0) / 1000), meta: { actions, maxStep } }), { once: true });
 
 async function download() {
   const files = outputs();
@@ -1401,10 +1423,11 @@ async function download() {
   try {
     let kind = 'ics';
     for (const f of files) kind = await saveOne(dl, f);
-    track('download', { n: fileEvents(planEvents()).length, i: pickedNames() });
+    exported('download', files, kind);
     say(kind === 'txt' ? 'Zapisano z końcówką .ics.txt. Usuń „.txt” z nazwy i otwórz plik, a kalendarz zaproponuje import.'
       : `Pobrano ${files.length > 1 ? '2 pliki' : 'plik'} .ics. Otwórz, żeby zaimportować do kalendarza.`);
   } catch (err) {
+    track('dlfail', { i: (err && (err.code || err.message)) || String(err) });
     say(err && err.code === 'declined' ? 'Anulowano zapis.' : 'Nie udało się zapisać. Użyj „Kopiuj .ics”.');
   }
 }
@@ -1412,9 +1435,9 @@ async function copy() {
   const files = outputs();
   try {
     await navigator.clipboard.writeText(files.map(f => f.text).join('\n'));
-    track('copy', { n: fileEvents(planEvents()).length, i: pickedNames() });
+    exported('copy', files, 'clipboard');
     say(files.length > 1 ? 'Skopiowano oba kalendarze jeden pod drugim. Do podziału na dwa pliki lepiej użyj pobierania.' : 'Skopiowano. Wklej do pustego pliku tekstowego i zapisz jako plan.ics.');
-  } catch (e) { say('Schowek jest zablokowany w tym widoku. Użyj „Pobierz .ics”.'); }
+  } catch (e) { track('dlfail', { i: 'clipboard' }); say('Schowek jest zablokowany w tym widoku. Użyj „Pobierz .ics”.'); }
 }
 
 // ---- events ----
@@ -1424,10 +1447,10 @@ document.addEventListener('click', e => {
   const t = e.target.closest('[data-pick],[data-toggle],[data-focus],[data-view],[data-week]');
   if (!t) return;
   if (t.dataset.pick) { const id = t.dataset.pick; const on = !state.picked.has(id); on ? state.picked.add(id) : state.picked.delete(id); track(on ? 'pick' : 'unpick', { i: BY_ID[id].short }); }
-  else if (t.dataset.focus) { state.focus = state.focus === t.dataset.focus ? null : t.dataset.focus; render(); return; }
-  else if (t.dataset.toggle) { const k = t.dataset.toggle; state.excluded.has(k) ? state.excluded.delete(k) : state.excluded.add(k); }
-  else if (t.dataset.view) state.view = t.dataset.view;
-  else if (t.dataset.week) { state.week = t.dataset.week; state.view = 'grid'; }
+  else if (t.dataset.focus) { const k = t.dataset.focus; state.focus = state.focus === k ? null : k; if (state.focus) track('focus', { i: courseOfKey(k) }); render(); return; }
+  else if (t.dataset.toggle) { const k = t.dataset.toggle, off = !state.excluded.has(k); off ? state.excluded.add(k) : state.excluded.delete(k); track(off ? 'exclude' : 'restore', { i: courseOfKey(k) }); }
+  else if (t.dataset.view) { state.view = t.dataset.view; track('viewmode', { i: state.view }); }
+  else if (t.dataset.week) { state.week = t.dataset.week; state.view = 'grid'; track('chart', { i: state.week }); }
   persist(); render();
 });
 $('optForm').addEventListener('input', e => {
@@ -1436,20 +1459,33 @@ $('optForm').addEventListener('input', e => {
   state.opts[k] = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
   persist(); render();
 });
+// settings: tracked on commit (change), not on every keystroke; free text only as set / not set
+$('optForm').addEventListener('change', e => {
+  const k = e.target.id && e.target.id.replace(/^o-/, '');
+  if (!(k in state.opts)) return;
+  const v = state.opts[k];
+  track('settings', { i: k, meta: { v: k === 'calName' || k === 'prefix' ? !!v : v } });
+});
 const lastWeek = addDays(FIRST_WEEK, (N_WEEKS - 1) * 7);
-$('wPrev').onclick = () => { if (state.week > FIRST_WEEK) { state.week = addDays(state.week, -7); render(); } };
-$('wNext').onclick = () => { if (state.week < lastWeek) { state.week = addDays(state.week, 7); render(); } };
-$('wToday').onclick = () => { const m = mondayOf(todayISO); state.week = m < FIRST_WEEK ? FIRST_WEEK : m > lastWeek ? lastWeek : m; render(); };
-$('btnReset').onclick = () => { state.excluded.clear(); persist(); render(); };
+$('wPrev').onclick = () => { if (state.week > FIRST_WEEK) { state.week = addDays(state.week, -7); track('week', { i: state.week }); render(); } };
+$('wNext').onclick = () => { if (state.week < lastWeek) { state.week = addDays(state.week, 7); track('week', { i: state.week }); render(); } };
+$('wToday').onclick = () => { const m = mondayOf(todayISO); state.week = m < FIRST_WEEK ? FIRST_WEEK : m > lastWeek ? lastWeek : m; track('week', { i: 'dziś' }); render(); };
+$('btnReset').onclick = () => { track('reset', { n: state.excluded.size }); state.excluded.clear(); persist(); render(); };
 $('btnDl').onclick = download;
-$('wizNext').onclick = () => goStep(state.step + 1);
-$('wizBack').onclick = () => goStep(state.step - 1);
+$('wizNext').onclick = () => { goStep(state.step + 1); maxStep = Math.max(maxStep, state.step); track('step', { n: state.step }); };
+$('wizBack').onclick = () => { goStep(state.step - 1); track('step', { n: state.step }); };
 MQ.addEventListener('change', render);
 addEventListener('hashchange', () => { const h = location.hash.slice(1); if (PROGRAMS[h] && h !== state.prog) { setProgram(h); persist(); render(); } });
 { const p0 = state.prog; state.prog = null; if (p0) { setProgram(p0); state.step = 1; } }
 $('btnCopy').onclick = copy;
 render();
-track('view', { r: document.referrer || null });
+{
+  const u = new URLSearchParams(location.search);
+  const utm = ['utm_source', 'utm_medium', 'utm_campaign'].map(k => u.get(k)).filter(Boolean).join(' / ');
+  track('view', { r: document.referrer || null, meta: { w: innerWidth, h: innerHeight, dpr: devicePixelRatio, lang: navigator.language,
+    tz: Intl.DateTimeFormat().resolvedOptions().timeZone, dark: matchMedia('(prefers-color-scheme: dark)').matches, ret: returning,
+    utm: utm || undefined, hash: location.hash.slice(1) || undefined } });
+}
 </script>
 
 </body>
