@@ -192,6 +192,10 @@ h1 { font: 600 clamp(26px, 4vw, 34px)/1.15 var(--f-display); margin: 8px 0 10px;
 .blk.off, .chip.off { opacity: .35; text-decoration: line-through; }
 .chip { border: 0; text-align: left; cursor: pointer; font-size: 11px; line-height: 1.25; padding: 3px 6px; border-radius: 4px; background: hsl(var(--h) var(--blk-s) var(--blk-l)); color: hsl(var(--h) 40% var(--blk-tl)); }
 .chip.m { box-shadow: inset 3px 0 0 var(--must); }
+.focus-panel { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; margin-top: 10px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; font-size: 13.5px; }
+.focus-panel.muted { color: var(--muted); }
+.focus-panel .warn { color: var(--warn); }
+.blk.focus, .chip.focus { outline: 2px solid var(--ink); outline-offset: 1px; z-index: 2; }
 .hint { font-size: 12.5px; color: var(--muted); margin-top: 8px; }
 
 /* list view */
@@ -293,7 +297,7 @@ legend { font: 600 13px var(--f-body); color: var(--muted); padding: 0 4px; }
   <section class="step" aria-labelledby="s2">
     <div class="step-head">
       <h2 id="s2">Tydzień po tygodniu</h2>
-      <p>Kliknij zajęcia, żeby wyłączyć pojedynczy termin z pliku, i kliknij jeszcze raz, żeby go przywrócić.</p>
+      <p>Kliknij zajęcia, żeby zobaczyć szczegóły. Pojedynczy termin możesz tam usunąć z pliku. W widoku „Cały semestr” robi to pole wyboru przy terminie.</p>
     </div>
     <div class="toolbar">
       <div class="seg" role="group" aria-label="Widok">
@@ -504,7 +508,7 @@ const DEFAULT_OPTS = {
   busy: 'busy', details: true,
 };
 const KEY = 'intermedia-plan-2627-v3';
-const state = { picked: new Set(), excluded: new Set(), opts: { ...DEFAULT_OPTS }, view: 'grid', week: null };
+const state = { picked: new Set(), excluded: new Set(), opts: { ...DEFAULT_OPTS }, view: 'grid', week: null, focus: null };
 try {
   const raw = JSON.parse(localStorage.getItem(KEY) || 'null');
   if (raw) {
@@ -836,7 +840,7 @@ function renderWeek(evs, clash) {
   const days = [1, 2, 3, 4, 5].map(i => addDays(state.week, i - 1));
   const head = days.map(d => `<div class="${d === todayISO ? 'today' : ''}"><b>${DOW_PL[dow(d)]} ${fmtD(d)}</b></div>`).join('');
   const allday = days.map(d => `<div>${evs.filter(e => e.allDay && e.date <= d && e.endDate >= d).map(e =>
-    `<button type="button" class="chip ${e.c.kind === 'm' ? 'm' : ''} ${e.off ? 'off' : ''}" data-toggle="${e.key}" style="--h:${e.c.h}" title="${esc(e.c.name)}">${esc(shortTitle(e))}</button>`).join('')}</div>`).join('');
+    `<button type="button" class="chip ${e.c.kind === 'm' ? 'm' : ''} ${e.off ? 'off' : ''} ${e.key === state.focus ? 'focus' : ''}" data-focus="${e.key}" style="--h:${e.c.h}" title="${esc(e.c.name)}">${esc(shortTitle(e))}</button>`).join('')}</div>`).join('');
   let axis = ''; for (let h = H0; h <= H1; h++) axis += `<span style="top:${(h - H0) * HR}px">${h}:00</span>`;
   const cols = days.map(d => {
     const list = evs.filter(e => !e.allDay && e.date === d).map(e => ({ ...e }));
@@ -844,7 +848,7 @@ function renderWeek(evs, clash) {
     return `<div class="wk-col">${list.map(e => {
       const top = (mins(e.start) - H0 * 60) / 60 * HR, ht = (mins(e.end) - mins(e.start)) / 60 * HR;
       const cls = `${e.c.kind === 'm' ? 'm' : ''} ${e.free ? 'free' : ''} ${e.off ? 'off' : ''} ${clash.keys.has(e.key) ? 'clash' : ''}`;
-      return `<button type="button" class="blk ${cls}" data-toggle="${e.key}" style="--h:${e.c.h};top:${top}px;height:${ht - 2}px;left:calc(${e.lane / e.lanes * 100}% + 2px);width:calc(${100 / e.lanes}% - 4px)" title="${esc(e.c.name)} · ${e.start}–${e.end}${e.loc ? ' · ' + esc(e.loc) : ''}${e.off ? ' (wyłączone)' : ''}">
+      return `<button type="button" class="blk ${cls} ${e.key === state.focus ? 'focus' : ''}" data-focus="${e.key}" style="--h:${e.c.h};top:${top}px;height:${ht - 2}px;left:calc(${e.lane / e.lanes * 100}% + 2px);width:calc(${100 / e.lanes}% - 4px)" title="${esc(e.c.name)} · ${e.start}–${e.end}${e.loc ? ' · ' + esc(e.loc) : ''}${e.off ? ' (wyłączone)' : ''}">
         <span class="t">${e.start}–${e.end}</span><b>${esc(shortTitle(e))}</b>${ht > 60 && e.loc ? `<span>${esc(e.loc)}</span>` : ''}</button>`;
     }).join('')}</div>`;
   }).join('');
@@ -852,7 +856,20 @@ function renderWeek(evs, clash) {
     <div class="wk-row wk-head"><div></div>${head}</div>
     <div class="wk-row wk-allday"><div>cały dzień</div>${allday}</div>
     <div class="wk-row wk-body" style="height:${(H1 - H0) * HR + 10}px"><div class="wk-axis">${axis}</div>${cols}</div>
-  </div></div><p class="hint">Czerwony pasek to przedmiot obowiązkowy, kreskowanie to kolizja godzin, a przekreślenie oznacza termin wyłączony z pliku.</p>`;
+  </div></div>${focusPanel(evs, clash)}<p class="hint">Czerwony pasek to przedmiot obowiązkowy, kreskowanie to kolizja godzin, a przekreślone zajęcia nie trafią do pliku.</p>`;
+}
+// Details of the clicked class; removing it from the file is a separate, explicit action.
+function focusPanel(evs, clash) {
+  const e = evs.find(x => x.key === state.focus);
+  if (!e) return '<div class="focus-panel muted">Kliknij zajęcia, żeby zobaczyć szczegóły.</div>';
+  const others = clash.keys.has(e.key) ? evs.filter(o => o !== e && !o.allDay && !o.off && o.date === e.date && o.start < e.end && e.start < o.end).map(o => `${o.c.short} ${o.start}–${o.end}`) : [];
+  return `<div class="focus-panel">
+    <div><b>${esc(e.c.name)}${e.label ? ` · ${esc(e.label)}` : ''}</b><br>
+      ${DAY_PL[dow(e.date)]} ${fmtD(e.date)}${e.endDate !== e.date ? '–' + fmtD(e.endDate) : ''}, ${e.allDay ? 'cały dzień' : `${e.start}–${e.end}`}${e.loc ? ', ' + esc(e.loc) : ''}${e.c.who ? ` · ${esc(e.c.who)}` : ''}
+      ${others.length ? `<br><span class="warn">Nakłada się z: ${esc(others.join(', '))}. ${others.length > 1 ? 'Wszystkie te terminy są' : 'Oba terminy są'} w pliku.</span>` : ''}
+      ${e.off ? '<br><span class="warn">Ten termin jest usunięty z pliku.</span>' : ''}</div>
+    <button type="button" class="btn ${e.off ? 'primary' : 'ghost'}" data-toggle="${e.key}">${e.off ? 'Przywróć do pliku' : 'Usuń ten termin z pliku'}</button>
+  </div>`;
 }
 
 function renderList(evs, clash) {
@@ -911,7 +928,8 @@ function render() {
   state.view === 'grid' ? renderWeek(evs, clash) : renderList(evs, clash);
   renderOpts(); renderSample(file);
   $('btnReset').hidden = !state.excluded.size;
-  $('barMsg').innerHTML = `<b>${file.length}</b> wydarzeń w pliku · ${state.picked.size} wybrane pracownie${clash.keys.size ? ` · <span class="warn">${clash.pairs.size} kolizje</span>` : ''}`;
+  $('btnReset').textContent = `Przywróć usunięte (${state.excluded.size})`;
+  $('barMsg').innerHTML = `<b>${file.length}</b> wydarzeń w pliku · ${state.picked.size} wybrane pracownie${clash.keys.size ? ` · <span class="warn">${clash.pairs.size} kolizje</span>` : ''}${state.excluded.size ? ` · <span class="warn">${state.excluded.size} usuniętych ręcznie</span>` : ''}`;
   if (focused && $(focused)) $(focused).focus({ preventScroll: true });
 }
 
@@ -1036,9 +1054,10 @@ async function copy() {
 
 // ---- events ----
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-pick],[data-toggle],[data-view],[data-week]');
+  const t = e.target.closest('[data-pick],[data-toggle],[data-focus],[data-view],[data-week]');
   if (!t) return;
   if (t.dataset.pick) { const id = t.dataset.pick; state.picked.has(id) ? state.picked.delete(id) : state.picked.add(id); }
+  else if (t.dataset.focus) { state.focus = state.focus === t.dataset.focus ? null : t.dataset.focus; render(); return; }
   else if (t.dataset.toggle) { const k = t.dataset.toggle; state.excluded.has(k) ? state.excluded.delete(k) : state.excluded.add(k); }
   else if (t.dataset.view) state.view = t.dataset.view;
   else if (t.dataset.week) { state.week = t.dataset.week; state.view = 'grid'; }
