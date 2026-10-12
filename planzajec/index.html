@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Intermedia II rok · zima 26/27</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: header with live semester chart → three real steps (pick studios → check week → configure file); sticky export bar */
+:root {
+  --bg: #f2f5f9;
+  --surface: #ffffff;
+  --tint: #d6e4f3;        /* pale blue of the original schedule's header row */
+  --ink: #111622;
+  --muted: #586274;
+  --line: #d6dce7;
+  --accent: #1d4ccf;      /* the blue of the hours in the schedule */
+  --must: #c62f28;        /* red = obligatory, like the schedule's red hours */
+  --warn: #b35a00;
+  --blk-s: 72%; --blk-l: 91%; --blk-tl: 24%; --blk-bl: 62%;
+  --f-display: "Syne", "Avenir Next", system-ui, sans-serif;
+  --f-body: "Hanken Grotesk", system-ui, -apple-system, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0e1218; --surface: #161b24; --tint: #1b2940; --ink: #e8ecf3; --muted: #939eb1; --line: #283040;
+    --accent: #87a6ff; --must: #ff7c70; --warn: #ffb15a;
+    --blk-s: 45%; --blk-l: 24%; --blk-tl: 88%; --blk-bl: 55%;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0e1218; --surface: #161b24; --tint: #1b2940; --ink: #e8ecf3; --muted: #939eb1; --line: #283040;
+  --accent: #87a6ff; --must: #ff7c70; --warn: #ffb15a;
+  --blk-s: 45%; --blk-l: 24%; --blk-tl: 88%; --blk-bl: 55%;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--f-body); padding-inline: 20px; }
+.wrap { max-width: 1160px; margin: 0 auto; padding-block: 32px 140px; }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: no-preference) { .course, .blk, .bar-chart rect { transition: background-color .15s, opacity .15s, border-color .15s; } }
+
+/* header */
+.eyebrow { font: 500 12px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+h1 { font: 800 clamp(34px, 6vw, 64px)/0.95 var(--f-display); letter-spacing: -0.02em; margin: 14px 0 12px; text-wrap: balance; }
+.lead { color: var(--muted); max-width: 62ch; margin: 0; font-size: 16px; }
+.hero { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 32px; align-items: end; }
+@media (max-width: 860px) { .hero { grid-template-columns: 1fr; } }
+.chart-box { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 14px 8px; }
+.chart-top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); margin-bottom: 4px; }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+.bar-chart { width: 100%; height: auto; display: block; }
+.bar-chart text { font: 10px var(--f-mono); fill: var(--muted); }
+.bar-chart .grid { stroke: var(--line); stroke-width: 1; }
+.bar-chart .m { fill: var(--must); }
+.bar-chart .e { fill: var(--accent); }
+.bar-chart .sel { fill: var(--tint); }
+.bar-chart .today { stroke: var(--ink); stroke-dasharray: 2 3; }
+.bar-chart .clash { fill: var(--warn); }
+.bar-chart .hit { fill: transparent; cursor: pointer; }
+.bar-chart .hit:hover { fill: var(--tint); fill-opacity: .5; }
+
+/* steps */
+.step { margin-top: 56px; }
+.step-head { display: flex; gap: 16px; align-items: baseline; flex-wrap: wrap; justify-content: space-between; margin-bottom: 16px; border-top: 2px solid var(--ink); padding-top: 14px; }
+.step-head h2 { font: 700 26px/1.1 var(--f-display); margin: 0; display: flex; gap: 12px; align-items: baseline; }
+.step-head h2 span { font: 500 13px var(--f-mono); color: var(--muted); }
+.step-head p { margin: 0; color: var(--muted); font-size: 14px; max-width: 60ch; }
+
+/* picker */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+.course { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 14px 14px 12px; background: var(--surface); border: 1.5px solid var(--line); border-radius: 10px; cursor: pointer; text-align: left; width: 100%; }
+.course:hover { border-color: var(--accent); }
+.course[aria-pressed="true"] { border-color: var(--accent); background: var(--tint); }
+.course .top { display: flex; justify-content: space-between; gap: 8px; font: 500 11px var(--f-mono); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.course .check { width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid var(--muted); display: grid; place-items: center; flex: none; }
+.course[aria-pressed="true"] .check { background: var(--accent); border-color: var(--accent); }
+.course[aria-pressed="true"] .check::after { content: ""; width: 8px; height: 4px; border: 2px solid var(--surface); border-top: 0; border-right: 0; transform: rotate(-45deg) translate(1px, -1px); }
+.course .name { font: 700 17px/1.2 var(--f-display); text-wrap: balance; }
+.course .who { font-size: 13px; color: var(--muted); }
+.course .when { font: 12px/1.45 var(--f-mono); }
+.strip { display: grid; grid-template-columns: repeat(19, 1fr); gap: 2px; margin-top: 4px; }
+.strip i { height: 6px; border-radius: 1px; background: var(--line); }
+.strip i.on { background: hsl(var(--h) var(--blk-s) var(--blk-bl)); }
+.swatch { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: hsl(var(--h) var(--blk-s) var(--blk-bl)); margin-right: 6px; vertical-align: 0; }
+.subhead { font: 600 13px var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 26px 0 10px; }
+.fixed { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 6px 10px; }
+.fixed div { font-size: 13.5px; padding: 8px 10px; border-left: 3px solid var(--must); background: var(--surface); border-radius: 0 6px 6px 0; }
+.fixed div.shared { border-left-color: var(--accent); }
+.fixed div.off { opacity: .45; }
+.fixed small { display: block; color: var(--muted); font: 11.5px var(--f-mono); }
+.counter { font: 500 13px var(--f-mono); }
+.counter.over { color: var(--warn); }
+
+/* week grid */
+.toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.seg button { border: 0; background: transparent; padding: 7px 12px; cursor: pointer; font-size: 13.5px; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.weeknav { display: flex; gap: 6px; align-items: center; }
+.weeknav b { font: 500 14px var(--f-mono); min-width: 150px; text-align: center; font-variant-numeric: tabular-nums; }
+.icon-btn { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 6px 11px; cursor: pointer; }
+.icon-btn:hover { border-color: var(--accent); }
+.clashes { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; font-size: 13px; }
+.clashes span { background: color-mix(in srgb, var(--warn) 14%, var(--surface)); color: var(--warn); border-radius: 5px; padding: 3px 8px; font-weight: 600; }
+.clashes .ok { background: transparent; color: var(--muted); font-weight: 400; padding-left: 0; }
+.wk-scroll { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.wk { min-width: 640px; }
+.wk-row { display: grid; grid-template-columns: 46px repeat(5, minmax(0, 1fr)); }
+.wk-head > div { padding: 10px 8px 8px; font-size: 13px; border-left: 1px solid var(--line); }
+.wk-head > div:first-child { border-left: 0; }
+.wk-head b { font: 700 15px var(--f-display); display: block; }
+.wk-head .today b { color: var(--accent); }
+.wk-allday { border-top: 1px solid var(--line); min-height: 8px; }
+.wk-allday > div { border-left: 1px solid var(--line); padding: 4px; display: flex; flex-direction: column; gap: 3px; }
+.wk-allday > div:first-child { border-left: 0; font: 10px var(--f-mono); color: var(--muted); padding: 6px 4px; }
+.wk-body { border-top: 1px solid var(--line); }
+.wk-axis { position: relative; }
+.wk-axis span { position: absolute; right: 6px; font: 10px var(--f-mono); color: var(--muted); transform: translateY(-50%); }
+.wk-col { position: relative; border-left: 1px solid var(--line); background-image: repeating-linear-gradient(to bottom, var(--line) 0 1px, transparent 1px var(--hr)); background-size: 100% var(--hr); opacity: 1; }
+.blk { position: absolute; padding: 3px 5px; border-radius: 5px; overflow: hidden; cursor: pointer; text-align: left; border: 0; border-left: 3px solid hsl(var(--h) var(--blk-s) var(--blk-bl)); background: hsl(var(--h) var(--blk-s) var(--blk-l)); color: hsl(var(--h) 40% var(--blk-tl)); font-size: 11.5px; line-height: 1.25; }
+.blk.m { border-left-color: var(--must); }
+.blk b { display: block; font-weight: 700; }
+.blk .t { font: 10.5px var(--f-mono); opacity: .85; }
+.blk.clash { box-shadow: inset 0 0 0 1.5px var(--warn); background-image: repeating-linear-gradient(135deg, transparent 0 6px, color-mix(in srgb, var(--warn) 18%, transparent) 6px 9px); }
+.blk.off, .chip.off { opacity: .35; text-decoration: line-through; }
+.chip { border: 0; text-align: left; cursor: pointer; font-size: 11px; line-height: 1.25; padding: 3px 6px; border-radius: 4px; background: hsl(var(--h) var(--blk-s) var(--blk-l)); color: hsl(var(--h) 40% var(--blk-tl)); }
+.chip.m { box-shadow: inset 3px 0 0 var(--must); }
+.hint { font-size: 12.5px; color: var(--muted); margin-top: 8px; }
+
+/* list view */
+.list { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.list h3 { margin: 0; padding: 12px 16px 4px; font: 500 11.5px var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); border-top: 1px solid var(--line); }
+.list h3:first-child { border-top: 0; }
+.ev { display: grid; grid-template-columns: 22px 86px 98px 1fr; gap: 10px; padding: 6px 16px; font-size: 13.5px; align-items: baseline; width: 100%; background: none; border: 0; text-align: left; cursor: pointer; }
+.ev:hover { background: var(--bg); }
+.ev .cb { width: 15px; height: 15px; border: 1.5px solid var(--muted); border-radius: 4px; align-self: center; }
+.ev:not(.off) .cb { background: var(--accent); border-color: var(--accent); }
+.ev .d, .ev .t { font: 12.5px var(--f-mono); font-variant-numeric: tabular-nums; }
+.ev .t { color: var(--accent); }
+.ev.m .t { color: var(--must); }
+.ev .l { color: var(--muted); font-size: 12.5px; }
+.ev.off .n, .ev.off .t, .ev.off .d { opacity: .4; text-decoration: line-through; }
+.ev.clash { background: color-mix(in srgb, var(--warn) 10%, transparent); }
+.ev.past { opacity: .55; }
+@media (max-width: 560px) { .ev { grid-template-columns: 22px 70px 1fr; } .ev .n { grid-column: 2 / -1; } }
+
+/* options */
+.opts { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 860px) { .opts { grid-template-columns: 1fr; } }
+.groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+fieldset { margin: 0; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px 14px; background: var(--surface); display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+legend { font: 600 12px var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 0 4px; }
+.f { display: flex; flex-direction: column; gap: 4px; font-size: 13.5px; }
+.f > span { color: var(--muted); font-size: 12.5px; }
+.f input[type=text], .f input[type=date], .f input[type=time], .f select { width: 100%; padding: 7px 9px; border: 1px solid var(--line); border-radius: 7px; background: var(--bg); }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.tg { display: flex; gap: 8px; align-items: flex-start; font-size: 13.5px; cursor: pointer; }
+.tg input { accent-color: var(--accent); margin-top: 3px; }
+.tg small { display: block; color: var(--muted); font-size: 12px; }
+.sample { position: sticky; top: calc(16px + env(safe-area-inset-top, 0px)); background: var(--tint); border-radius: 12px; padding: 16px; }
+.sample h4 { margin: 0 0 10px; font: 600 12px var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.cal-ev { background: var(--surface); border-radius: 8px; padding: 12px 14px; border-left: 4px solid var(--accent); }
+.cal-ev .ttl { font-weight: 700; font-size: 15px; }
+.cal-ev .meta { font: 12px var(--f-mono); color: var(--muted); margin-top: 3px; }
+.cal-ev pre { white-space: pre-wrap; font: 12.5px/1.45 var(--f-body); margin: 8px 0 0; color: var(--ink); }
+.sample ul { margin: 12px 0 0; padding-left: 18px; font-size: 13px; }
+.sample li + li { margin-top: 3px; }
+
+/* export bar */
+.bar { position: fixed; left: 0; right: 0; bottom: 0; padding: 12px 20px calc(12px + env(safe-area-inset-bottom, 0px)); background: color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter: blur(8px); border-top: 1px solid var(--line); z-index: 5; }
+.bar-in { max-width: 1160px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; }
+.bar-msg { font-size: 14px; min-width: 0; }
+.bar-msg .warn { color: var(--warn); font-weight: 600; }
+.btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn { font-weight: 600; font-size: 14px; border-radius: 8px; padding: 10px 16px; cursor: pointer; border: 1.5px solid var(--accent); }
+.btn.primary { background: var(--accent); color: var(--surface); }
+.btn.ghost { background: transparent; color: var(--accent); }
+.foot { font-size: 12.5px; color: var(--muted); margin-top: 40px; max-width: 75ch; }
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <div class="eyebrow">UAP · Intermedia · II rok · 1.10.2026 – 24.01.2027</div>
+      <h1>Plan zajęć, semestr zimowy</h1>
+      <p class="lead">Zaznacz wybrane pracownie, sprawdź, jak wygląda tydzień, i pobierz plan jako plik kalendarza. Przedmioty obowiązkowe są w nim zawsze.</p>
+    </div>
+    <div class="chart-box">
+      <div class="chart-top">
+        <span>Godziny zajęć w tygodniu · kliknij słupek, żeby zobaczyć tydzień</span>
+        <span class="legend"><span><i style="background:var(--must)"></i>obowiązkowe</span><span><i style="background:var(--accent)"></i>wybrane</span><span><i style="background:var(--warn)"></i>kolizja</span></span>
+      </div>
+      <svg class="bar-chart" id="chart" viewBox="0 0 760 170" role="img" aria-label="Liczba godzin zajęć w każdym tygodniu semestru"></svg>
+    </div>
+  </header>
+
+  <section class="step" aria-labelledby="s1">
+    <div class="step-head">
+      <h2 id="s1"><span>1</span>Pracownie do wyboru</h2>
+      <p>2 przedmioty kierunkowe + 1 wydziałowy z tej samej listy. <span class="counter" id="counter"></span></p>
+    </div>
+    <div class="cards" id="electives"></div>
+    <div class="subhead">Zawsze w planie</div>
+    <div class="fixed" id="fixed"></div>
+  </section>
+
+  <section class="step" aria-labelledby="s2">
+    <div class="step-head">
+      <h2 id="s2"><span>2</span>Tydzień po tygodniu</h2>
+      <p>Kliknij zajęcia, żeby wyłączyć pojedynczy termin z pliku, i kliknij jeszcze raz, żeby go przywrócić.</p>
+    </div>
+    <div class="toolbar">
+      <div class="seg" role="group" aria-label="Widok">
+        <button type="button" data-view="grid" id="v-grid">Siatka tygodnia</button>
+        <button type="button" data-view="list" id="v-list">Cały semestr</button>
+      </div>
+      <div class="weeknav" id="weeknav">
+        <button class="icon-btn" type="button" id="wPrev" aria-label="Poprzedni tydzień">←</button>
+        <b id="wLabel"></b>
+        <button class="icon-btn" type="button" id="wNext" aria-label="Następny tydzień">→</button>
+        <button class="icon-btn" type="button" id="wToday">dziś</button>
+      </div>
+    </div>
+    <div class="clashes" id="clashes"></div>
+    <div id="view"></div>
+  </section>
+
+  <section class="step" aria-labelledby="s3">
+    <div class="step-head">
+      <h2 id="s3"><span>3</span>Plik kalendarza</h2>
+      <p>Ustawienia zmieniają tylko plik .ics. Po prawej widać, jak wydarzenie pokaże się w kalendarzu.</p>
+    </div>
+    <div class="opts">
+      <div class="groups" id="optForm">
+        <fieldset>
+          <legend>Kalendarz</legend>
+          <label class="f"><span>Nazwa kalendarza</span><input type="text" id="o-calName"></label>
+          <label class="tg"><input type="checkbox" id="o-split"><span>Dwa osobne pliki<small>obowiązkowe i wybrane, np. żeby dać im różne kolory</small></span></label>
+          <label class="f"><span>Zakres</span><select id="o-range"><option value="all">cały semestr</option><option value="future">od dziś</option></select></label>
+        </fieldset>
+        <fieldset>
+          <legend>Tytuły</legend>
+          <label class="f"><span>Nazwa przedmiotu</span><select id="o-titleStyle"><option value="full">pełna</option><option value="short">skrócona</option></select></label>
+          <label class="f"><span>Prefiks</span><input type="text" id="o-prefix" placeholder="np. UAP · "></label>
+          <label class="tg"><input type="checkbox" id="o-teacherInTitle"><span>Nazwisko prowadzącego w tytule</span></label>
+          <label class="tg"><input type="checkbox" id="o-onlineTag"><span>Dopisek „online” w tytule</span></label>
+        </fieldset>
+        <fieldset>
+          <legend>Przypomnienia</legend>
+          <label class="f"><span>Zajęcia z godziną</span><select id="o-remind">
+            <option value="none">bez przypomnienia</option><option value="5">5 min przed</option><option value="10">10 min przed</option>
+            <option value="15">15 min przed</option><option value="30">30 min przed</option><option value="60">1 godz. przed</option><option value="120">2 godz. przed</option></select></label>
+          <label class="f"><span>Zajęcia całodniowe</span><select id="o-remindAllDay">
+            <option value="none">bez przypomnienia</option><option value="eve">dzień wcześniej o 18:00</option><option value="morning">tego dnia o 8:00</option></select></label>
+        </fieldset>
+        <fieldset>
+          <legend>Zajęcia bez godzin</legend>
+          <label class="f"><span>Pracownia gościnna, Departament Pomyłek, pokaz</span><select id="o-allDayMode">
+            <option value="allday">jako wydarzenia całodniowe</option><option value="block">jako blok godzinowy</option><option value="skip">pomiń w pliku</option></select></label>
+          <div class="row2" id="blockTimes">
+            <label class="f"><span>od</span><input type="time" id="o-blockStart"></label>
+            <label class="f"><span>do</span><input type="time" id="o-blockEnd"></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Zajęcia bez dat</legend>
+          <label class="tg"><input type="checkbox" id="o-weekly"><span>Wpisz co tydzień<small>Zagadnienia sztuki współczesnej, Historia sztuki, Prawo autorskie — rozkład nie podaje dat</small></span></label>
+          <div class="row2">
+            <label class="f"><span>przerwa od</span><input type="date" id="o-breakFrom"></label>
+            <label class="f"><span>do</span><input type="date" id="o-breakTo"></label>
+          </div>
+          <label class="tg"><input type="checkbox" id="o-skipHolidays"><span>Pomiń 11.11 i 6.01</span></label>
+        </fieldset>
+        <fieldset>
+          <legend>Szczegóły</legend>
+          <label class="f"><span>Status w kalendarzu</span><select id="o-busy">
+            <option value="busy">zajęty (całodniowe: wolny)</option><option value="allbusy">zawsze zajęty</option><option value="free">zawsze wolny</option></select></label>
+          <label class="tg"><input type="checkbox" id="o-details"><span>Opis z prowadzącym i uwagami z rozkładu</span></label>
+          <label class="tg"><input type="checkbox" id="o-skipExcluded" disabled checked><span>Wyłączone terminy z kroku 2 nie trafiają do pliku</span></label>
+        </fieldset>
+      </div>
+      <aside class="sample" aria-live="polite">
+        <h4>Tak to będzie wyglądać</h4>
+        <div id="sample"></div>
+      </aside>
+    </div>
+  </section>
+
+  <p class="foot">Poza planem: język obcy i WF (osobne rozkłady), rysunek oraz pracownia artystyczna z całego UAP (wolny wybór). Forum Biosfery 6.10 ma w rozkładzie tylko godzinę startu, więc koniec o 20:00 jest orientacyjny. Ustawienia i wybór zapisują się w tej przeglądarce.</p>
+</div>
+
+<div class="bar">
+  <div class="bar-in">
+    <div class="bar-msg" id="barMsg"></div>
+    <div class="btns">
+      <button class="btn ghost" id="btnReset" type="button">Przywróć wyłączone</button>
+      <button class="btn ghost" id="btnCopy" type="button">Kopiuj .ics</button>
+      <button class="btn primary" id="btnDl" type="button">Pobierz .ics</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ---- Source data, transcribed from "Rozkład zajęć w semestrze zimowym 2026_27" (Intermedia, 2nd year) ----
+// Dates as "D.MM"; Aug–Dec belong to 2026, Jan–Feb to 2027. dow: 1 = Monday … 5 = Friday.
+const C206 = 'bud. C, sala 206';
+const COURSES = [
+  // obligatory
+  { id: 'pnm', kind: 'm', h: 8, name: 'Problematyka nowych mediów', short: 'Nowe media', who: 'mgr P. Krajewski',
+    s: [{ dow: 1, t: '12:00-15:00', d: '12.10 26.10 9.11 23.11 7.12 11.01', loc: 'bud. C, sala 204' }] },
+  { id: 'zsw', kind: 'm', h: 350, name: 'Zagadnienia sztuki współczesnej', short: 'Sztuka współczesna', who: 'dr hab. Ewa Wójtowicz, prof. UAP',
+    s: [{ dow: 1, t: '16:30-18:00', weekly: true, loc: 'online' }] },
+  { id: 'hs', kind: 'm', h: 28, name: 'Historia sztuki', short: 'Historia sztuki', who: 'dr Aleksandra Paradowska',
+    s: [{ dow: 1, t: '19:00-20:30', weekly: true, loc: 'online' }] },
+  { id: 'n3d', kind: 'm', h: 335, name: 'Narracje i modelowanie 3D', short: 'Modelowanie 3D', who: 'mgr L. Peplińska',
+    s: [{ dow: 2, t: '17:00-20:45', d: '13.10 20.10 27.10 3.11 10.11 17.11 24.11 1.12 8.12 15.12 22.12 12.01', loc: 'online',
+          note: 'Daty do dyspozycji (45 h) — nie wszystkie muszą się odbyć.' }] },
+  { id: 'pg', kind: 'm', h: 15, name: 'Pracownia gościnna', short: 'Pracownia gościnna', who: 'Agnieszka Tarasiuk',
+    s: [{ dow: 4, allDay: true, d: '15.10 12.11 17.12 14.01 4.02', loc: 'Teserówka', note: 'Rozkład nie podaje godzin.' }] },
+  { id: 'pa', kind: 'm', h: 0, name: 'Prawo autorskie', short: 'Prawo autorskie', who: 'dr hab. Mateusz Bieczyński, prof. UAP',
+    s: [{ dow: 4, t: '12:00-13:30', weekly: true, loc: 'online' }] },
+  { id: 'fb', kind: 'm', h: 20, name: 'Forum Biosfery', short: 'Forum Biosfery', who: '',
+    s: [{ dow: 2, t: '18:00-20:00', d: '6.10', loc: 'Aula, bud. A',
+          note: 'Program obowiązkowy dla wszystkich. Rozkład podaje tylko „od 6.10, 18:00” — koniec orientacyjny.' }] },
+  { id: 'prez', kind: 'm', h: 0, name: 'Prezentacje projektów — publiczny pokaz', short: 'Pokaz prezentacji', who: '',
+    s: [{ dow: 5, allDay: true, d: '15.01', loc: '', note: 'W trakcie sesji zimowej.' }] },
+
+  // electives (Pracownie Intermediów I–V)
+  { id: 'difo', kind: 'e', h: 205, pr: 'I', name: 'Działania intermedialne i fotografia', short: 'Działania i fotografia', who: 'prof. Piotr Kurka', s: [
+    { dow: 3, t: '14:45-17:45', d: '7.10 14.10 21.10 2.12 13.01', loc: 'bud. H (?) / bud. C, sala 206' },
+    { dow: 3, t: '16:00-17:30', d: '28.10 4.11 18.11 25.11 9.12 16.12', loc: 'bud. H (?) / bud. C, sala 206' }] },
+  { id: 'wiw', kind: 'e', h: 160, pr: 'I', name: 'Wystawy i wydarzenia', short: 'Wystawy i wydarzenia', who: 'dr Krzysztof Łukomski', s: [
+    { dow: 3, t: '16:00-20:30', d: '14.10 21.10 2.12 9.12 13.01', loc: 'bud. H, 4 p. / ART LOFT' }] },
+  { id: 'fpa', kind: 'e', h: 300, pr: 'I', name: 'Fashion in Performance Art', short: 'Fashion in Performance', who: 'dr Izabela Sitarska', s: [
+    { dow: 3, t: '14:30-16:45', d: '14.10 21.10 28.10 4.11 18.11 25.11 2.12 9.12 16.12 13.01', loc: 'bud. C, sala 207/208' }] },
+  { id: 'ktp', kind: 'e', h: 135, pr: 'II', name: 'Kształtowanie i transformacje przestrzeni', short: 'Przestrzeń', who: 'prof. Andrzej Syska', s: [
+    { dow: 2, t: '13:45-17:30', d: '13.10 20.10 27.10 3.11 17.11', loc: 'bud. C, sala 206/207/208' },
+    { dow: 2, t: '13:45-16:45', d: '24.11 1.12 8.12 15.12 12.01', loc: 'bud. C, sala 206/207/208' }] },
+  { id: 'wid', kind: 'e', h: 225, pr: 'III', name: 'Wideo', short: 'Wideo', who: 'prof. Marek Wasilewski', s: [
+    { dow: 1, t: '17:00-19:15', d: '12.10 26.10 2.11 9.11 23.11 30.11 14.12 21.12 11.01', loc: C206 },
+    { dow: 2, t: '17:45-19:15', d: '13.10 27.10 3.11 10.11 17.11 24.11 1.12 15.12', loc: C206 },
+    { dow: 2, t: '17:00-17:45', d: '22.12 12.01', loc: C206 }] },
+  { id: 'dpp', kind: 'e', h: 50, pr: 'III', name: 'Działania w przestrzeni publicznej', short: 'Przestrzeń publiczna', who: 'mgr Karolina Kubik', s: [
+    { dow: 5, t: '10:00-14:30', d: '9.10 23.10 6.11 20.11 4.12 18.12', loc: C206 },
+    { dow: 5, t: '10:00-15:15', d: '8.01', loc: C206 }] },
+  { id: 'aud', kind: 'e', h: 185, pr: 'IV', name: 'Audiosfera | Art Research', short: 'Audiosfera', who: 'dr Daniel Koniusz', s: [
+    { dow: 4, t: '10:00-13:45', d: '8.10 15.10 29.10 5.11 12.11 26.11 3.12 17.12 7.01', loc: C206 }] },
+  { id: 'kan', kind: 'e', h: 270, pr: 'IV', name: 'Kompozycja analogowa', short: 'Kompozycja analogowa', who: 'mgr J. Żwirełło', s: [
+    { dow: 4, t: '10:00-13:45', d: '15.10 29.10 5.11 12.11 26.11 3.12 17.12 7.01', loc: C206 }] },
+  { id: 'psw', kind: 'e', h: 240, pr: 'IV', name: 'Projektowanie dla sztuki współczesnej', short: 'Projektowanie', who: 'dr Jan Ankiersztajn', s: [
+    { dow: 2, t: '10:00-17:30', d: '10.11 15.12', loc: 'bud. C, sala 206/207/208' },
+    { dow: 2, t: '13:45-17:30', d: '13.10 27.10 24.11 8.12 12.01', loc: 'bud. C, sala 206/207/208' }] },
+  { id: 'prak', kind: 'e', h: 95, pr: 'V', name: 'Praktyki postartystyczne', short: 'Praktyki postartystyczne', who: 'mgr Sebastian Cichocki',
+    hint: '4 zjazdy pn–cz: 19–22.10 · 17–19.11 · 8–10.12 · 12–14.01', s: [
+    { dow: 1, t: '10:00-13:30', d: '19.10', loc: C206, label: 'zjazd' },
+    { dow: 2, t: '10:00-13:30', d: '20.10 17.11 8.12 12.01', loc: C206, label: 'zjazd' },
+    { dow: 3, t: '10:00-13:30', d: '21.10 18.11 9.12 13.01', loc: 'Teserówka', label: 'zjazd' },
+    { dow: 4, t: '10:00-12:00', d: '22.10 19.11 10.12 14.01', loc: C206, label: 'zjazd' },
+    { dow: 4, t: '13:30-14:30', d: '22.10 19.11 10.12 14.01', loc: C206, label: 'zjazd' }] },
+  { id: 'dep', kind: 'e', h: 115, pr: 'V', name: 'Departament Pomyłek', short: 'Departament Pomyłek', who: 'mgr Iza Tarasewicz',
+    hint: '4 zjazdy + konsultacje online, bez godzin w rozkładzie', s: [
+    { range: '5.10-9.10', label: 'zjazd' }, { range: '26.10-28.10', label: 'konsultacje', loc: 'online' },
+    { range: '2.11-5.11', label: 'zjazd' }, { range: '9.11-11.11', label: 'konsultacje', loc: 'online' },
+    { range: '14.12-18.12', label: 'zjazd' }, { range: '21.12-23.12', label: 'konsultacje', loc: 'online' },
+    { range: '4.01-8.01', label: 'zjazd' }, { range: '11.01-13.01', label: 'konsultacje', loc: 'online' }] },
+
+  // joint sessions, included when any listed elective is picked
+  { id: 'jv', kind: 's', h: 260, any: ['difo', 'fpa', 'wiw'], name: 'Joint-venture: Działania intermedialne + Fashion in Performance Art + Wystawy i wydarzenia',
+    short: 'Joint-venture', who: 'prof. P. Kurka, dr K. Łukomski, dr I. Sitarska',
+    s: [{ dow: 3, t: '11:00-13:15', d: '7.10 14.10 21.10 2.12 13.01', loc: '', note: '15 h, wspólne dla trzech pracowni.' }] },
+  { id: 'so', kind: 's', h: 175, any: ['aud', 'prak'], name: 'Sesje odsłuchowe (Audiosfera + Praktyki postartystyczne)',
+    short: 'Sesje odsłuchowe', who: 'mgr S. Cichocki, dr D. Koniusz, mgr J. Żwirełło',
+    s: [{ dow: 4, t: '14:30-18:00', d: '19.11 10.12 14.01', loc: 'Teserówka', note: '18 h, prowadzone wspólnie.' }] },
+];
+const BY_ID = Object.fromEntries(COURSES.map(c => [c.id, c]));
+
+const SEM_START = '2026-10-01', SEM_END = '2027-01-24';
+const FIRST_WEEK = '2026-09-28', N_WEEKS = 19;   // chart and navigation: weeks of 28.09 … 1.02
+const HOLIDAYS = ['2026-11-11', '2027-01-06'];
+const DOW_PL = ['nd', 'pn', 'wt', 'śr', 'cz', 'pt', 'sb'];
+const DAY_PL = ['niedziela', 'poniedziałek', 'wtorek', 'środa', 'czwartek', 'piątek', 'sobota'];
+const H0 = 8, H1 = 21, HR = 46; // week grid: 8:00–21:00, px per hour
+
+// ---- date helpers (calendar math on UTC dates to dodge DST) ----
+const pad = n => String(n).padStart(2, '0');
+const iso = dm => { const [d, m] = dm.split('.').map(Number); return `${m >= 8 ? 2026 : 2027}-${pad(m)}-${pad(d)}`; };
+const toDate = s => new Date(s + 'T00:00:00Z');
+const addDays = (s, n) => { const d = toDate(s); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
+const dow = s => toDate(s).getUTCDay();
+const mondayOf = s => addDays(s, -((dow(s) + 6) % 7));
+const fmtD = s => `${+s.slice(8)}.${s.slice(5, 7)}`;
+const mins = t => +t.slice(0, 2) * 60 + +t.slice(3, 5);
+const todayISO = (() => { const n = new Date(); return `${n.getFullYear()}-${pad(n.getMonth() + 1)}-${pad(n.getDate())}`; })();
+
+// ---- state (persisted per browser) ----
+const DEFAULT_OPTS = {
+  calName: 'Intermedia II rok — zima 2026/27', split: false, range: 'all',
+  titleStyle: 'full', prefix: '', teacherInTitle: false, onlineTag: true,
+  remind: '30', remindAllDay: 'eve',
+  allDayMode: 'allday', blockStart: '10:00', blockEnd: '16:00',
+  weekly: true, breakFrom: '2026-12-24', breakTo: '2027-01-03', skipHolidays: true,
+  busy: 'busy', details: true,
+};
+const KEY = 'intermedia-plan-2627-v2';
+const state = { picked: new Set(), excluded: new Set(), opts: { ...DEFAULT_OPTS }, view: 'grid', week: null };
+try {
+  const raw = JSON.parse(localStorage.getItem(KEY) || 'null');
+  if (raw) {
+    state.picked = new Set(raw.picked || []); state.excluded = new Set(raw.excluded || []);
+    Object.assign(state.opts, raw.opts || {}); state.view = raw.view || 'grid';
+  } else {
+    state.picked = new Set(JSON.parse(localStorage.getItem('intermedia-plan-2627') || '[]'));
+  }
+} catch (e) {}
+function persist() {
+  try { localStorage.setItem(KEY, JSON.stringify({ picked: [...state.picked], excluded: [...state.excluded], opts: state.opts, view: state.view })); } catch (e) {}
+}
+state.week = (todayISO >= FIRST_WEEK && todayISO <= addDays(FIRST_WEEK, N_WEEKS * 7 - 1)) ? mondayOf(todayISO) : '2026-10-05';
+
+// ---- expansion: course → concrete events ----
+function weeklyDates(wd) {
+  const o = state.opts, out = [];
+  for (let s = SEM_START; s <= SEM_END; s = addDays(s, 1)) {
+    if (dow(s) !== wd) continue;
+    if (o.skipHolidays && HOLIDAYS.includes(s)) continue;
+    if (o.breakFrom && o.breakTo && s >= o.breakFrom && s <= o.breakTo) continue;
+    out.push(s);
+  }
+  return out;
+}
+function expand(c) {
+  const evs = [];
+  c.s.forEach((s, si) => {
+    const base = { c, label: s.label || '', loc: s.loc || '', note: s.note || '' };
+    if (s.range) {
+      const [a, b] = s.range.split('-').map(iso);
+      evs.push({ ...base, date: a, endDate: b, allDay: true, key: `${c.id}-${si}-${a}` });
+      return;
+    }
+    if (s.weekly && !state.opts.weekly) return;
+    const dates = s.weekly ? weeklyDates(s.dow) : s.d.split(/\s+/).map(iso);
+    const [t0, t1] = s.t ? s.t.split('-') : [null, null];
+    for (const date of dates) evs.push({ ...base, date, endDate: date, allDay: !!s.allDay, start: t0, end: t1, weekly: !!s.weekly,
+      note: s.note || (s.weekly ? 'Rozkład nie podaje dat — wpisane co tydzień.' : ''), key: `${c.id}-${si}-${date}` });
+  });
+  return evs;
+}
+const included = c => c.kind === 'm' || (c.kind === 'e' && state.picked.has(c.id)) || (c.kind === 's' && c.any.some(id => state.picked.has(id)));
+const sortKey = e => e.date + (e.allDay ? '00:00' : e.start);
+function planEvents() {
+  return COURSES.filter(included).flatMap(expand).map(e => ({ ...e, off: state.excluded.has(e.key) }))
+    .sort((a, b) => sortKey(a).localeCompare(sortKey(b)));
+}
+function clashInfo(evs) {
+  const keys = new Set(), pairs = new Map();
+  const timed = evs.filter(e => !e.allDay && !e.off);
+  for (let i = 0; i < timed.length; i++) for (let j = i + 1; j < timed.length; j++) {
+    const a = timed[i], b = timed[j];
+    if (a.date !== b.date || !(a.start < b.end && b.start < a.end) || a.c === b.c) continue;
+    keys.add(a.key); keys.add(b.key);
+    const p = [a.c.short, b.c.short].sort().join(' × ');
+    pairs.set(p, (pairs.get(p) || 0) + 1);
+  }
+  return { keys, pairs };
+}
+
+// ---- rendering ----
+const esc = s => String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+const $ = id => document.getElementById(id);
+
+function weeksOf(c) {
+  const on = new Set(expand(c).flatMap(e => {
+    const out = []; for (let d = e.date; d <= e.endDate; d = addDays(d, 1)) out.push(mondayOf(d)); return out;
+  }));
+  return Array.from({ length: N_WEEKS }, (_, i) => on.has(addDays(FIRST_WEEK, i * 7)));
+}
+function whenText(c) {
+  if (c.hint) return c.hint;
+  const parts = c.s.map(s => s.weekly ? `co tydzień ${DOW_PL[s.dow]} ${s.t}` : `${DOW_PL[s.dow]} ${s.allDay ? 'bez godzin' : s.t}`);
+  const n = expand(c).length;
+  return [...new Set(parts)].join(' · ') + (c.s.some(s => s.weekly) ? '' : ` · ${n} spotkań`);
+}
+
+function renderPicker() {
+  $('electives').innerHTML = COURSES.filter(c => c.kind === 'e').map(c => `
+    <button type="button" class="course" id="pick-${c.id}" data-pick="${c.id}" aria-pressed="${state.picked.has(c.id)}" style="--h:${c.h}">
+      <span class="top"><span>Pracownia Intermediów ${c.pr}</span><span class="check" aria-hidden="true"></span></span>
+      <span class="name">${esc(c.name)}</span>
+      <span class="who">${esc(c.who)}</span>
+      <span class="when">${esc(whenText(c))}</span>
+      <span class="strip" aria-hidden="true">${weeksOf(c).map(on => `<i class="${on ? 'on' : ''}"></i>`).join('')}</span>
+    </button>`).join('');
+  $('fixed').innerHTML = COURSES.filter(c => c.kind !== 'e').map(c => {
+    const inc = included(c);
+    const sub = c.kind === 's' ? (inc ? 'wspólne · w planie' : `wspólne · wejdzie z: ${c.any.map(id => BY_ID[id].short).join(', ')}`) : whenText(c);
+    return `<div class="${c.kind === 's' ? 'shared' : ''} ${inc ? '' : 'off'}" style="--h:${c.h}"><span class="swatch"></span>${esc(c.kind === 's' ? c.short : c.name)}<small>${esc(sub)}</small></div>`;
+  }).join('');
+  const n = state.picked.size;
+  $('counter').className = 'counter' + (n > 3 ? ' over' : '');
+  $('counter').textContent = `Wybrane: ${n}${n > 3 ? ' — więcej niż 3' : n === 3 ? ' ✓' : ''}`;
+}
+
+function renderChart(evs, clash) {
+  const W = 760, Hh = 170, L = 26, R = 6, T = 12, B = 24, iw = W - L - R, ih = Hh - T - B, slot = iw / N_WEEKS, bw = slot * 0.64;
+  const weeks = Array.from({ length: N_WEEKS }, (_, i) => ({ mon: addDays(FIRST_WEEK, i * 7), m: 0, e: 0, clash: false }));
+  for (const e of evs) {
+    const i = Math.round((toDate(mondayOf(e.date)) - toDate(FIRST_WEEK)) / 6048e5);
+    if (i < 0 || i >= N_WEEKS || e.off) continue;
+    if (clash.keys.has(e.key)) weeks[i].clash = true;
+    if (e.allDay) continue;
+    const h = (mins(e.end) - mins(e.start)) / 60;
+    e.c.kind === 'm' ? weeks[i].m += h : weeks[i].e += h;
+  }
+  const max = Math.max(10, Math.ceil(Math.max(...weeks.map(w => w.m + w.e)) / 5) * 5);
+  const y = v => T + ih - v / max * ih;
+  let s = '';
+  for (let v = 0; v <= max; v += 5) s += `<line class="grid" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/><text x="${L - 5}" y="${y(v) + 3}" text-anchor="end">${v}</text>`;
+  weeks.forEach((w, i) => {
+    const x = L + i * slot + (slot - bw) / 2;
+    if (w.mon === state.week) s += `<rect class="sel" x="${L + i * slot}" y="${T}" width="${slot}" height="${ih}" rx="3"/>`;
+    if (w.m) s += `<rect class="m" x="${x}" y="${y(w.m)}" width="${bw}" height="${ih - (y(w.m) - T)}" rx="1.5"/>`;
+    if (w.e) s += `<rect class="e" x="${x}" y="${y(w.m + w.e)}" width="${bw}" height="${y(w.m) - y(w.m + w.e)}" rx="1.5"/>`;
+    if (w.clash) s += `<circle class="clash" cx="${x + bw / 2}" cy="${y(w.m + w.e) - 6}" r="3"/>`;
+    if (i % 2 === 0) s += `<text x="${x + bw / 2}" y="${Hh - 8}" text-anchor="middle">${fmtD(w.mon)}</text>`;
+    s += `<rect class="hit" data-week="${w.mon}" x="${L + i * slot}" y="${T}" width="${slot}" height="${ih}"><title>Tydzień ${fmtD(w.mon)}: ${Math.round((w.m + w.e) * 10) / 10} h</title></rect>`;
+  });
+  const ti = (toDate(todayISO) - toDate(FIRST_WEEK)) / 864e5 / 7;
+  if (ti >= 0 && ti < N_WEEKS) { const tx = L + ti * slot; s += `<line class="today" x1="${tx}" x2="${tx}" y1="${T}" y2="${T + ih}"/><text x="${tx + 3}" y="${T + 8}">dziś</text>`; }
+  $('chart').innerHTML = s;
+}
+
+function lanes(list) {
+  // greedy lane assignment within clusters of overlapping events
+  list.sort((a, b) => mins(a.start) - mins(b.start));
+  let cluster = [], clusterEnd = -1;
+  const flush = () => { const n = Math.max(...cluster.map(e => e.lane)) + 1; cluster.forEach(e => e.lanes = n); cluster = []; };
+  for (const e of list) {
+    if (cluster.length && mins(e.start) >= clusterEnd) flush();
+    const used = new Set(cluster.filter(o => mins(o.end) > mins(e.start)).map(o => o.lane));
+    let l = 0; while (used.has(l)) l++;
+    e.lane = l; cluster.push(e); clusterEnd = Math.max(clusterEnd, mins(e.end));
+  }
+  if (cluster.length) flush();
+}
+const shortTitle = e => e.c.short + (e.label ? ` · ${e.label}` : '');
+
+function renderWeek(evs, clash) {
+  const days = [1, 2, 3, 4, 5].map(i => addDays(state.week, i - 1));
+  const head = days.map(d => `<div class="${d === todayISO ? 'today' : ''}"><b>${DOW_PL[dow(d)]} ${fmtD(d)}</b></div>`).join('');
+  const allday = days.map(d => `<div>${evs.filter(e => e.allDay && e.date <= d && e.endDate >= d).map(e =>
+    `<button type="button" class="chip ${e.c.kind === 'm' ? 'm' : ''} ${e.off ? 'off' : ''}" data-toggle="${e.key}" style="--h:${e.c.h}" title="${esc(e.c.name)}">${esc(shortTitle(e))}</button>`).join('')}</div>`).join('');
+  let axis = ''; for (let h = H0; h <= H1; h++) axis += `<span style="top:${(h - H0) * HR}px">${h}:00</span>`;
+  const cols = days.map(d => {
+    const list = evs.filter(e => !e.allDay && e.date === d).map(e => ({ ...e }));
+    lanes(list);
+    return `<div class="wk-col">${list.map(e => {
+      const top = (mins(e.start) - H0 * 60) / 60 * HR, ht = (mins(e.end) - mins(e.start)) / 60 * HR;
+      const cls = `${e.c.kind === 'm' ? 'm' : ''} ${e.off ? 'off' : ''} ${clash.keys.has(e.key) ? 'clash' : ''}`;
+      return `<button type="button" class="blk ${cls}" data-toggle="${e.key}" style="--h:${e.c.h};top:${top}px;height:${ht - 2}px;left:calc(${e.lane / e.lanes * 100}% + 2px);width:calc(${100 / e.lanes}% - 4px)" title="${esc(e.c.name)} · ${e.start}–${e.end}${e.loc ? ' · ' + esc(e.loc) : ''}${e.off ? ' (wyłączone)' : ''}">
+        <span class="t">${e.start}–${e.end}</span><b>${esc(shortTitle(e))}</b>${ht > 60 && e.loc ? `<span>${esc(e.loc)}</span>` : ''}</button>`;
+    }).join('')}</div>`;
+  }).join('');
+  $('view').innerHTML = `<div class="wk-scroll"><div class="wk" style="--hr:${HR}px">
+    <div class="wk-row wk-head"><div></div>${head}</div>
+    <div class="wk-row wk-allday"><div>cały dzień</div>${allday}</div>
+    <div class="wk-row wk-body" style="height:${(H1 - H0) * HR + 10}px"><div class="wk-axis">${axis}</div>${cols}</div>
+  </div></div><p class="hint">Czerwony pasek to przedmiot obowiązkowy, kreskowanie to kolizja godzin, a przekreślenie oznacza termin wyłączony z pliku.</p>`;
+}
+
+function renderList(evs, clash) {
+  const weeks = new Map();
+  for (const e of evs) { const m = mondayOf(e.date); if (!weeks.has(m)) weeks.set(m, []); weeks.get(m).push(e); }
+  $('view').innerHTML = `<div class="list">${[...weeks].map(([m, list]) => `<h3>Tydzień ${fmtD(m)} – ${fmtD(addDays(m, 6))}</h3>` + list.map(e => `
+    <button type="button" class="ev ${e.c.kind === 'm' ? 'm' : ''} ${e.off ? 'off' : ''} ${clash.keys.has(e.key) ? 'clash' : ''} ${e.endDate < todayISO ? 'past' : ''}" data-toggle="${e.key}" aria-pressed="${!e.off}">
+      <span class="cb" aria-hidden="true"></span>
+      <span class="d">${DOW_PL[dow(e.date)]} ${fmtD(e.date)}${e.endDate !== e.date ? '–' + fmtD(e.endDate) : ''}</span>
+      <span class="t">${e.allDay ? 'cały dzień' : e.start + '–' + e.end}</span>
+      <span class="n">${esc(e.c.name)}${e.label ? ` · ${esc(e.label)}` : ''}${e.loc ? `<span class="l"> · ${esc(e.loc)}</span>` : ''}</span>
+    </button>`).join('')).join('')}</div>`;
+}
+
+function renderOpts() {
+  for (const [k, v] of Object.entries(state.opts)) {
+    const el = $('o-' + k); if (!el || el === document.activeElement) continue;
+    el.type === 'checkbox' ? el.checked = v : el.value = v;
+  }
+  $('blockTimes').hidden = state.opts.allDayMode !== 'block';
+}
+
+function renderSample(file) {
+  const e = file.find(x => !x.allDay && x.c.kind === 'e') || file.find(x => !x.allDay) || file[0];
+  if (!e) { $('sample').innerHTML = '<p>Plik będzie pusty — sprawdź zakres i wyłączone terminy.</p>'; return; }
+  const o = state.opts;
+  const when = e.allDay ? `${DAY_PL[dow(e.date)]} ${fmtD(e.date)} · cały dzień` : `${DAY_PL[dow(e.date)]} ${fmtD(e.date)} · ${e.start}–${e.end}`;
+  const rem = e.allDay ? { none: 'bez przypomnienia', eve: 'przypomnienie dzień wcześniej 18:00', morning: 'przypomnienie o 8:00' }[o.remindAllDay]
+    : o.remind === 'none' ? 'bez przypomnienia' : `przypomnienie ${o.remind} min przed`;
+  const nM = file.filter(x => x.c.kind === 'm').length;
+  $('sample').innerHTML = `<div class="cal-ev" style="border-left-color:${e.c.kind === 'm' ? 'var(--must)' : 'var(--accent)'}">
+      <div class="ttl">${esc(icsTitle(e))}</div>
+      <div class="meta">${when}${e.loc ? ' · ' + esc(e.loc) : ''}</div>
+      <div class="meta">${rem}</div>
+      ${o.details ? `<pre>${esc(icsDesc(e))}</pre>` : ''}
+    </div>
+    <ul>
+      <li>${o.split ? `2 pliki: <b>${nM}</b> obowiązkowych i <b>${file.length - nM}</b> wybranych` : `1 plik, <b>${file.length}</b> wydarzeń`}</li>
+      <li>kalendarz: „${esc(o.calName || 'bez nazwy')}${o.split ? ' — obowiązkowe / wybrane' : ''}”</li>
+      <li>${state.excluded.size ? `${state.excluded.size} terminów wyłączonych ręcznie` : 'brak ręcznie wyłączonych terminów'}</li>
+    </ul>`;
+}
+
+function render() {
+  const focused = document.activeElement && document.activeElement.id;
+  const evs = planEvents(), clash = clashInfo(evs), file = fileEvents(evs);
+  renderPicker(); renderChart(evs, clash);
+  $('v-grid').setAttribute('aria-pressed', state.view === 'grid');
+  $('v-list').setAttribute('aria-pressed', state.view === 'list');
+  $('weeknav').style.visibility = state.view === 'grid' ? 'visible' : 'hidden';
+  $('wLabel').textContent = `${fmtD(state.week)} – ${fmtD(addDays(state.week, 4))}`;
+  $('clashes').innerHTML = clash.pairs.size
+    ? [...clash.pairs].map(([p, n]) => `<span>${esc(p)}: ${n}×</span>`).join('')
+    : '<span class="ok">Brak kolizji godzin w wybranym planie.</span>';
+  state.view === 'grid' ? renderWeek(evs, clash) : renderList(evs, clash);
+  renderOpts(); renderSample(file);
+  $('btnReset').hidden = !state.excluded.size;
+  $('barMsg').innerHTML = `<b>${file.length}</b> wydarzeń w pliku · ${state.picked.size} wybrane pracownie${clash.keys.size ? ` · <span class="warn">${clash.pairs.size} kolizje</span>` : ''}`;
+  if (focused && $(focused)) $(focused).focus({ preventScroll: true });
+}
+
+// ---- iCalendar ----
+const VTZ = ['BEGIN:VTIMEZONE', 'TZID:Europe/Warsaw',
+  'BEGIN:DAYLIGHT', 'TZOFFSETFROM:+0100', 'TZOFFSETTO:+0200', 'TZNAME:CEST', 'DTSTART:19700329T020000', 'RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU', 'END:DAYLIGHT',
+  'BEGIN:STANDARD', 'TZOFFSETFROM:+0200', 'TZOFFSETTO:+0100', 'TZNAME:CET', 'DTSTART:19701025T030000', 'RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU', 'END:STANDARD',
+  'END:VTIMEZONE'];
+const icsText = s => String(s).replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
+function fold(line) {
+  // RFC 5545: max 75 octets per line, continuation lines start with a space; never split a UTF-8 char
+  const enc = new TextEncoder(), out = []; let cur = '', bytes = 0;
+  for (const ch of line) {
+    const b = enc.encode(ch).length;
+    if (bytes + b > (out.length ? 74 : 75)) { out.push(cur); cur = ''; bytes = 0; }
+    cur += ch; bytes += b;
+  }
+  out.push(cur); return out.join('\r\n ');
+}
+const surnames = who => who.split(',').map(p => p.trim()).filter(p => p && !/^prof\. UAP/.test(p)).map(p => p.split(/\s+/).pop()).join(', ');
+function icsTitle(e) {
+  const o = state.opts;
+  let t = (o.titleStyle === 'short' ? e.c.short : e.c.name) + (e.label ? ` — ${e.label}` : '');
+  if (o.onlineTag && e.loc === 'online') t += ' (online)';
+  if (o.teacherInTitle && e.c.who) t += ` · ${surnames(e.c.who)}`;
+  return (o.prefix || '') + t;
+}
+function icsDesc(e) {
+  return [e.c.who && `Prowadzący: ${e.c.who}`,
+    e.c.kind === 'm' ? 'Przedmiot obowiązkowy' : e.c.kind === 's' ? 'Zajęcia wspólne kilku pracowni' : `Przedmiot do wyboru · Pracownia Intermediów ${e.c.pr}`,
+    e.note, e.blockNote].filter(Boolean).join('\n');
+}
+// Plan events → what actually goes into the file, after options.
+function fileEvents(evs) {
+  const o = state.opts, out = [];
+  for (const e of evs) {
+    if (e.off || (o.range === 'future' && e.endDate < todayISO)) continue;
+    if (!e.allDay) { out.push(e); continue; }
+    if (o.allDayMode === 'skip') continue;
+    if (o.allDayMode === 'allday') { out.push(e); continue; }
+    for (let d = e.date; d <= e.endDate; d = addDays(d, 1)) {
+      if (o.range === 'future' && d < todayISO) continue;
+      out.push({ ...e, date: d, endDate: d, allDay: false, start: o.blockStart || '10:00', end: o.blockEnd || '16:00',
+        key: `${e.key}-${d}`, blockNote: 'Godziny umowne — rozkład ich nie podaje.' });
+    }
+  }
+  return out;
+}
+function buildICS(list, name) {
+  const o = state.opts;
+  const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d+/, '');
+  const L = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//intermedia-plan//UAP 2026-27//PL', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+    `X-WR-CALNAME:${icsText(name)}`, `NAME:${icsText(name)}`, 'X-WR-TIMEZONE:Europe/Warsaw', ...VTZ];
+  for (const e of list) {
+    const d = e.date.replace(/-/g, '');
+    L.push('BEGIN:VEVENT', `UID:${e.key}@intermedia-uap-2026-27`, `DTSTAMP:${stamp}`);
+    if (e.allDay) {
+      L.push(`DTSTART;VALUE=DATE:${d}`, `DTEND;VALUE=DATE:${addDays(e.endDate, 1).replace(/-/g, '')}`);
+      L.push(`TRANSP:${o.busy === 'allbusy' ? 'OPAQUE' : 'TRANSPARENT'}`);
+    } else {
+      L.push(`DTSTART;TZID=Europe/Warsaw:${d}T${e.start.replace(':', '')}00`, `DTEND;TZID=Europe/Warsaw:${d}T${e.end.replace(':', '')}00`);
+      L.push(`TRANSP:${o.busy === 'free' ? 'TRANSPARENT' : 'OPAQUE'}`);
+    }
+    L.push(`SUMMARY:${icsText(icsTitle(e))}`);
+    if (e.loc) L.push(`LOCATION:${icsText(e.loc)}`);
+    if (o.details) L.push(`DESCRIPTION:${icsText(icsDesc(e))}`);
+    L.push(`CATEGORIES:${e.c.kind === 'm' ? 'Obowiązkowe' : 'Do wyboru'}`);
+    const trig = e.allDay ? { eve: '-PT6H', morning: 'PT8H' }[o.remindAllDay] : o.remind !== 'none' && `-PT${o.remind}M`;
+    if (trig) L.push('BEGIN:VALARM', 'ACTION:DISPLAY', `DESCRIPTION:${icsText(icsTitle(e))}`, `TRIGGER:${trig}`, 'END:VALARM');
+    L.push('END:VEVENT');
+  }
+  L.push('END:VCALENDAR');
+  return L.map(fold).join('\r\n') + '\r\n';
+}
+function outputs() {
+  const file = fileEvents(planEvents()), name = state.opts.calName || 'Intermedia';
+  if (!state.opts.split) return [{ filename: 'intermedia-zima-2026-27.ics', text: buildICS(file, name) }];
+  return [
+    { filename: 'intermedia-zima-2026-27-obowiazkowe.ics', text: buildICS(file.filter(e => e.c.kind === 'm'), `${name} — obowiązkowe`) },
+    { filename: 'intermedia-zima-2026-27-wybrane.ics', text: buildICS(file.filter(e => e.c.kind !== 'm'), `${name} — wybrane`) },
+  ];
+}
+
+// ---- export ----
+let msgTimer;
+function say(msg) { $('barMsg').textContent = msg; clearTimeout(msgTimer); msgTimer = setTimeout(render, 7000); }
+async function saveOne(dl, f) {
+  if (!dl) {
+    // Standalone file (opened outside claude.ai): a plain Blob download works.
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([f.text], { type: 'text/calendar;charset=utf-8' }));
+    a.download = f.filename; document.body.append(a); a.click(); a.remove();
+    return 'ics';
+  }
+  try { await dl.save({ filename: f.filename, data: f.text }); return 'ics'; }
+  catch (err) {
+    if (!err || err.code !== 'rejected_extension') throw err;
+    await dl.save({ filename: f.filename + '.txt', data: f.text }); return 'txt';
+  }
+}
+async function download() {
+  const files = outputs();
+  const inViewer = !!(window.claude && window.claude.use);
+  const dl = inViewer ? await window.claude.use('downloads') : null;
+  if (inViewer && !dl) return say('Pobieranie jest niedostępne w tym widoku. Użyj „Kopiuj .ics”.');
+  try {
+    let kind = 'ics';
+    for (const f of files) kind = await saveOne(dl, f);
+    say(kind === 'txt' ? 'Zapisano z końcówką .ics.txt. Usuń „.txt” z nazwy i otwórz plik, a kalendarz zaproponuje import.'
+      : `Pobrano ${files.length > 1 ? '2 pliki' : 'plik'} .ics. Otwórz, żeby zaimportować do kalendarza.`);
+  } catch (err) {
+    say(err && err.code === 'declined' ? 'Anulowano zapis.' : 'Nie udało się zapisać. Użyj „Kopiuj .ics”.');
+  }
+}
+async function copy() {
+  const files = outputs();
+  try {
+    await navigator.clipboard.writeText(files.map(f => f.text).join('\n'));
+    say(files.length > 1 ? 'Skopiowano oba kalendarze jeden pod drugim. Do podziału na dwa pliki lepiej użyj pobierania.' : 'Skopiowano. Wklej do pustego pliku tekstowego i zapisz jako plan.ics.');
+  } catch (e) { say('Schowek jest zablokowany w tym widoku. Użyj „Pobierz .ics”.'); }
+}
+
+// ---- events ----
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-pick],[data-toggle],[data-view],[data-week]');
+  if (!t) return;
+  if (t.dataset.pick) { const id = t.dataset.pick; state.picked.has(id) ? state.picked.delete(id) : state.picked.add(id); }
+  else if (t.dataset.toggle) { const k = t.dataset.toggle; state.excluded.has(k) ? state.excluded.delete(k) : state.excluded.add(k); }
+  else if (t.dataset.view) state.view = t.dataset.view;
+  else if (t.dataset.week) { state.week = t.dataset.week; state.view = 'grid'; }
+  persist(); render();
+});
+$('optForm').addEventListener('input', e => {
+  const k = e.target.id && e.target.id.replace(/^o-/, '');
+  if (!(k in state.opts)) return;
+  state.opts[k] = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+  persist(); render();
+});
+const lastWeek = addDays(FIRST_WEEK, (N_WEEKS - 1) * 7);
+$('wPrev').onclick = () => { if (state.week > FIRST_WEEK) { state.week = addDays(state.week, -7); render(); } };
+$('wNext').onclick = () => { if (state.week < lastWeek) { state.week = addDays(state.week, 7); render(); } };
+$('wToday').onclick = () => { const m = mondayOf(todayISO); state.week = m < FIRST_WEEK ? FIRST_WEEK : m > lastWeek ? lastWeek : m; render(); };
+$('btnReset').onclick = () => { state.excluded.clear(); persist(); render(); };
+$('btnDl').onclick = download;
+$('btnCopy').onclick = copy;
+render();
+</script>
+
+</body>
+</html>
