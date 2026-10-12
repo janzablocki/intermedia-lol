@@ -128,6 +128,7 @@ h1 { font: 800 clamp(34px, 6vw, 64px)/0.95 var(--f-display); letter-spacing: -0.
 .wk-col { position: relative; border-left: 1px solid var(--line); background-image: repeating-linear-gradient(to bottom, var(--line) 0 1px, transparent 1px var(--hr)); background-size: 100% var(--hr); opacity: 1; }
 .blk { position: absolute; padding: 3px 5px; border-radius: 5px; overflow: hidden; cursor: pointer; text-align: left; border: 0; border-left: 3px solid hsl(var(--h) var(--blk-s) var(--blk-bl)); background: hsl(var(--h) var(--blk-s) var(--blk-l)); color: hsl(var(--h) 40% var(--blk-tl)); font-size: 11.5px; line-height: 1.25; }
 .blk.m { border-left-color: var(--must); }
+.blk.free { background: transparent; border: 1.5px dashed hsl(var(--h) var(--blk-s) var(--blk-bl)); color: var(--muted); }
 .blk b { display: block; font-weight: 700; }
 .blk .t { font: 10.5px var(--f-mono); opacity: .85; }
 .blk.clash { box-shadow: inset 0 0 0 1.5px var(--warn); background-image: repeating-linear-gradient(135deg, transparent 0 6px, color-mix(in srgb, var(--warn) 18%, transparent) 6px 9px); }
@@ -242,6 +243,17 @@ legend { font: 600 12px var(--f-mono); letter-spacing: .06em; text-transform: up
     <div class="opts">
       <div class="groups" id="optForm">
         <fieldset>
+          <legend>WF</legend>
+          <label class="f"><span>Pn lub śr 8:30–12:30, wystarczy godzina w tygodniu</span><select id="o-wfMode">
+            <option value="slot">stała godzina, którą wybierasz</option><option value="window">całe okno pn i śr (jako „wolny”)</option><option value="skip">pomiń w pliku</option></select></label>
+          <div class="row2" id="wfSlot">
+            <label class="f"><span>dzień</span><select id="o-wfDay"><option value="1">poniedziałek</option><option value="3">środa</option></select></label>
+            <label class="f"><span>godzina</span><select id="o-wfStart">
+              <option>08:30</option><option>08:45</option><option>09:00</option><option>09:15</option><option>09:30</option><option>09:45</option>
+              <option>10:00</option><option>10:15</option><option>10:30</option><option>10:45</option><option>11:00</option><option>11:15</option><option>11:30</option></select></label>
+          </div>
+        </fieldset>
+        <fieldset>
           <legend>Kalendarz</legend>
           <label class="f"><span>Nazwa kalendarza</span><input type="text" id="o-calName"></label>
           <label class="tg"><input type="checkbox" id="o-split"><span>Dwa osobne pliki<small>obowiązkowe i wybrane, np. żeby dać im różne kolory</small></span></label>
@@ -295,7 +307,7 @@ legend { font: 600 12px var(--f-mono); letter-spacing: .06em; text-transform: up
     </div>
   </section>
 
-  <p class="foot">Poza planem: język obcy i WF (osobne rozkłady), rysunek oraz pracownia artystyczna z całego UAP (wolny wybór). Forum Biosfery 6.10 ma w rozkładzie tylko godzinę startu, więc koniec o 20:00 jest orientacyjny. Ustawienia i wybór zapisują się w tej przeglądarce.</p>
+  <p class="foot">Poza planem: język obcy (osobny rozkład), rysunek oraz pracownia artystyczna z całego UAP (wolny wybór). Forum Biosfery 6.10 ma w rozkładzie tylko godzinę startu, więc koniec o 20:00 jest orientacyjny. Ustawienia i wybór zapisują się w tej przeglądarce.</p>
 </div>
 
 <div class="bar">
@@ -328,6 +340,8 @@ const COURSES = [
     s: [{ dow: 4, allDay: true, d: '15.10 12.11 17.12 14.01 4.02', loc: 'Teserówka', note: 'Rozkład nie podaje godzin.' }] },
   { id: 'pa', kind: 'm', h: 0, name: 'Prawo autorskie', short: 'Prawo autorskie', who: 'dr hab. Mateusz Bieczyński, prof. UAP',
     s: [{ dow: 4, t: '12:00-13:30', weekly: true, loc: 'online' }] },
+  { id: 'wf', kind: 'm', h: 120, wf: true, name: 'Wychowanie fizyczne', short: 'WF', who: '',
+    hint: 'pn lub śr 8:30–12:30 · wystarczy 1 h w tygodniu', s: [] },
   { id: 'fb', kind: 'm', h: 20, name: 'Forum Biosfery', short: 'Forum Biosfery', who: '',
     s: [{ dow: 2, t: '18:00-20:00', d: '6.10', loc: 'Aula, bud. A',
           note: 'Program obowiązkowy dla wszystkich. Rozkład podaje tylko „od 6.10, 18:00” — koniec orientacyjny.' }] },
@@ -407,6 +421,7 @@ const DEFAULT_OPTS = {
   titleStyle: 'full', prefix: '', teacherInTitle: false, onlineTag: true,
   remind: '30', remindAllDay: 'eve',
   allDayMode: 'allday', blockStart: '10:00', blockEnd: '16:00',
+  wfMode: 'slot', wfDay: '1', wfStart: '08:30',
   weekly: true, breakFrom: '2026-12-24', breakTo: '2027-01-03', skipHolidays: true,
   busy: 'busy', details: true,
 };
@@ -437,7 +452,19 @@ function weeklyDates(wd) {
   }
   return out;
 }
+// PE: open window Mon & Wed 8:30–12:30, attendance = any one hour per week.
+const WF_NOTE = 'WF: otwarte okno pn i śr 8:30–12:30 — wystarczy przyjść na godzinę w tygodniu.';
+function expandWF(c) {
+  const o = state.opts;
+  if (o.wfMode === 'skip') return [];
+  if (o.wfMode === 'window') return [1, 3].flatMap(wd => weeklyDates(wd).map(date => ({ c, label: '', loc: '', note: WF_NOTE,
+    date, endDate: date, allDay: false, start: '08:30', end: '12:30', free: true, key: `wf-w-${date}` })));
+  const s = o.wfStart || '08:30', endM = mins(s) + 60, end = `${pad(Math.floor(endM / 60))}:${pad(endM % 60)}`;
+  return weeklyDates(+o.wfDay).map(date => ({ c, label: '', loc: '', note: WF_NOTE,
+    date, endDate: date, allDay: false, start: s, end, key: `wf-${date}` }));
+}
 function expand(c) {
+  if (c.wf) return expandWF(c);
   const evs = [];
   c.s.forEach((s, si) => {
     const base = { c, label: s.label || '', loc: s.loc || '', note: s.note || '' };
@@ -462,7 +489,7 @@ function planEvents() {
 }
 function clashInfo(evs) {
   const keys = new Set(), pairs = new Map();
-  const timed = evs.filter(e => !e.allDay && !e.off);
+  const timed = evs.filter(e => !e.allDay && !e.off && !e.free);
   for (let i = 0; i < timed.length; i++) for (let j = i + 1; j < timed.length; j++) {
     const a = timed[i], b = timed[j];
     if (a.date !== b.date || !(a.start < b.end && b.start < a.end) || a.c === b.c) continue;
@@ -516,8 +543,8 @@ function renderChart(evs, clash) {
     const i = Math.round((toDate(mondayOf(e.date)) - toDate(FIRST_WEEK)) / 6048e5);
     if (i < 0 || i >= N_WEEKS || e.off) continue;
     if (clash.keys.has(e.key)) weeks[i].clash = true;
-    if (e.allDay) continue;
-    const h = (mins(e.end) - mins(e.start)) / 60;
+    if (e.allDay || e.free) continue;
+    const h =(mins(e.end) - mins(e.start)) / 60;
     e.c.kind === 'm' ? weeks[i].m += h : weeks[i].e += h;
   }
   const max = Math.max(10, Math.ceil(Math.max(...weeks.map(w => w.m + w.e)) / 5) * 5);
@@ -564,7 +591,7 @@ function renderWeek(evs, clash) {
     lanes(list);
     return `<div class="wk-col">${list.map(e => {
       const top = (mins(e.start) - H0 * 60) / 60 * HR, ht = (mins(e.end) - mins(e.start)) / 60 * HR;
-      const cls = `${e.c.kind === 'm' ? 'm' : ''} ${e.off ? 'off' : ''} ${clash.keys.has(e.key) ? 'clash' : ''}`;
+      const cls = `${e.c.kind === 'm' ? 'm' : ''} ${e.free ? 'free' : ''} ${e.off ? 'off' : ''} ${clash.keys.has(e.key) ? 'clash' : ''}`;
       return `<button type="button" class="blk ${cls}" data-toggle="${e.key}" style="--h:${e.c.h};top:${top}px;height:${ht - 2}px;left:calc(${e.lane / e.lanes * 100}% + 2px);width:calc(${100 / e.lanes}% - 4px)" title="${esc(e.c.name)} · ${e.start}–${e.end}${e.loc ? ' · ' + esc(e.loc) : ''}${e.off ? ' (wyłączone)' : ''}">
         <span class="t">${e.start}–${e.end}</span><b>${esc(shortTitle(e))}</b>${ht > 60 && e.loc ? `<span>${esc(e.loc)}</span>` : ''}</button>`;
     }).join('')}</div>`;
@@ -594,6 +621,7 @@ function renderOpts() {
     el.type === 'checkbox' ? el.checked = v : el.value = v;
   }
   $('blockTimes').hidden = state.opts.allDayMode !== 'block';
+  $('wfSlot').hidden = state.opts.wfMode !== 'slot';
 }
 
 function renderSample(file) {
@@ -693,7 +721,7 @@ function buildICS(list, name) {
       L.push(`TRANSP:${o.busy === 'allbusy' ? 'OPAQUE' : 'TRANSPARENT'}`);
     } else {
       L.push(`DTSTART;TZID=Europe/Warsaw:${d}T${e.start.replace(':', '')}00`, `DTEND;TZID=Europe/Warsaw:${d}T${e.end.replace(':', '')}00`);
-      L.push(`TRANSP:${o.busy === 'free' ? 'TRANSPARENT' : 'OPAQUE'}`);
+      L.push(`TRANSP:${o.busy === 'free' || e.free ? 'TRANSPARENT' : 'OPAQUE'}`);
     }
     L.push(`SUMMARY:${icsText(icsTitle(e))}`);
     if (e.loc) L.push(`LOCATION:${icsText(e.loc)}`);
