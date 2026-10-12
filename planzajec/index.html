@@ -356,6 +356,9 @@ const COURSES = [
     { dow: 3, t: '16:00-20:30', d: '14.10 21.10 2.12 9.12 13.01', loc: 'bud. H, 4 p. / ART LOFT' }] },
   { id: 'fpa', kind: 'e', h: 300, pr: 'I', name: 'Fashion in Performance Art', short: 'Fashion in Performance', who: 'dr Izabela Sitarska', s: [
     { dow: 3, t: '14:30-16:45', d: '14.10 21.10 28.10 4.11 18.11 25.11 2.12 9.12 16.12 13.01', loc: 'bud. C, sala 207/208' }] },
+  { id: 'jv', kind: 'e', h: 260, pr: 'I', name: 'Joint-venture: Działania intermedialne + Fashion in Performance Art + Wystawy i wydarzenia',
+    short: 'Joint-venture', who: 'prof. P. Kurka, dr K. Łukomski, dr I. Sitarska',
+    s: [{ dow: 3, t: '11:00-13:15', d: '7.10 14.10 21.10 2.12 13.01', loc: '', note: 'Osobne zapisy. 15 h, prowadzone wspólnie przez trzy pracownie.' }] },
   { id: 'ktp', kind: 'e', h: 135, pr: 'II', name: 'Kształtowanie i transformacje przestrzeni', short: 'Przestrzeń', who: 'prof. Andrzej Syska', s: [
     { dow: 2, t: '13:45-17:30', d: '13.10 20.10 27.10 3.11 17.11', loc: 'bud. C, sala 206/207/208' },
     { dow: 2, t: '13:45-16:45', d: '24.11 1.12 8.12 15.12 12.01', loc: 'bud. C, sala 206/207/208' }] },
@@ -387,10 +390,7 @@ const COURSES = [
     { range: '14.12-18.12', label: 'zjazd' }, { range: '21.12-23.12', label: 'konsultacje', loc: 'online' },
     { range: '4.01-8.01', label: 'zjazd' }, { range: '11.01-13.01', label: 'konsultacje', loc: 'online' }] },
 
-  // joint sessions, included when any listed elective is picked
-  { id: 'jv', kind: 's', h: 260, any: ['difo', 'fpa', 'wiw'], name: 'Joint-venture: Działania intermedialne + Fashion in Performance Art + Wystawy i wydarzenia',
-    short: 'Joint-venture', who: 'prof. P. Kurka, dr K. Łukomski, dr I. Sitarska',
-    s: [{ dow: 3, t: '11:00-13:15', d: '7.10 14.10 21.10 2.12 13.01', loc: '', note: '15 h, wspólne dla trzech pracowni.' }] },
+  // joint session, included when any listed elective is picked
   { id: 'so', kind: 's', h: 175, any: ['aud', 'prak'], name: 'Sesje odsłuchowe (Audiosfera + Praktyki postartystyczne)',
     short: 'Sesje odsłuchowe', who: 'mgr S. Cichocki, dr D. Koniusz, mgr J. Żwirełło',
     s: [{ dow: 4, t: '14:30-18:00', d: '19.11 10.12 14.01', loc: 'Teserówka', note: '18 h, prowadzone wspólnie.' }] },
