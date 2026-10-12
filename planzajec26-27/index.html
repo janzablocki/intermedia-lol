@@ -499,7 +499,7 @@ legend { font: 600 13px var(--f-body); color: var(--muted); padding: 0 4px; }
     </div>
   </section>
 
-  <p class="foot"><span id="progNotes"></span> Forum Biosfery 6.10 ma w rozkładzie tylko godzinę startu, więc koniec o 20:00 jest orientacyjny. Godziny przy przedmiotach są zegarowe, policzone z terminów w rozkładzie. Wybór i ustawienia zapisują się w tej przeglądarce.</p>
+  <p class="foot"><span id="progNotes"></span> Forum Biosfery 6.10 ma w rozkładzie tylko godzinę startu, więc koniec o 20:00 jest orientacyjny. Godziny przy przedmiotach są zegarowe, policzone z terminów w rozkładzie. Wybór i ustawienia zapisują się w tej przeglądarce. Strona liczy anonimowo, ile osób z niej korzysta i jakie plany pobiera — bez ciasteczek i adresów IP.</p>
 </div>
 
 <div class="tip" id="tip" role="tooltip" hidden></div>
@@ -1380,6 +1380,19 @@ async function saveOne(dl, f) {
     await dl.save({ filename: f.filename + '.txt', data: f.text }); return 'txt';
   }
 }
+// ---- anonymous usage stats (only on intermedia.lol; no cookies, no IP stored; random id per browser) ----
+// temporary host until intermedia.lol DNS moves to Cloudflare; then https://e.intermedia.lol/e
+const STATS_URL = 'https://e-intermedia.obieg.art/e';
+const statsOn = location.hostname === 'intermedia.lol';
+let vid = null;
+try { vid = localStorage.getItem('intermedia-vid') || (localStorage.setItem('intermedia-vid', crypto.randomUUID()), localStorage.getItem('intermedia-vid')); } catch (e) {}
+function track(t, extra = {}) {
+  if (!statsOn) return;
+  const ev = { t, v: vid, p: state.prog, m: MQ.matches, ...extra };
+  try { navigator.sendBeacon(STATS_URL, new Blob([JSON.stringify(ev)], { type: 'text/plain' })); } catch (e) {}
+}
+const pickedNames = () => [...state.picked].map(id => BY_ID[id] && BY_ID[id].short).filter(Boolean).sort().join(' + ');
+
 async function download() {
   const files = outputs();
   const inViewer = !!(window.claude && window.claude.use);
@@ -1388,6 +1401,7 @@ async function download() {
   try {
     let kind = 'ics';
     for (const f of files) kind = await saveOne(dl, f);
+    track('download', { n: fileEvents(planEvents()).length, i: pickedNames() });
     say(kind === 'txt' ? 'Zapisano z końcówką .ics.txt. Usuń „.txt” z nazwy i otwórz plik, a kalendarz zaproponuje import.'
       : `Pobrano ${files.length > 1 ? '2 pliki' : 'plik'} .ics. Otwórz, żeby zaimportować do kalendarza.`);
   } catch (err) {
@@ -1398,6 +1412,7 @@ async function copy() {
   const files = outputs();
   try {
     await navigator.clipboard.writeText(files.map(f => f.text).join('\n'));
+    track('copy', { n: fileEvents(planEvents()).length, i: pickedNames() });
     say(files.length > 1 ? 'Skopiowano oba kalendarze jeden pod drugim. Do podziału na dwa pliki lepiej użyj pobierania.' : 'Skopiowano. Wklej do pustego pliku tekstowego i zapisz jako plan.ics.');
   } catch (e) { say('Schowek jest zablokowany w tym widoku. Użyj „Pobierz .ics”.'); }
 }
@@ -1405,10 +1420,10 @@ async function copy() {
 // ---- events ----
 document.addEventListener('click', e => {
   const pr = e.target.closest('[data-prog]');
-  if (pr) { setProgram(pr.dataset.prog); persist(); MQ.matches ? goStep(1) : render(); return; }
+  if (pr) { setProgram(pr.dataset.prog); track('year'); persist(); MQ.matches ? goStep(1) : render(); return; }
   const t = e.target.closest('[data-pick],[data-toggle],[data-focus],[data-view],[data-week]');
   if (!t) return;
-  if (t.dataset.pick) { const id = t.dataset.pick; state.picked.has(id) ? state.picked.delete(id) : state.picked.add(id); }
+  if (t.dataset.pick) { const id = t.dataset.pick; const on = !state.picked.has(id); on ? state.picked.add(id) : state.picked.delete(id); track(on ? 'pick' : 'unpick', { i: BY_ID[id].short }); }
   else if (t.dataset.focus) { state.focus = state.focus === t.dataset.focus ? null : t.dataset.focus; render(); return; }
   else if (t.dataset.toggle) { const k = t.dataset.toggle; state.excluded.has(k) ? state.excluded.delete(k) : state.excluded.add(k); }
   else if (t.dataset.view) state.view = t.dataset.view;
@@ -1434,6 +1449,7 @@ addEventListener('hashchange', () => { const h = location.hash.slice(1); if (PRO
 { const p0 = state.prog; state.prog = null; if (p0) { setProgram(p0); state.step = 1; } }
 $('btnCopy').onclick = copy;
 render();
+track('view', { r: document.referrer || null });
 </script>
 
 </body>
