@@ -87,6 +87,9 @@ h1 { font: 800 clamp(34px, 6vw, 64px)/0.95 var(--f-display); letter-spacing: -0.
 .course .name { font: 700 17px/1.2 var(--f-display); text-wrap: balance; }
 .course .who { font-size: 13px; color: var(--muted); }
 .course .when { font: 12px/1.45 var(--f-mono); }
+.hrs { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.hrs b { font: 600 15px var(--f-mono); color: var(--ink); }
+.fixed .hrs b { font-size: 12px; }
 .strip { display: grid; grid-template-columns: repeat(19, 1fr); gap: 2px; margin-top: 4px; }
 .strip i { height: 6px; border-radius: 1px; background: var(--line); }
 .strip i.on { background: hsl(var(--h) var(--blk-s) var(--blk-bl)); }
@@ -307,7 +310,7 @@ legend { font: 600 12px var(--f-mono); letter-spacing: .06em; text-transform: up
     </div>
   </section>
 
-  <p class="foot">Poza planem: język obcy (osobny rozkład), rysunek oraz pracownia artystyczna z całego UAP (wolny wybór). Forum Biosfery 6.10 ma w rozkładzie tylko godzinę startu, więc koniec o 20:00 jest orientacyjny. Ustawienia i wybór zapisują się w tej przeglądarce.</p>
+  <p class="foot">Poza planem: język obcy (osobny rozkład), rysunek oraz pracownia artystyczna z całego UAP (wolny wybór). Forum Biosfery 6.10 ma w rozkładzie tylko godzinę startu, więc koniec o 20:00 jest orientacyjny. Godziny przy przedmiotach są policzone z terminów w rozkładzie; godzina lekcyjna = 45 min, w takich godzinach rozkład podaje wymiar przedmiotów (np. 45 h). Ustawienia i wybór zapisują się w tej przeglądarce.</p>
 </div>
 
 <div class="bar">
@@ -333,7 +336,7 @@ const COURSES = [
     s: [{ dow: 1, t: '16:30-18:00', weekly: true, loc: 'online' }] },
   { id: 'hs', kind: 'm', h: 28, name: 'Historia sztuki', short: 'Historia sztuki', who: 'dr Aleksandra Paradowska',
     s: [{ dow: 1, t: '19:00-20:30', weekly: true, loc: 'online' }] },
-  { id: 'n3d', kind: 'm', h: 335, name: 'Narracje i modelowanie 3D', short: 'Modelowanie 3D', who: 'mgr L. Peplińska',
+  { id: 'n3d', declared: 45, kind: 'm', h: 335, name: 'Narracje i modelowanie 3D', short: 'Modelowanie 3D', who: 'mgr L. Peplińska',
     s: [{ dow: 2, t: '17:00-20:45', d: '13.10 20.10 27.10 3.11 10.11 17.11 24.11 1.12 8.12 15.12 22.12 12.01', loc: 'online',
           note: 'Daty do dyspozycji (45 h) — nie wszystkie muszą się odbyć.' }] },
   { id: 'pg', kind: 'm', h: 15, name: 'Pracownia gościnna', short: 'Pracownia gościnna', who: 'Agnieszka Tarasiuk',
@@ -349,14 +352,14 @@ const COURSES = [
     s: [{ dow: 5, allDay: true, d: '15.01', loc: '', note: 'W trakcie sesji zimowej.' }] },
 
   // electives (Pracownie Intermediów I–V)
-  { id: 'difo', kind: 'e', h: 205, pr: 'I', name: 'Działania intermedialne i fotografia', short: 'Działania i fotografia', who: 'prof. Piotr Kurka', s: [
+  { id: 'difo', declared: 30, kind: 'e', h: 205, pr: 'I', name: 'Działania intermedialne i fotografia', short: 'Działania i fotografia', who: 'prof. Piotr Kurka', s: [
     { dow: 3, t: '14:45-17:45', d: '7.10 14.10 21.10 2.12 13.01', loc: 'bud. H (?) / bud. C, sala 206' },
     { dow: 3, t: '16:00-17:30', d: '28.10 4.11 18.11 25.11 9.12 16.12', loc: 'bud. H (?) / bud. C, sala 206' }] },
-  { id: 'wiw', kind: 'e', h: 160, pr: 'I', name: 'Wystawy i wydarzenia', short: 'Wystawy i wydarzenia', who: 'dr Krzysztof Łukomski', s: [
+  { id: 'wiw', declared: 30, kind: 'e', h: 160, pr: 'I', name: 'Wystawy i wydarzenia', short: 'Wystawy i wydarzenia', who: 'dr Krzysztof Łukomski', s: [
     { dow: 3, t: '16:00-20:30', d: '14.10 21.10 2.12 9.12 13.01', loc: 'bud. H, 4 p. / ART LOFT' }] },
   { id: 'fpa', kind: 'e', h: 300, pr: 'I', name: 'Fashion in Performance Art', short: 'Fashion in Performance', who: 'dr Izabela Sitarska', s: [
     { dow: 3, t: '14:30-16:45', d: '14.10 21.10 28.10 4.11 18.11 25.11 2.12 9.12 16.12 13.01', loc: 'bud. C, sala 207/208' }] },
-  { id: 'jv', kind: 'e', h: 260, pr: 'I', name: 'Joint-venture: Działania intermedialne + Fashion in Performance Art + Wystawy i wydarzenia',
+  { id: 'jv', declared: 15, kind: 'e', h: 260, pr: 'I', name: 'Joint-venture: Działania intermedialne + Fashion in Performance Art + Wystawy i wydarzenia',
     short: 'Joint-venture', who: 'prof. P. Kurka, dr K. Łukomski, dr I. Sitarska',
     s: [{ dow: 3, t: '11:00-13:15', d: '7.10 14.10 21.10 2.12 13.01', loc: '', note: 'Osobne zapisy. 15 h, prowadzone wspólnie przez trzy pracownie.' }] },
   { id: 'ktp', kind: 'e', h: 135, pr: 'II', name: 'Kształtowanie i transformacje przestrzeni', short: 'Przestrzeń', who: 'prof. Andrzej Syska', s: [
@@ -369,7 +372,7 @@ const COURSES = [
   { id: 'dpp', kind: 'e', h: 50, pr: 'III', name: 'Działania w przestrzeni publicznej', short: 'Przestrzeń publiczna', who: 'mgr Karolina Kubik', s: [
     { dow: 5, t: '10:00-14:30', d: '9.10 23.10 6.11 20.11 4.12 18.12', loc: C206 },
     { dow: 5, t: '10:00-15:15', d: '8.01', loc: C206 }] },
-  { id: 'aud', kind: 'e', h: 185, pr: 'IV', name: 'Audiosfera | Art Research', short: 'Audiosfera', who: 'dr Daniel Koniusz', s: [
+  { id: 'aud', declared: 27, kind: 'e', h: 185, pr: 'IV', name: 'Audiosfera | Art Research', short: 'Audiosfera', who: 'dr Daniel Koniusz', s: [
     { dow: 4, t: '10:00-13:45', d: '8.10 15.10 29.10 5.11 12.11 26.11 3.12 17.12 7.01', loc: C206 }] },
   { id: 'kan', kind: 'e', h: 270, pr: 'IV', name: 'Kompozycja analogowa', short: 'Kompozycja analogowa', who: 'mgr J. Żwirełło', s: [
     { dow: 4, t: '10:00-13:45', d: '15.10 29.10 5.11 12.11 26.11 3.12 17.12 7.01', loc: C206 }] },
@@ -391,7 +394,7 @@ const COURSES = [
     { range: '4.01-8.01', label: 'zjazd' }, { range: '11.01-13.01', label: 'konsultacje', loc: 'online' }] },
 
   // joint session, included when any listed elective is picked
-  { id: 'so', kind: 's', h: 175, any: ['aud', 'prak'], name: 'Sesje odsłuchowe (Audiosfera + Praktyki postartystyczne)',
+  { id: 'so', declared: 18, kind: 's', h: 175, any: ['aud', 'prak'], name: 'Sesje odsłuchowe (Audiosfera + Praktyki postartystyczne)',
     short: 'Sesje odsłuchowe', who: 'mgr S. Cichocki, dr D. Koniusz, mgr J. Żwirełło',
     s: [{ dow: 4, t: '14:30-18:00', d: '19.11 10.12 14.01', loc: 'Teserówka', note: '18 h, prowadzone wspólnie.' }] },
 ];
@@ -517,23 +520,46 @@ function whenText(c) {
   return [...new Set(parts)].join(' · ') + (c.s.some(s => s.weekly) ? '' : ` · ${n} spotkań`);
 }
 
+// Clock hours scheduled in the PDF (timed sessions), plus days without hours and the official hour count where the PDF states it.
+const fmtH = h => String(Math.round(h * 100) / 100).replace('.', ',');
+function courseHours(c) {
+  if (c.wf) return { h: weeklyDates(1).length, days: 0 };
+  const evs = expand(c);
+  return {
+    h: evs.filter(e => !e.allDay).reduce((sum, e) => sum + (mins(e.end) - mins(e.start)) / 60, 0),
+    days: evs.filter(e => e.allDay).reduce((sum, e) => sum + (toDate(e.endDate) - toDate(e.date)) / 864e5 + 1, 0),
+  };
+}
+function hoursHTML(c) {
+  const { h, days } = courseHours(c), parts = [];
+  // the PDF's hour counts are 45-minute teaching hours, so lead with those and show clock hours next to them
+  if (h && c.wf) parts.push(`<b>${fmtH(h)} h</b> zegarowych (1 h w tygodniu)`);
+  else if (h) parts.push(`<b>${fmtH(h * 4 / 3)}</b> godz. lekcyjnych · ${fmtH(h)} h zegarowych`);
+  if (days) parts.push(`<b>${days}</b> ${days === 1 ? 'dzień' : 'dni'} bez godzin`);
+  if (!h && !days) parts.push('co tydzień — wyłączone w ustawieniach');
+  if (c.declared) parts.push(`w rozkładzie: ${c.declared} h`);
+  return parts.join(' · ');
+}
+
 function renderPicker() {
   $('electives').innerHTML = COURSES.filter(c => c.kind === 'e').map(c => `
     <button type="button" class="course" id="pick-${c.id}" data-pick="${c.id}" aria-pressed="${state.picked.has(c.id)}" style="--h:${c.h}">
       <span class="top"><span>Pracownia Intermediów ${c.pr}</span><span class="check" aria-hidden="true"></span></span>
       <span class="name">${esc(c.name)}</span>
       <span class="who">${esc(c.who)}</span>
+      <span class="hrs">${hoursHTML(c)}</span>
       <span class="when">${esc(whenText(c))}</span>
       <span class="strip" aria-hidden="true">${weeksOf(c).map(on => `<i class="${on ? 'on' : ''}"></i>`).join('')}</span>
     </button>`).join('');
   $('fixed').innerHTML = COURSES.filter(c => c.kind !== 'e').map(c => {
     const inc = included(c);
     const sub = c.kind === 's' ? (inc ? 'wspólne · w planie' : `wspólne · wejdzie z: ${c.any.map(id => BY_ID[id].short).join(', ')}`) : whenText(c);
-    return `<div class="${c.kind === 's' ? 'shared' : ''} ${inc ? '' : 'off'}" style="--h:${c.h}"><span class="swatch"></span>${esc(c.kind === 's' ? c.short : c.name)}<small>${esc(sub)}</small></div>`;
+    return `<div class="${c.kind === 's' ? 'shared' : ''} ${inc ? '' : 'off'}" style="--h:${c.h}"><span class="swatch"></span>${esc(c.kind === 's' ? c.short : c.name)}<small>${esc(sub)}</small><small class="hrs">${hoursHTML(c)}</small></div>`;
   }).join('');
   const n = state.picked.size;
   $('counter').className = 'counter' + (n > 3 ? ' over' : '');
-  $('counter').textContent = `Wybrane: ${n}${n > 3 ? ' — więcej niż 3' : n === 3 ? ' ✓' : ''}`;
+  const sumH = [...state.picked].reduce((sum, id) => sum + courseHours(BY_ID[id]).h, 0);
+  $('counter').textContent = `Wybrane: ${n}${n ? ` · ${fmtH(sumH * 4 / 3)} godz. lekcyjnych` : ''}${n > 3 ? ' — więcej niż 3' : n === 3 ? ' ✓' : ''}`;
 }
 
 function renderChart(evs, clash) {
