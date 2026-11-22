@@ -132,11 +132,12 @@
   <section class="card">
     <div class="card-head">
       <h2>Instalacja</h2>
-      <p class="card-desc">Mody po twojej stronie muszą być w tej samej wersji co na serwerze. Po każdej aktualizacji paczki pobierz ją jeszcze raz.</p>
+      <p class="card-desc">Mody po twojej stronie muszą być w tej samej wersji co na serwerze. Gdy admini zmienią mody, paczka aktualizuje się sama w ciągu ok. 2 minut. Pobierz ją ponownie, jeśli serwer nie wpuszcza.</p>
     </div>
     <div class="card-body">
-      <div class="row" style="margin-bottom:18px">
-        <a class="btn btn-primary" href="uap.mrpack" download>Pobierz uap.mrpack</a>
+      <div class="row" style="margin-bottom:18px; align-items:center; gap:12px">
+        <a class="btn btn-primary" href="https://mcpack879d5b.blob.core.windows.net/pack/uap.mrpack" download="uap.mrpack">Pobierz uap.mrpack</a>
+        <span id="pack-info" class="muted" style="font-size:13px"></span>
       </div>
       <div class="tabs" role="tablist">
         <button class="tab" role="tab" aria-selected="true" data-tab="modrinth" type="button">Modrinth App</button>
@@ -217,7 +218,18 @@ document.querySelectorAll(".tab").forEach((t) => t.addEventListener("click", () 
   document.querySelectorAll("[data-panel]").forEach((p) => { p.hidden = p.dataset.panel !== t.dataset.tab; });
 }));
 
+const PACK = "https://mcpack879d5b.blob.core.windows.net/pack/pack.json";
+async function packInfo() {
+  try {
+    const p = await (await fetch(PACK + "?t=" + Date.now(), { cache: "no-store" })).json();
+    const d = new Date(p.updated_iso);
+    const when = d.toLocaleString("pl-PL", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).replace(",", "");
+    $("pack-info").textContent = `Wersja paczki: ${p.version} · zaktualizowana ${when} · ${p.count} modów`;
+  } catch { /* leave empty */ }
+}
+
 refresh(); setInterval(refresh, 10000);
+packInfo(); setInterval(packInfo, 60000);
 </script>
 </body>
 </html>
