@@ -3,195 +3,186 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Minecraft · UAP</title>
+<title>Minecraft UAP</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  /* shadcn/ui "zinc" light tokens, components rewritten by hand (no build step) */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --ring: 240 5.9% 10%;
-    --radius: 0.5rem;
+    --paper: #f3f0e8;
+    --ink: #161513;
+    --soft: #6b675e;
+    --rule: #cfc9bb;
+    --mark: #d23a1e;
     color-scheme: light;
   }
-  * { box-sizing: border-box; border-color: hsl(var(--border)); }
-  html { background: hsl(var(--background)); }
+  * { box-sizing: border-box; }
+  html { background: var(--paper); }
   body {
-    margin: 0; color: hsl(var(--foreground)); background: hsl(var(--background));
-    font: 14px/1.6 "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
-    -webkit-font-smoothing: antialiased;
+    margin: 0; color: var(--ink); background: var(--paper);
+    font: 19px/1.5 "Newsreader", Georgia, "Times New Roman", serif;
+    font-optical-sizing: auto;
   }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 56px 20px 80px; }
-  .mono { font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
-  .muted { color: hsl(var(--muted-foreground)); }
+  .page { max-width: 760px; margin: 0 auto; padding: 64px 24px 96px; }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; }
 
-  header { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
-  h1 { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
-  h2 { font-size: 15px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
-  .sub { margin: 4px 0 0; }
+  .top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font: 13px/1.4 "IBM Plex Mono", monospace; color: var(--soft); border-bottom: 1px solid var(--ink); padding-bottom: 10px; }
+  .top a { color: inherit; }
 
-  .card { border: 1px solid hsl(var(--border)); border-radius: calc(var(--radius) + 4px); background: hsl(var(--background)); box-shadow: 0 1px 2px rgb(0 0 0 / 0.04); }
-  .card + .card { margin-top: 16px; }
-  .card-head { padding: 20px 20px 0; }
-  .card-body { padding: 16px 20px 20px; }
-  .card-desc { margin: 4px 0 0; color: hsl(var(--muted-foreground)); }
+  h1 { font-weight: 400; font-size: clamp(44px, 9vw, 84px); line-height: .95; letter-spacing: -0.03em; margin: 40px 0 0; }
+  h1 em { font-style: italic; }
 
-  .badge { display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px; border: 1px solid hsl(var(--border)); border-radius: 999px; font-size: 12px; font-weight: 500; white-space: nowrap; }
-  .badge i { width: 6px; height: 6px; border-radius: 50%; background: #a1a1aa; }
-  .badge.online i { background: #16a34a; }
-  .badge.starting i, .badge.stopping i { background: #d97706; }
+  .now { margin: 28px 0 0; font-size: clamp(24px, 4vw, 32px); line-height: 1.25; max-width: 22ch; }
+  .now .dot { display: inline-block; width: .45em; height: .45em; border-radius: 50%; background: var(--soft); vertical-align: .12em; margin-right: .3em; }
+  .now.online .dot { background: #2f8f3e; }
+  .now.starting .dot, .now.stopping .dot { background: var(--mark); animation: blink 1.1s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: .2 } }
+  .now small { display: block; margin-top: 6px; font-size: 16px; color: var(--soft); }
 
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid hsl(var(--border)); }
-  .stat { padding: 14px 20px; }
-  .stat + .stat { border-left: 1px solid hsl(var(--border)); }
-  .stat dt { font-size: 12px; color: hsl(var(--muted-foreground)); }
-  .stat dd { margin: 2px 0 0; font-weight: 500; }
+  .addr { margin: 36px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; }
+  .addr span { font: 500 clamp(18px, 3.4vw, 26px)/1.2 "IBM Plex Mono", monospace; letter-spacing: -0.01em; }
+  .link { background: none; border: 0; padding: 0; font: 14px "IBM Plex Mono", monospace; color: var(--soft); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+  .link:hover { color: var(--ink); }
 
-  .row { display: flex; gap: 8px; flex-wrap: wrap; }
-  .input {
-    flex: 1 1 200px; height: 36px; padding: 0 12px; border: 1px solid hsl(var(--input)); border-radius: var(--radius);
-    background: transparent; font: inherit; color: inherit; box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+  section { display: grid; grid-template-columns: 56px 1fr; gap: 0 8px; margin-top: 56px; padding-top: 14px; border-top: 1px solid var(--rule); }
+  section > .n { font: 13px/2.2 "IBM Plex Mono", monospace; color: var(--soft); }
+  h2 { font-weight: 500; font-size: 26px; letter-spacing: -0.01em; margin: 0 0 10px; }
+  p { margin: 0 0 12px; }
+  .soft { color: var(--soft); }
+
+  form { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; }
+  input {
+    flex: 1 1 220px; height: 44px; padding: 0 12px; font: 16px "IBM Plex Mono", monospace; color: var(--ink);
+    background: transparent; border: 1px solid var(--ink); border-radius: 0;
   }
-  .input:focus-visible, .btn:focus-visible, .tab:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 2px; }
   .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 36px; padding: 0 16px;
-    border-radius: var(--radius); border: 1px solid transparent; font: inherit; font-weight: 500; cursor: pointer;
-    text-decoration: none; white-space: nowrap; transition: background .15s, opacity .15s;
+    display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border: 1px solid var(--ink); border-radius: 0;
+    background: var(--ink); color: var(--paper); font: 500 15px "IBM Plex Mono", monospace; text-decoration: none; cursor: pointer;
   }
-  .btn-primary { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
-  .btn-primary:hover { background: hsl(var(--primary) / 0.9); }
-  .btn-outline { background: hsl(var(--background)); border-color: hsl(var(--input)); color: inherit; box-shadow: 0 1px 2px rgb(0 0 0 / 0.04); }
-  .btn-outline:hover { background: hsl(var(--secondary)); }
-  .btn:disabled { opacity: .5; pointer-events: none; }
-  #msg { margin: 10px 0 0; min-height: 1.6em; }
+  .btn:hover { background: var(--mark); border-color: var(--mark); }
+  .btn:disabled { background: transparent; color: var(--soft); border-color: var(--rule); cursor: default; }
+  input:focus-visible, .btn:focus-visible, .link:focus-visible { outline: 2px solid var(--mark); outline-offset: 2px; }
+  #msg { margin: 10px 0 0; min-height: 1.5em; font-size: 16px; }
 
-  .addr { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 6px 6px 12px; border: 1px solid hsl(var(--border)); border-radius: var(--radius); background: hsl(var(--muted)); }
-  .addr .btn { height: 28px; padding: 0 10px; font-size: 12px; }
+  .pack { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin: 16px 0 8px; }
+  #pack-info { font: 13px "IBM Plex Mono", monospace; color: var(--soft); }
 
-  .tabs { display: inline-flex; padding: 3px; border-radius: var(--radius); background: hsl(var(--muted)); margin-bottom: 14px; }
-  .tab { height: 28px; padding: 0 12px; border: 0; border-radius: calc(var(--radius) - 2px); background: transparent; font: inherit; font-weight: 500; color: hsl(var(--muted-foreground)); cursor: pointer; }
-  .tab[aria-selected="true"] { background: hsl(var(--background)); color: hsl(var(--foreground)); box-shadow: 0 1px 2px rgb(0 0 0 / 0.06); }
-  ol.steps { margin: 0; padding: 0; list-style: none; counter-reset: s; }
-  ol.steps li { counter-increment: s; display: grid; grid-template-columns: 24px 1fr; gap: 10px; padding: 6px 0; }
-  ol.steps li::before { content: counter(s); font-family: "Geist Mono", monospace; font-size: 12px; color: hsl(var(--muted-foreground)); padding-top: 1px; }
-  code { font-family: "Geist Mono", monospace; font-size: 12.5px; background: hsl(var(--muted)); padding: 1px 5px; border-radius: 4px; }
-  a { color: inherit; text-underline-offset: 3px; }
+  ol { margin: 8px 0 0; padding-left: 1.2em; }
+  li { margin-bottom: 4px; }
+  li::marker { font: 14px "IBM Plex Mono", monospace; color: var(--soft); }
+  h3 { font: 500 14px "IBM Plex Mono", monospace; text-transform: uppercase; letter-spacing: .06em; margin: 22px 0 0; }
+  code { font: 15px "IBM Plex Mono", monospace; background: #e7e2d6; padding: 0 4px; }
+  a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
 
-  .rules { margin: 0; padding: 0; list-style: none; }
-  .rules li { padding: 10px 0; border-top: 1px solid hsl(var(--border)); display: grid; grid-template-columns: 96px 1fr; gap: 12px; }
-  .rules li:first-child { border-top: 0; padding-top: 0; }
+  footer { margin-top: 72px; padding-top: 12px; border-top: 1px solid var(--ink); font: 13px/1.6 "IBM Plex Mono", monospace; color: var(--soft); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
 
-  footer { margin-top: 28px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 13px; }
-  @media (max-width: 520px) {
-    .stats { grid-template-columns: 1fr 1fr; }
-    .stat:nth-child(3) { border-left: 0; border-top: 1px solid hsl(var(--border)); }
-    .rules li { grid-template-columns: 1fr; gap: 2px; }
+  @media (max-width: 560px) {
+    body { font-size: 17px; }
+    section { grid-template-columns: 1fr; }
+    section > .n { line-height: 1.6; margin-bottom: 4px; }
   }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div>
-      <h1>Minecraft UAP</h1>
-      <p class="sub muted">Fabric 1.21.1 · Simple Voice Chat</p>
-    </div>
-    <span id="badge" class="badge"><i></i><span id="badge-text">Sprawdzam</span></span>
-  </header>
-
-  <section class="card">
-    <div class="card-head">
-      <div class="addr">
-        <span class="mono">minecraft.intermedia.lol</span>
-        <button class="btn btn-outline" id="copy" type="button">Kopiuj</button>
-      </div>
-    </div>
-    <div class="card-body">
-      <form id="wake" class="row">
-        <input class="input" id="password" type="password" placeholder="Hasło do budzenia" autocomplete="current-password" required>
-        <button class="btn btn-primary" id="wake-btn" type="submit">Obudź serwer</button>
-      </form>
-      <p id="msg" class="muted"></p>
-    </div>
-    <dl class="stats" style="margin:0">
-      <div class="stat"><dt>Gracze</dt><dd id="players">–</dd></div>
-      <div class="stat"><dt>Maszyna</dt><dd id="size">–</dd></div>
-      <div class="stat"><dt>Usypianie</dt><dd>po 15 min bez graczy</dd></div>
-    </dl>
-  </section>
-
-  <section class="card">
-    <div class="card-head">
-      <h2>Instalacja</h2>
-      <p class="card-desc">Mody po twojej stronie muszą być w tej samej wersji co na serwerze. Gdy admini zmienią mody, paczka aktualizuje się sama w ciągu ok. 2 minut. Pobierz ją ponownie, jeśli serwer nie wpuszcza.</p>
-    </div>
-    <div class="card-body">
-      <div class="row" style="margin-bottom:18px; align-items:center; gap:12px">
-        <a class="btn btn-primary" href="https://mcpack879d5b.blob.core.windows.net/pack/uap.mrpack" download="uap.mrpack">Pobierz uap.mrpack</a>
-        <span id="pack-info" class="muted" style="font-size:13px"></span>
-      </div>
-      <div class="tabs" role="tablist">
-        <button class="tab" role="tab" aria-selected="true" data-tab="modrinth" type="button">Modrinth App</button>
-        <button class="tab" role="tab" aria-selected="false" data-tab="prism" type="button">Prism Launcher</button>
-      </div>
-      <ol class="steps" data-panel="modrinth">
-        <li><span>Zainstaluj <a href="https://modrinth.com/app">Modrinth App</a> i zaloguj się kontem Microsoft.</span></li>
-        <li><span>Kliknij <b>+</b>, potem <b>Import from file</b> i wskaż pobrany plik.</span></li>
-        <li><span>W ustawieniach profilu daj grze ok. 6 GB RAM.</span></li>
-        <li><span>Uruchom, wejdź w Multiplayer i dodaj serwer <code>minecraft.intermedia.lol</code>.</span></li>
-      </ol>
-      <ol class="steps" data-panel="prism" hidden>
-        <li><span>Zainstaluj <a href="https://prismlauncher.org">Prism Launcher</a> i dodaj konto Microsoft.</span></li>
-        <li><span><b>Add Instance</b>, potem <b>Import</b> i wskaż plik <code>.mrpack</code>.</span></li>
-        <li><span>Edit, Settings, Java: ustaw maksymalnie ok. 6 GB.</span></li>
-        <li><span>Uruchom, wejdź w Multiplayer i dodaj serwer <code>minecraft.intermedia.lol</code>.</span></li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="card">
-    <div class="card-head"><h2>Jak to działa</h2></div>
-    <div class="card-body">
-      <ul class="rules">
-        <li><span class="muted">Budzenie</span><span>Serwer śpi, gdy nikt nie gra, bo działa z budżetu studenckiego. Start trwa ok. 2–3 minuty.</span></li>
-        <li><span class="muted">Głos</span><span>Domyślnie mówisz klawiszem <code>V</code> (push-to-talk). Ustawienia mikrofonu są w menu Simple Voice Chat.</span></li>
-        <li><span class="muted"><code>!boost</code></span><span>Gdy serwer laguje, napiszcie <code>!boost</code> na czacie. Po zgodzie połowy graczy serwer zapisuje świat i restartuje się na mocniejszej maszynie (ok. 3 minuty przerwy). Po uśpieniu wraca do zwykłej.</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <footer class="muted">
-    <span>Mody i konfiguracja: <a href="https://panel.minecraft.intermedia.lol">panel.minecraft.intermedia.lol</a> (konta zakłada admin)</span>
+<div class="page">
+  <div class="top">
+    <span>UAP · serwer Minecrafta</span>
     <a href="https://intermedia.lol">intermedia.lol</a>
+  </div>
+
+  <h1>Minecraft<br><em>UAP</em></h1>
+
+  <p id="now" class="now"><span class="dot"></span><span id="now-text">Sprawdzam, co z serwerem…</span><small id="now-sub"></small></p>
+
+  <div class="addr">
+    <span>minecraft.intermedia.lol</span>
+    <button class="link" id="copy" type="button">kopiuj adres</button>
+  </div>
+
+  <section>
+    <div class="n">01</div>
+    <div>
+      <h2>Obudź</h2>
+      <p>Serwer gaśnie po kwadransie bez graczy, bo płacimy za każdą godzinę z budżetu studenckiego. Hasło jest na grupie. Start trwa 2–3 minuty.</p>
+      <form id="wake">
+        <input id="password" type="password" placeholder="hasło" autocomplete="current-password" required>
+        <button class="btn" id="wake-btn" type="submit">Obudź serwer</button>
+      </form>
+      <p id="msg" class="soft"></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="n">02</div>
+    <div>
+      <h2>Zainstaluj paczkę</h2>
+      <p>Fabric 1.21.1, kilkanaście modów i Simple Voice Chat. Wersja u ciebie musi się zgadzać z serwerem. Kiedy admini coś dorzucą, paczka sama się aktualizuje, więc jeśli serwer cię nie wpuszcza, pobierz ją jeszcze raz.</p>
+      <div class="pack">
+        <a class="btn" href="https://mcpack879d5b.blob.core.windows.net/pack/uap.mrpack" download="uap.mrpack">Pobierz uap.mrpack</a>
+        <span id="pack-info"></span>
+      </div>
+      <h3>Modrinth App</h3>
+      <ol>
+        <li>Zainstaluj <a href="https://modrinth.com/app">Modrinth App</a>, zaloguj się kontem Microsoft.</li>
+        <li><b>+</b> → <b>Import from file</b> → pobrany plik.</li>
+        <li>W ustawieniach profilu daj grze ok. 6 GB pamięci.</li>
+      </ol>
+      <h3>Prism Launcher</h3>
+      <ol>
+        <li>Zainstaluj <a href="https://prismlauncher.org">Prism Launcher</a>, dodaj konto Microsoft.</li>
+        <li><b>Add Instance</b> → <b>Import</b> → pobrany plik.</li>
+        <li>Edit → Settings → Java: maksymalnie ok. 6 GB.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="n">03</div>
+    <div>
+      <h2>Graj</h2>
+      <p>Multiplayer → Add Server → <code>minecraft.intermedia.lol</code>.</p>
+      <p>Mówisz z klawiszem <code>V</code>. Głośność i mikrofon ustawisz w menu Simple Voice Chat.</p>
+      <p>Jak laguje, napiszcie na czacie <code>!boost</code>. Gdy zgodzi się połowa osób na serwerze, świat się zapisze, a serwer przesiądzie się na mocniejszą maszynę. Przerwa trwa około trzech minut. Po uśpieniu wraca do zwykłej.</p>
+    </div>
+  </section>
+
+  <footer>
+    <span>Mody i ustawienia: <a href="https://panel.minecraft.intermedia.lol">panel.minecraft.intermedia.lol</a>, konto zakłada admin</span>
+    <span id="machine"></span>
   </footer>
 </div>
 
 <script>
 const API = "https://intermedia-mc-wake-879d5b.azurewebsites.net";
-const LABELS = { sleeping: "Śpi", starting: "Startuje", online: "Działa", stopping: "Zasypia", unknown: "Brak połączenia" };
+const PACK = "https://mcpack879d5b.blob.core.windows.net/pack/pack.json";
 const $ = (id) => document.getElementById(id);
+
+function players(n) {
+  if (n === 0) return "Nikogo nie ma.";
+  if (n === 1) return "Gra 1 osoba.";
+  const few = n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20);
+  return `Gra ${n} ${few ? "osoby" : "osób"}.`;
+}
 
 async function refresh() {
   try {
     const r = await fetch(API + "/api/status", { cache: "no-store" });
-    const { state, players, size } = await r.json();
-    $("badge").className = "badge " + state;
-    $("badge-text").textContent = LABELS[state] || LABELS.unknown;
-    $("players").textContent = state === "online" && players ? `${players.online} / ${players.max}` : "–";
-    $("size").textContent = state === "sleeping" ? "wyłączona" : (size === "big" ? "4 rdzenie, 16 GB" : "2 rdzenie, 8 GB");
+    const { state, players: p, size } = await r.json();
+    $("now").className = "now " + state;
+    const lines = {
+      sleeping: ["Serwer teraz śpi.", "Obudź go poniżej."],
+      starting: ["Serwer się budzi.", "Za chwilę będzie można wejść."],
+      online: ["Serwer działa.", p ? players(p.online) : ""],
+      stopping: ["Serwer właśnie zasypia.", "Za minutę będzie można go obudzić."],
+    }[state] || ["Nie wiem, co z serwerem.", "Spróbuj odświeżyć stronę."];
+    $("now-text").textContent = lines[0];
+    $("now-sub").textContent = lines[1];
+    $("machine").textContent = state === "sleeping" ? "" : (size === "big" ? "maszyna: 4 rdzenie, 16 GB" : "maszyna: 2 rdzenie, 8 GB");
     $("wake-btn").disabled = state !== "sleeping";
   } catch {
-    $("badge").className = "badge";
-    $("badge-text").textContent = LABELS.unknown;
+    $("now").className = "now";
+    $("now-text").textContent = "Nie wiem, co z serwerem.";
+    $("now-sub").textContent = "Strona budzenia nie odpowiada.";
   }
 }
 
@@ -208,23 +199,17 @@ $("wake").addEventListener("submit", async (e) => {
 });
 
 $("copy").addEventListener("click", async () => {
-  try { await navigator.clipboard.writeText("minecraft.intermedia.lol"); $("copy").textContent = "Skopiowano"; }
-  catch { $("copy").textContent = "Zaznacz ręcznie"; }
-  setTimeout(() => { $("copy").textContent = "Kopiuj"; }, 1500);
+  try { await navigator.clipboard.writeText("minecraft.intermedia.lol"); $("copy").textContent = "skopiowane"; }
+  catch { $("copy").textContent = "zaznacz ręcznie"; }
+  setTimeout(() => { $("copy").textContent = "kopiuj adres"; }, 1500);
 });
 
-document.querySelectorAll(".tab").forEach((t) => t.addEventListener("click", () => {
-  document.querySelectorAll(".tab").forEach((x) => x.setAttribute("aria-selected", x === t));
-  document.querySelectorAll("[data-panel]").forEach((p) => { p.hidden = p.dataset.panel !== t.dataset.tab; });
-}));
-
-const PACK = "https://mcpack879d5b.blob.core.windows.net/pack/pack.json";
 async function packInfo() {
   try {
     const p = await (await fetch(PACK + "?t=" + Date.now(), { cache: "no-store" })).json();
     const d = new Date(p.updated_iso);
-    const when = d.toLocaleString("pl-PL", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).replace(",", "");
-    $("pack-info").textContent = `Wersja paczki: ${p.version} · zaktualizowana ${when} · ${p.count} modów`;
+    const when = d.toLocaleString("pl-PL", { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" });
+    $("pack-info").textContent = `wersja ${p.version}, ${p.count} modów, zmieniona ${when}`;
   } catch { /* leave empty */ }
 }
 
