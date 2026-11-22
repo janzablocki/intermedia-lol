@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minecraft Intermedia</title>
+<style>
+  :root { --bg:#fafafa; --card:#fff; --fg:#0a0a0a; --muted:#737373; --border:#e5e5e5; --accent:#171717; --ok:#16a34a; --warn:#d97706; --off:#a3a3a3; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0a0a0a; --card:#141414; --fg:#fafafa; --muted:#a3a3a3; --border:#262626; --accent:#fafafa; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.55 ui-sans-serif, system-ui, -apple-system, sans-serif; padding: 40px 16px; }
+  main { max-width: 640px; margin: 0 auto; display: grid; gap: 16px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  h2 { font-size: 16px; margin: 0 0 10px; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; }
+  .muted { color: var(--muted); }
+  .status { display:flex; align-items:center; gap:10px; font-weight:600; font-size:17px; }
+  .dot { width:10px; height:10px; border-radius:50%; background:var(--off); }
+  .online .dot { background: var(--ok); } .starting .dot, .stopping .dot { background: var(--warn); animation: p 1s infinite alternate; }
+  @keyframes p { to { opacity:.3 } }
+  code { background: var(--bg); border:1px solid var(--border); border-radius:6px; padding: 1px 6px; font-size: 14px; }
+  form { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+  input { flex:1; min-width:160px; padding:9px 12px; border:1px solid var(--border); border-radius:8px; background:var(--card); color:var(--fg); font:inherit; }
+  button, .btn { padding:9px 16px; border-radius:8px; border:0; background:var(--accent); color:var(--bg); font:inherit; font-weight:600; cursor:pointer; text-decoration:none; display:inline-block; }
+  button.secondary { background:transparent; color:var(--fg); border:1px solid var(--border); }
+  button:disabled { opacity:.5; cursor:default; }
+  #msg { margin-top:10px; min-height:1.5em; }
+  ol { padding-left: 20px; margin: 8px 0 0; } li { margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Minecraft Intermedia</h1>
+    <div class="muted">Adres serwera: <code>minecraft.intermedia.lol</code></div>
+  </header>
+
+  <section class="card">
+    <div id="status" class="status"><span class="dot"></span><span id="status-text">Sprawdzam…</span></div>
+    <div id="size" class="muted" style="margin-top:4px"></div>
+    <p class="muted" style="margin:8px 0 0">Serwer zasypia po 15 minutach bez graczy. Jeśli śpi, obudź go hasłem z grupy. Gdy serwer laguje, wpiszcie w grze <code>!boost</code>: po zgodzie połowy graczy (albo od razu, jeśli pisze admin) serwer zapisze świat i przełączy się na mocniejszą maszynę. Po uśpieniu wraca do zwykłej.</p>
+    <form id="wake">
+      <input id="password" type="password" placeholder="Hasło" autocomplete="current-password" required>
+      <button id="wake-btn" type="submit">Obudź serwer</button>
+    </form>
+    <div id="msg" class="muted"></div>
+  </section>
+
+  <section class="card">
+    <h2>Pobierz modpack</h2>
+    <p style="margin:0 0 12px">Fabric 1.21.1, ok. 20 modów, w tym Simple Voice Chat (rozmowy głosowe w grze, domyślnie klawisz V).</p>
+    <a class="btn" href="intermedia.mrpack" download>Pobierz intermedia.mrpack</a>
+    <h2 style="margin-top:18px">Modrinth App</h2>
+    <ol>
+      <li>Zainstaluj <a href="https://modrinth.com/app">Modrinth App</a> i zaloguj się kontem Microsoft.</li>
+      <li>Kliknij <b>+</b> → <b>Import from file</b> i wskaż pobrany plik.</li>
+      <li>Uruchom profil, wybierz Multiplayer → Add Server → <code>minecraft.intermedia.lol</code>.</li>
+    </ol>
+    <h2 style="margin-top:18px">Prism Launcher</h2>
+    <ol>
+      <li>Zainstaluj <a href="https://prismlauncher.org">Prism Launcher</a>, dodaj konto Microsoft.</li>
+      <li><b>Add Instance</b> → <b>Import</b> → wskaż plik <code>.mrpack</code>.</li>
+      <li>Przydziel ok. 6 GB RAM: Edit → Settings → Java.</li>
+    </ol>
+    <p class="muted" style="margin-bottom:0">Po aktualizacji paczki pobierz nowy plik i zaimportuj ponownie. Inna wersja modów niż na serwerze kończy się błędem przy łączeniu.</p>
+  </section>
+</main>
+<script>
+const API = "https://intermedia-mc-wake-879d5b.azurewebsites.net";
+const LABELS = { sleeping: "Śpi", starting: "Startuje…", online: "Online", stopping: "Zasypia…", unknown: "Brak danych" };
+const $ = (id) => document.getElementById(id);
+const box = $("status"), text = $("status-text"), msg = $("msg");
+
+async function refresh() {
+  try {
+    const r = await fetch(API + "/api/status", { cache: "no-store" });
+    const { state, players, size } = await r.json();
+    box.className = "status " + state;
+    text.textContent = LABELS[state] + (state === "online" && players ? ` · ${players.online}/${players.max} graczy` : "");
+    $("size").textContent = state === "sleeping" ? "" : (size === "big" ? "Tryb: mocny (4 rdzenie)" : "Tryb: zwykły (2 rdzenie)");
+    $("wake-btn").disabled = state !== "sleeping";
+  } catch { text.textContent = LABELS.unknown; }
+}
+
+async function call(path, body) {
+  msg.textContent = "";
+  try {
+    const r = await fetch(API + path, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+    msg.textContent = (await r.json()).message;
+  } catch { msg.textContent = "Nie udało się połączyć z serwerem budzenia."; }
+  refresh();
+}
+
+$("wake").addEventListener("submit", (e) => {
+  e.preventDefault();
+  $("wake-btn").disabled = true;
+  call("/api/start", { password: $("password").value });
+});
+refresh(); setInterval(refresh, 10000);
+</script>
+</body>
+</html>
