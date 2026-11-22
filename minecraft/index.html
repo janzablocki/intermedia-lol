@@ -112,6 +112,7 @@
     <div>
       <h1>Minecraft UAP</h1>
     </div>
+    <span id="badge" class="badge"><i></i><span id="badge-text">Sprawdzam</span></span>
   </header>
 
   <section class="card">
@@ -184,11 +185,14 @@ async function refresh() {
   try {
     const r = await fetch(API + "/api/status", { cache: "no-store" });
     const { state, players, size } = await r.json();
+    $("badge").className = "badge " + state;
+    $("badge-text").textContent = LABELS[state] || LABELS.unknown;
     $("players").textContent = state === "online" && players ? `${players.online} / ${players.max}` : "–";
     $("size").textContent = state === "sleeping" ? "wyłączona" : (size === "big" ? "4 rdzenie, 16 GB" : "2 rdzenie, 8 GB");
     $("wake-btn").disabled = state !== "sleeping";
   } catch {
-    /* status unavailable: leave placeholders */
+    $("badge").className = "badge";
+    $("badge-text").textContent = LABELS.unknown;
   }
 }
 
