@@ -12,19 +12,25 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
-    --muted: 240 4.8% 95.9%;
+    --muted: 140 20% 96%;
     --muted-foreground: 240 3.8% 46.1%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
+    --border: 140 12% 88%;
+    --input: 140 12% 85%;
+    --primary: 142.1 76.2% 36.3%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --accent: 142 76% 96%;
+    --accent-foreground: 142 72% 24%;
+    --sky: 199 89% 48%;
+    --amber: 38 92% 50%;
     --secondary: 240 4.8% 95.9%;
-    --ring: 240 5.9% 10%;
+    --ring: 142.1 76.2% 36.3%;
     --radius: 0.5rem;
     color-scheme: light;
   }
   * { box-sizing: border-box; border-color: hsl(var(--border)); }
   html { background: hsl(var(--background)); }
+  body::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 260px; z-index: -1;
+    background: linear-gradient(hsl(var(--accent)), hsl(var(--background))); }
   body {
     margin: 0; color: hsl(var(--foreground)); background: hsl(var(--background));
     font: 14px/1.6 "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
@@ -39,7 +45,7 @@
   h2 { font-size: 15px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
   .sub { margin: 4px 0 0; }
 
-  .card { border: 1px solid hsl(var(--border)); border-radius: calc(var(--radius) + 4px); background: hsl(var(--background)); box-shadow: 0 1px 2px rgb(0 0 0 / 0.04); }
+  .card { position: relative; border: 1px solid hsl(var(--border)); border-radius: calc(var(--radius) + 4px); background: hsl(var(--background)); box-shadow: 0 1px 2px rgb(0 0 0 / 0.04); }
   .card + .card { margin-top: 16px; }
   .card-head { padding: 20px 20px 0; }
   .card-body { padding: 16px 20px 20px; }
@@ -47,8 +53,10 @@
 
   .badge { display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px; border: 1px solid hsl(var(--border)); border-radius: 999px; font-size: 12px; font-weight: 500; white-space: nowrap; }
   .badge i { width: 6px; height: 6px; border-radius: 50%; background: #a1a1aa; }
-  .badge.online i { background: #16a34a; }
-  .badge.starting i, .badge.stopping i { background: #d97706; }
+  .badge.online { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); border-color: hsl(142 60% 80%); }
+  .badge.online i { background: hsl(var(--primary)); }
+  .badge.starting, .badge.stopping { background: hsl(48 100% 96%); color: hsl(32 81% 29%); border-color: hsl(43 96% 80%); }
+  .badge.starting i, .badge.stopping i { background: hsl(var(--amber)); }
 
   .stats { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid hsl(var(--border)); }
   .stat { padding: 14px 20px; }
@@ -74,7 +82,7 @@
   .btn:disabled { opacity: .5; pointer-events: none; }
   #msg { margin: 10px 0 0; min-height: 1.6em; }
 
-  .addr { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 6px 6px 12px; border: 1px solid hsl(var(--border)); border-radius: var(--radius); background: hsl(var(--muted)); }
+  .addr { color: hsl(var(--accent-foreground)); display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 6px 6px 12px; border: 1px solid hsl(var(--border)); border-radius: var(--radius); background: hsl(var(--muted)); }
   .addr .btn { height: 28px; padding: 0 10px; font-size: 12px; }
 
   .tabs { display: inline-flex; padding: 3px; border-radius: var(--radius); background: hsl(var(--muted)); margin-bottom: 14px; }
@@ -83,7 +91,7 @@
   ol.steps { margin: 0; padding: 0; list-style: none; counter-reset: s; }
   ol.steps li { counter-increment: s; display: grid; grid-template-columns: 24px 1fr; gap: 10px; padding: 6px 0; }
   ol.steps li::before { content: counter(s); font-family: "Geist Mono", monospace; font-size: 12px; color: hsl(var(--muted-foreground)); padding-top: 1px; }
-  code { font-family: "Geist Mono", monospace; font-size: 12.5px; background: hsl(var(--muted)); padding: 1px 5px; border-radius: 4px; }
+  code { color: hsl(var(--accent-foreground)); font-family: "Geist Mono", monospace; font-size: 12.5px; background: hsl(var(--muted)); padding: 1px 5px; border-radius: 4px; }
   a { color: inherit; text-underline-offset: 3px; }
 
   .rules { margin: 0; padding: 0; list-style: none; }
@@ -132,7 +140,6 @@
   <section class="card">
     <div class="card-head">
       <h2>Instalacja</h2>
-      <p class="card-desc">Mody po twojej stronie muszą być w tej samej wersji co na serwerze. Gdy admini zmienią mody, paczka aktualizuje się sama w ciągu ok. 2 minut. Pobierz ją ponownie, jeśli serwer nie wpuszcza.</p>
     </div>
     <div class="card-body">
       <div class="row" style="margin-bottom:18px; align-items:center; gap:12px">
@@ -146,31 +153,31 @@
       <ol class="steps" data-panel="modrinth">
         <li><span>Zainstaluj <a href="https://modrinth.com/app">Modrinth App</a> i zaloguj się kontem Microsoft.</span></li>
         <li><span>Kliknij <b>+</b>, potem <b>Import from file</b> i wskaż pobrany plik.</span></li>
-        <li><span>W ustawieniach profilu daj grze ok. 6 GB RAM.</span></li>
+        <li><span>W ustawieniach profilu daj 6 GB RAM.</span></li>
         <li><span>Uruchom, wejdź w Multiplayer i dodaj serwer <code>minecraft.intermedia.lol</code>.</span></li>
       </ol>
       <ol class="steps" data-panel="prism" hidden>
         <li><span>Zainstaluj <a href="https://prismlauncher.org">Prism Launcher</a> i dodaj konto Microsoft.</span></li>
         <li><span><b>Add Instance</b>, potem <b>Import</b> i wskaż plik <code>.mrpack</code>.</span></li>
-        <li><span>Edit, Settings, Java: ustaw maksymalnie ok. 6 GB.</span></li>
+        <li><span>Edit, Settings, Java, maksymalnie 6 GB.</span></li>
         <li><span>Uruchom, wejdź w Multiplayer i dodaj serwer <code>minecraft.intermedia.lol</code>.</span></li>
       </ol>
     </div>
   </section>
 
   <section class="card">
-    <div class="card-head"><h2>Jak to działa</h2></div>
+    <div class="card-head"><h2>Warto wiedzieć</h2></div>
     <div class="card-body">
       <ul class="rules">
-        <li><span class="muted">Budzenie</span><span>Serwer śpi, gdy nikt nie gra, bo działa z budżetu studenckiego. Start trwa ok. 2–3 minuty.</span></li>
-        <li><span class="muted">Głos</span><span>Domyślnie mówisz klawiszem <code>V</code> (push-to-talk). Ustawienia mikrofonu są w menu Simple Voice Chat.</span></li>
-        <li><span class="muted"><code>!boost</code></span><span>Gdy serwer laguje, napiszcie <code>!boost</code> na czacie. Po zgodzie połowy graczy serwer zapisuje świat i restartuje się na mocniejszej maszynie (ok. 3 minuty przerwy). Po uśpieniu wraca do zwykłej.</span></li>
+        <li><span class="muted">Budzenie</span><span>Serwer jest rozliczany za godziny, więc zasypia 15 minut po wyjściu ostatniej osoby. Start trwa 2-3 minuty.</span></li>
+        <li><span class="muted">Głos</span><span>Mówisz z wciśniętym <code>V</code>.</span></li>
+        <li><span class="muted"><code>!boost</code></span><span>Jak laguje, wpiszcie <code>!boost</code> na czacie. Gdy zgodzi się połowa graczy, serwer zapisze świat i przeniesie się na mocniejszą maszynę. Przerwa trwa około 3 minut.</span></li>
       </ul>
     </div>
   </section>
 
   <footer class="muted">
-    <span>Mody i konfiguracja: <a href="https://panel.minecraft.intermedia.lol">panel.minecraft.intermedia.lol</a> (konta zakłada admin)</span>
+    <span>Panel: <a href="https://panel.minecraft.intermedia.lol">panel.minecraft.intermedia.lol</a>, konto daje admin</span>
     <a href="https://intermedia.lol">intermedia.lol</a>
   </footer>
 </div>
@@ -224,7 +231,7 @@ async function packInfo() {
     const p = await (await fetch(PACK + "?t=" + Date.now(), { cache: "no-store" })).json();
     const d = new Date(p.updated_iso);
     const when = d.toLocaleString("pl-PL", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }).replace(",", "");
-    $("pack-info").textContent = `Wersja paczki: ${p.version} · zaktualizowana ${when} · ${p.count} modów`;
+    $("pack-info").textContent = `wersja ${p.version}, ${p.count} modów, zmiana ${when}`;
   } catch { /* leave empty */ }
 }
 
