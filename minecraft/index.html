@@ -111,9 +111,7 @@
   <header>
     <div>
       <h1>Minecraft UAP</h1>
-      <p class="sub muted">Fabric 1.21.1 · Simple Voice Chat</p>
     </div>
-    <span id="badge" class="badge"><i></i><span id="badge-text">Sprawdzam</span></span>
   </header>
 
   <section class="card">
@@ -175,11 +173,6 @@
       </ul>
     </div>
   </section>
-
-  <footer class="muted">
-    <span>Panel: <a href="https://panel.minecraft.intermedia.lol">panel.minecraft.intermedia.lol</a>, konto daje admin</span>
-    <a href="https://intermedia.lol">intermedia.lol</a>
-  </footer>
 </div>
 
 <script>
@@ -191,14 +184,11 @@ async function refresh() {
   try {
     const r = await fetch(API + "/api/status", { cache: "no-store" });
     const { state, players, size } = await r.json();
-    $("badge").className = "badge " + state;
-    $("badge-text").textContent = LABELS[state] || LABELS.unknown;
     $("players").textContent = state === "online" && players ? `${players.online} / ${players.max}` : "–";
     $("size").textContent = state === "sleeping" ? "wyłączona" : (size === "big" ? "4 rdzenie, 16 GB" : "2 rdzenie, 8 GB");
     $("wake-btn").disabled = state !== "sleeping";
   } catch {
-    $("badge").className = "badge";
-    $("badge-text").textContent = LABELS.unknown;
+    /* status unavailable: leave placeholders */
   }
 }
 
