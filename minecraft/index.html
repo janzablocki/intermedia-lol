@@ -3,99 +3,220 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Minecraft Intermedia</title>
+<title>Minecraft · Intermedia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root { --bg:#fafafa; --card:#fff; --fg:#0a0a0a; --muted:#737373; --border:#e5e5e5; --accent:#171717; --ok:#16a34a; --warn:#d97706; --off:#a3a3a3; }
-  @media (prefers-color-scheme: dark) { :root { --bg:#0a0a0a; --card:#141414; --fg:#fafafa; --muted:#a3a3a3; --border:#262626; --accent:#fafafa; } }
-  * { box-sizing: border-box; }
-  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.55 ui-sans-serif, system-ui, -apple-system, sans-serif; padding: 40px 16px; }
-  main { max-width: 640px; margin: 0 auto; display: grid; gap: 16px; }
-  h1 { font-size: 22px; margin: 0 0 4px; }
-  h2 { font-size: 16px; margin: 0 0 10px; }
-  .card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; }
-  .muted { color: var(--muted); }
-  .status { display:flex; align-items:center; gap:10px; font-weight:600; font-size:17px; }
-  .dot { width:10px; height:10px; border-radius:50%; background:var(--off); }
-  .online .dot { background: var(--ok); } .starting .dot, .stopping .dot { background: var(--warn); animation: p 1s infinite alternate; }
-  @keyframes p { to { opacity:.3 } }
-  code { background: var(--bg); border:1px solid var(--border); border-radius:6px; padding: 1px 6px; font-size: 14px; }
-  form { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
-  input { flex:1; min-width:160px; padding:9px 12px; border:1px solid var(--border); border-radius:8px; background:var(--card); color:var(--fg); font:inherit; }
-  button, .btn { padding:9px 16px; border-radius:8px; border:0; background:var(--accent); color:var(--bg); font:inherit; font-weight:600; cursor:pointer; text-decoration:none; display:inline-block; }
-  button.secondary { background:transparent; color:var(--fg); border:1px solid var(--border); }
-  button:disabled { opacity:.5; cursor:default; }
-  #msg { margin-top:10px; min-height:1.5em; }
-  ol { padding-left: 20px; margin: 8px 0 0; } li { margin-bottom: 6px; }
+  /* shadcn/ui "zinc" light tokens, components rewritten by hand (no build step) */
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.5rem;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; border-color: hsl(var(--border)); }
+  html { background: hsl(var(--background)); }
+  body {
+    margin: 0; color: hsl(var(--foreground)); background: hsl(var(--background));
+    font: 14px/1.6 "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 56px 20px 80px; }
+  .mono { font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .muted { color: hsl(var(--muted-foreground)); }
+
+  header { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
+  h1 { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
+  h2 { font-size: 15px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+  .sub { margin: 4px 0 0; }
+
+  .card { border: 1px solid hsl(var(--border)); border-radius: calc(var(--radius) + 4px); background: hsl(var(--background)); box-shadow: 0 1px 2px rgb(0 0 0 / 0.04); }
+  .card + .card { margin-top: 16px; }
+  .card-head { padding: 20px 20px 0; }
+  .card-body { padding: 16px 20px 20px; }
+  .card-desc { margin: 4px 0 0; color: hsl(var(--muted-foreground)); }
+
+  .badge { display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px; border: 1px solid hsl(var(--border)); border-radius: 999px; font-size: 12px; font-weight: 500; white-space: nowrap; }
+  .badge i { width: 6px; height: 6px; border-radius: 50%; background: #a1a1aa; }
+  .badge.online i { background: #16a34a; }
+  .badge.starting i, .badge.stopping i { background: #d97706; }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid hsl(var(--border)); }
+  .stat { padding: 14px 20px; }
+  .stat + .stat { border-left: 1px solid hsl(var(--border)); }
+  .stat dt { font-size: 12px; color: hsl(var(--muted-foreground)); }
+  .stat dd { margin: 2px 0 0; font-weight: 500; }
+
+  .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .input {
+    flex: 1 1 200px; height: 36px; padding: 0 12px; border: 1px solid hsl(var(--input)); border-radius: var(--radius);
+    background: transparent; font: inherit; color: inherit; box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+  }
+  .input:focus-visible, .btn:focus-visible, .tab:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 2px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 36px; padding: 0 16px;
+    border-radius: var(--radius); border: 1px solid transparent; font: inherit; font-weight: 500; cursor: pointer;
+    text-decoration: none; white-space: nowrap; transition: background .15s, opacity .15s;
+  }
+  .btn-primary { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
+  .btn-primary:hover { background: hsl(var(--primary) / 0.9); }
+  .btn-outline { background: hsl(var(--background)); border-color: hsl(var(--input)); color: inherit; box-shadow: 0 1px 2px rgb(0 0 0 / 0.04); }
+  .btn-outline:hover { background: hsl(var(--secondary)); }
+  .btn:disabled { opacity: .5; pointer-events: none; }
+  #msg { margin: 10px 0 0; min-height: 1.6em; }
+
+  .addr { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 6px 6px 12px; border: 1px solid hsl(var(--border)); border-radius: var(--radius); background: hsl(var(--muted)); }
+  .addr .btn { height: 28px; padding: 0 10px; font-size: 12px; }
+
+  .tabs { display: inline-flex; padding: 3px; border-radius: var(--radius); background: hsl(var(--muted)); margin-bottom: 14px; }
+  .tab { height: 28px; padding: 0 12px; border: 0; border-radius: calc(var(--radius) - 2px); background: transparent; font: inherit; font-weight: 500; color: hsl(var(--muted-foreground)); cursor: pointer; }
+  .tab[aria-selected="true"] { background: hsl(var(--background)); color: hsl(var(--foreground)); box-shadow: 0 1px 2px rgb(0 0 0 / 0.06); }
+  ol.steps { margin: 0; padding: 0; list-style: none; counter-reset: s; }
+  ol.steps li { counter-increment: s; display: grid; grid-template-columns: 24px 1fr; gap: 10px; padding: 6px 0; }
+  ol.steps li::before { content: counter(s); font-family: "Geist Mono", monospace; font-size: 12px; color: hsl(var(--muted-foreground)); padding-top: 1px; }
+  code { font-family: "Geist Mono", monospace; font-size: 12.5px; background: hsl(var(--muted)); padding: 1px 5px; border-radius: 4px; }
+  a { color: inherit; text-underline-offset: 3px; }
+
+  .rules { margin: 0; padding: 0; list-style: none; }
+  .rules li { padding: 10px 0; border-top: 1px solid hsl(var(--border)); display: grid; grid-template-columns: 96px 1fr; gap: 12px; }
+  .rules li:first-child { border-top: 0; padding-top: 0; }
+
+  footer { margin-top: 28px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 13px; }
+  @media (max-width: 520px) {
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stat:nth-child(3) { border-left: 0; border-top: 1px solid hsl(var(--border)); }
+    .rules li { grid-template-columns: 1fr; gap: 2px; }
+  }
 </style>
 </head>
 <body>
-<main>
+<div class="wrap">
   <header>
-    <h1>Minecraft Intermedia</h1>
-    <div class="muted">Adres serwera: <code>minecraft.intermedia.lol</code></div>
+    <div>
+      <h1>Minecraft na Intermediach</h1>
+      <p class="sub muted">Fabric 1.21.1 · Simple Voice Chat</p>
+    </div>
+    <span id="badge" class="badge"><i></i><span id="badge-text">Sprawdzam</span></span>
   </header>
 
   <section class="card">
-    <div id="status" class="status"><span class="dot"></span><span id="status-text">Sprawdzam…</span></div>
-    <div id="size" class="muted" style="margin-top:4px"></div>
-    <p class="muted" style="margin:8px 0 0">Serwer zasypia po 15 minutach bez graczy. Jeśli śpi, obudź go hasłem z grupy. Gdy serwer laguje, wpiszcie w grze <code>!boost</code>: po zgodzie połowy graczy (albo od razu, jeśli pisze admin) serwer zapisze świat i przełączy się na mocniejszą maszynę. Po uśpieniu wraca do zwykłej.</p>
-    <form id="wake">
-      <input id="password" type="password" placeholder="Hasło" autocomplete="current-password" required>
-      <button id="wake-btn" type="submit">Obudź serwer</button>
-    </form>
-    <div id="msg" class="muted"></div>
+    <div class="card-head">
+      <div class="addr">
+        <span class="mono">minecraft.intermedia.lol</span>
+        <button class="btn btn-outline" id="copy" type="button">Kopiuj</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <form id="wake" class="row">
+        <input class="input" id="password" type="password" placeholder="Hasło do budzenia" autocomplete="current-password" required>
+        <button class="btn btn-primary" id="wake-btn" type="submit">Obudź serwer</button>
+      </form>
+      <p id="msg" class="muted"></p>
+    </div>
+    <dl class="stats" style="margin:0">
+      <div class="stat"><dt>Gracze</dt><dd id="players">–</dd></div>
+      <div class="stat"><dt>Maszyna</dt><dd id="size">–</dd></div>
+      <div class="stat"><dt>Usypianie</dt><dd>po 15 min bez graczy</dd></div>
+    </dl>
   </section>
 
   <section class="card">
-    <h2>Pobierz modpack</h2>
-    <p style="margin:0 0 12px">Fabric 1.21.1, ok. 20 modów, w tym Simple Voice Chat (rozmowy głosowe w grze, domyślnie klawisz V).</p>
-    <a class="btn" href="intermedia.mrpack" download>Pobierz intermedia.mrpack</a>
-    <h2 style="margin-top:18px">Modrinth App</h2>
-    <ol>
-      <li>Zainstaluj <a href="https://modrinth.com/app">Modrinth App</a> i zaloguj się kontem Microsoft.</li>
-      <li>Kliknij <b>+</b> → <b>Import from file</b> i wskaż pobrany plik.</li>
-      <li>Uruchom profil, wybierz Multiplayer → Add Server → <code>minecraft.intermedia.lol</code>.</li>
-    </ol>
-    <h2 style="margin-top:18px">Prism Launcher</h2>
-    <ol>
-      <li>Zainstaluj <a href="https://prismlauncher.org">Prism Launcher</a>, dodaj konto Microsoft.</li>
-      <li><b>Add Instance</b> → <b>Import</b> → wskaż plik <code>.mrpack</code>.</li>
-      <li>Przydziel ok. 6 GB RAM: Edit → Settings → Java.</li>
-    </ol>
-    <p class="muted" style="margin-bottom:0">Po aktualizacji paczki pobierz nowy plik i zaimportuj ponownie. Inna wersja modów niż na serwerze kończy się błędem przy łączeniu.</p>
+    <div class="card-head">
+      <h2>Instalacja</h2>
+      <p class="card-desc">Mody po twojej stronie muszą być w tej samej wersji co na serwerze. Po każdej aktualizacji paczki pobierz ją jeszcze raz.</p>
+    </div>
+    <div class="card-body">
+      <div class="row" style="margin-bottom:18px">
+        <a class="btn btn-primary" href="intermedia.mrpack" download>Pobierz intermedia.mrpack</a>
+      </div>
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" aria-selected="true" data-tab="modrinth" type="button">Modrinth App</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="prism" type="button">Prism Launcher</button>
+      </div>
+      <ol class="steps" data-panel="modrinth">
+        <li><span>Zainstaluj <a href="https://modrinth.com/app">Modrinth App</a> i zaloguj się kontem Microsoft.</span></li>
+        <li><span>Kliknij <b>+</b>, potem <b>Import from file</b> i wskaż pobrany plik.</span></li>
+        <li><span>W ustawieniach profilu daj grze ok. 6 GB RAM.</span></li>
+        <li><span>Uruchom, wejdź w Multiplayer i dodaj serwer <code>minecraft.intermedia.lol</code>.</span></li>
+      </ol>
+      <ol class="steps" data-panel="prism" hidden>
+        <li><span>Zainstaluj <a href="https://prismlauncher.org">Prism Launcher</a> i dodaj konto Microsoft.</span></li>
+        <li><span><b>Add Instance</b>, potem <b>Import</b> i wskaż plik <code>.mrpack</code>.</span></li>
+        <li><span>Edit, Settings, Java: ustaw maksymalnie ok. 6 GB.</span></li>
+        <li><span>Uruchom, wejdź w Multiplayer i dodaj serwer <code>minecraft.intermedia.lol</code>.</span></li>
+      </ol>
+    </div>
   </section>
-</main>
+
+  <section class="card">
+    <div class="card-head"><h2>Jak to działa</h2></div>
+    <div class="card-body">
+      <ul class="rules">
+        <li><span class="muted">Budzenie</span><span>Serwer śpi, gdy nikt nie gra, bo działa z budżetu studenckiego. Start trwa ok. 2–3 minuty.</span></li>
+        <li><span class="muted">Głos</span><span>Domyślnie mówisz klawiszem <code>V</code> (push-to-talk). Ustawienia mikrofonu są w menu Simple Voice Chat.</span></li>
+        <li><span class="muted"><code>!boost</code></span><span>Gdy serwer laguje, napiszcie <code>!boost</code> na czacie. Po zgodzie połowy graczy serwer zapisuje świat i restartuje się na mocniejszej maszynie (ok. 3 minuty przerwy). Po uśpieniu wraca do zwykłej.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="muted">
+    <span>Mody i konfiguracja: <a href="https://panel.minecraft.intermedia.lol">panel.minecraft.intermedia.lol</a> (konta zakłada admin)</span>
+    <a href="https://intermedia.lol">intermedia.lol</a>
+  </footer>
+</div>
+
 <script>
 const API = "https://intermedia-mc-wake-879d5b.azurewebsites.net";
-const LABELS = { sleeping: "Śpi", starting: "Startuje…", online: "Online", stopping: "Zasypia…", unknown: "Brak danych" };
+const LABELS = { sleeping: "Śpi", starting: "Startuje", online: "Działa", stopping: "Zasypia", unknown: "Brak połączenia" };
 const $ = (id) => document.getElementById(id);
-const box = $("status"), text = $("status-text"), msg = $("msg");
 
 async function refresh() {
   try {
     const r = await fetch(API + "/api/status", { cache: "no-store" });
     const { state, players, size } = await r.json();
-    box.className = "status " + state;
-    text.textContent = LABELS[state] + (state === "online" && players ? ` · ${players.online}/${players.max} graczy` : "");
-    $("size").textContent = state === "sleeping" ? "" : (size === "big" ? "Tryb: mocny (4 rdzenie)" : "Tryb: zwykły (2 rdzenie)");
+    $("badge").className = "badge " + state;
+    $("badge-text").textContent = LABELS[state] || LABELS.unknown;
+    $("players").textContent = state === "online" && players ? `${players.online} / ${players.max}` : "–";
+    $("size").textContent = state === "sleeping" ? "wyłączona" : (size === "big" ? "4 rdzenie, 16 GB" : "2 rdzenie, 8 GB");
     $("wake-btn").disabled = state !== "sleeping";
-  } catch { text.textContent = LABELS.unknown; }
+  } catch {
+    $("badge").className = "badge";
+    $("badge-text").textContent = LABELS.unknown;
+  }
 }
 
-async function call(path, body) {
-  msg.textContent = "";
-  try {
-    const r = await fetch(API + path, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
-    msg.textContent = (await r.json()).message;
-  } catch { msg.textContent = "Nie udało się połączyć z serwerem budzenia."; }
-  refresh();
-}
-
-$("wake").addEventListener("submit", (e) => {
+$("wake").addEventListener("submit", async (e) => {
   e.preventDefault();
   $("wake-btn").disabled = true;
-  call("/api/start", { password: $("password").value });
+  $("msg").textContent = "";
+  try {
+    const r = await fetch(API + "/api/start", { method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ password: $("password").value }) });
+    $("msg").textContent = (await r.json()).message;
+  } catch { $("msg").textContent = "Nie udało się połączyć z serwerem budzenia."; }
+  refresh();
 });
+
+$("copy").addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText("minecraft.intermedia.lol"); $("copy").textContent = "Skopiowano"; }
+  catch { $("copy").textContent = "Zaznacz ręcznie"; }
+  setTimeout(() => { $("copy").textContent = "Kopiuj"; }, 1500);
+});
+
+document.querySelectorAll(".tab").forEach((t) => t.addEventListener("click", () => {
+  document.querySelectorAll(".tab").forEach((x) => x.setAttribute("aria-selected", x === t));
+  document.querySelectorAll("[data-panel]").forEach((p) => { p.hidden = p.dataset.panel !== t.dataset.tab; });
+}));
+
 refresh(); setInterval(refresh, 10000);
 </script>
 </body>
