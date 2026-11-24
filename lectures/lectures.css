@@ -88,6 +88,24 @@ img[data-enc]:not([src]){width:100%;aspect-ratio:16/9;background:var(--line)}
 .foot a{color:inherit}
 .pager{display:flex;justify-content:space-between;gap:2rem;margin:0 0 .6rem}
 
+/* what was on screen */
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(17rem,1fr));gap:1.4rem 1.2rem}
+.shots.wide{grid-template-columns:repeat(auto-fill,minmax(24rem,1fr))}
+@media(max-width:28rem){.shots,.shots.wide{grid-template-columns:1fr}}
+.shot{margin:0}
+.shot figcaption{margin-top:.3rem}
+
+/* recording: a bar at the bottom edge, a button until the file is loaded, then the browser's player */
+.player{position:fixed;left:0;right:0;bottom:0;z-index:3;display:flex;gap:.8rem;align-items:center;background:var(--paper);border-top:1px solid var(--line);padding:.5rem max(1.2rem,calc(50vw - 31.8rem)) calc(.5rem + env(safe-area-inset-bottom))}
+.player .go{display:flex;gap:.8rem;align-items:center;height:2.5rem;font:600 .95rem/1 var(--sans);color:var(--paper);background:var(--ink);border:0;border-radius:6px;padding:0 1.1rem;cursor:pointer}
+.player .go small{font-size:.85em;font-weight:500;opacity:.7}
+.player.busy .go{cursor:progress}
+.player audio,.player .rate{display:none}
+.player.ready .go{display:none}
+.player.ready audio{display:block;flex:1;min-width:0;height:2.5rem}
+.player.ready .rate{display:block;height:2.5rem;min-width:3.6rem;font:600 .9rem/1 var(--sans);font-variant-numeric:tabular-nums;color:var(--ink);background:none;border:1px solid var(--line);border-radius:6px;cursor:pointer}
+.player~section .score{bottom:calc(3.5rem + 1px + env(safe-area-inset-bottom))}
+
 /* password */
 .lock{max-width:22rem;font-family:var(--sans)}
 .lock label{display:block;font-weight:600;font-size:.9rem;margin:0 0 .35rem}
